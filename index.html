@@ -51,8 +51,8 @@
         
         .section-title { font-weight: 900; font-size: 24px; margin: 60px 0 20px 0; text-transform: uppercase; color: var(--text-main); }
         
-        .dashboard-grid { display: flex; flex-wrap: nowrap; gap: 30px; align-items: flex-start; overflow-x: auto; padding-bottom: 20px; width: 100%; }
-        .dashboard-grid > div { flex: 0 0 auto; }
+        /* HERSTELD: Flex-wrap zorgt dat de pagina meeschaalt met het venster */
+        .dashboard-grid { display: flex; flex-wrap: wrap; gap: 30px; align-items: flex-start; padding-bottom: 40px; }
         
         .label { font-size: 12px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; display: block; letter-spacing: 0.5px; }
 
@@ -78,7 +78,7 @@
         .size-l { width: 670px; height: 320px; } 
         .size-modal { width: 375px; height: 667px; 
                       background: rgba(18, 32, 83, 0.95); backdrop-filter: blur(10px); color: #FFF; 
-                      box-shadow: 0 25px 50px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); }
+                      border: 1px solid rgba(255,255,255,0.1); }
 
         .w-header { padding: 20px 20px 0 20px; display: flex; justify-content: space-between; align-items: flex-start; }
         .w-header-compact { padding: 15px 15px 0 15px; }
@@ -98,11 +98,10 @@
         /* =========================================
            3. UI KIT: INTERACTABLES & KNOPPEN
            ========================================= */
-        .ui-class-container { background: #FFF; border-radius: var(--radius-outer); box-shadow: var(--shadow-subtle); border: 1px solid var(--card-border); padding: 25px; margin-bottom: 20px; }
-        .ui-class-grid { display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; }
-        .ui-class-title { font-size: 14px; font-weight: 900; color: var(--vrmwb-navy); border-bottom: 2px solid var(--input-border); padding-bottom: 8px; margin-bottom: 15px; text-transform: uppercase; }
-        
-        .btn-col { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; flex: 1 1 200px; }
+        /* HERSTELD: CSS Grid zorgt ervoor dat de interactables altijd netjes naast elkaar staan */
+        .button-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; padding: 25px; background: #FFF; border-radius: var(--radius-outer); box-shadow: var(--shadow-subtle); border: 1px solid var(--card-border); margin-bottom: 20px; }
+        .btn-col { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+        .btn-desc { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
 
         .btn-base { border: none; font-family: inherit; cursor: pointer; transition: all .2s; display: inline-flex; align-items: center; justify-content: center; }
         .btn-base:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
@@ -142,7 +141,7 @@
         /* =========================================
            4. WIDGET TYPE 1: TEKSTEN & METADATA
            ========================================= */
-        .w-tab-container { display: flex; gap: 5px; padding: 10px 20px 0 20px; border-bottom: 2px solid var(--input-border); overflow-x: auto; overflow-y: hidden; scrollbar-width: none; white-space: nowrap; flex-wrap: nowrap; }
+        .w-tab-container { display: flex; gap: 5px; padding: 10px 20px 0 20px; border-bottom: 2px solid var(--input-border); overflow-x: auto; overflow-y: hidden; scrollbar-width: none; white-space: nowrap; flex-wrap: nowrap; flex-shrink: 0; }
         .w-tab-container::-webkit-scrollbar { height: 6px; }
         
         .size-modal .w-tab-container { border-color: rgba(255,255,255,0.2); }
@@ -153,27 +152,34 @@
         .w-tab.active { background: var(--card-bg-light); color: var(--text-main); border: 1px solid var(--input-border); border-bottom: none; position: relative; top: 2px; }
         .size-modal .w-tab.active { background: rgba(255,255,255,0.1); color: #FFF; border-color: rgba(255,255,255,0.2); }
 
-        /* Tab Content Handler */
-        .tab-content { display: none; flex-direction: column; height: 100%; }
+        /* Tab Content Handler met flex: 1 voor de footer ademruimte */
+        .tab-content { display: none; flex-direction: column; height: 100%; flex: 1; }
         .tab-content.active { display: flex; }
 
         .w-text-content { font-size: 14px; line-height: 1.6; color: inherit; margin-bottom: 10px; }
         .size-modal .w-text-content { font-size: 16px; }
         
-        .w-tag-small { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 900; background: var(--vrmwb-navy); color: #FFF; padding: 6px 12px; border-radius: 16px; margin-top: 15px; align-self: flex-start; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .w-tag-small { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 900; background: var(--vrmwb-navy); color: #FFF; padding: 6px 12px; border-radius: 16px; margin-top: 10px; margin-bottom: 20px; align-self: flex-start; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
         .w-tag-small:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
         .w-tag-small svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
 
-        .w-photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 15px; }
-        .size-modal .w-photo-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .w-photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 15px; margin-bottom: 25px; }
+        .size-modal .w-photo-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 35px;}
         .w-photo-thumb { width: 100%; aspect-ratio: 16/9; background: #e0e0e0; border-radius: 8px; border: 1px solid var(--input-border); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--text-muted); font-weight: 900; cursor: pointer; background-size: cover; background-position: center; transition: transform 0.2s; text-transform: uppercase; }
         .w-photo-thumb:hover { transform: translateY(-2px); border-color: var(--vrmwb-gold); color: var(--vrmwb-navy); }
         .size-modal .w-photo-thumb { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.8); }
 
-        /* Meta-data Footer (Aangemaakt, Bewerkt, Reeks) */
-        .w-meta-row { margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--input-border); font-size: 11px; color: var(--text-muted); font-style: italic; display: flex; flex-direction: column; gap: 4px; }
+        /* Meta-data Footer Spacing Fix (Nu met meer ademruimte onderaan) */
+        .w-meta-row { 
+            margin-top: auto; 
+            padding-top: 15px; 
+            margin-bottom: 5px;
+            border-top: 1px dashed var(--input-border); 
+            font-size: 11px; color: var(--text-muted); font-style: italic; 
+            display: flex; flex-direction: column; gap: 4px; 
+        }
         .size-l .w-meta-row { flex-direction: row; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
-        .size-modal .w-meta-row { flex-direction: column; font-size: 13px; margin-top: 25px; border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); }
+        .size-modal .w-meta-row { flex-direction: column; font-size: 13px; border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); }
 
         /* =========================================
            5. WIDGET TYPE 2: TABELLEN
@@ -1176,7 +1182,7 @@
                     <li><strong>Font-Family:</strong> Uitsluitend <code>'Frutiger', sans-serif</code>.</li>
                     <li><strong>Font Weights:</strong> <code>300</code> (Pijltjes/Light), <code>400</code> (Regulier/Paragraph), <code>700</code> (Knoppen, Labels), <code>900</code> (Hoofdtitels).</li>
                     <li><strong>Header Structuur:</strong> De Hoofdtitel (`.w-title`) is goud (`#CC9933`), font-weight 900. Rechterkant bevat `.w-controls` voor bewerken/verwijderen van de widget op het dashboard.</li>
-                    <li><strong>Native Rendering:</strong> Font-smoothing is uitsluitend via antialiased ingesteld om overal het originele sub-pixel karakter van de Frutiger font the behouden.</li>
+                    <li><strong>Native Rendering:</strong> `antialiased` op body is toegepast. Verder geen sub-pixel fixes die de tekst-dikte aantasten in Safari.</li>
                 </ul>
             </div>
 
@@ -1188,7 +1194,7 @@
                     <li><strong>Size Large (L):</strong> Hard vastgezet op <code>670px</code> breed, <code>320px</code> hoog.</li>
                     <li><strong>Size Modal:</strong> Hard vastgezet op <code>375px</code> breed, <code>667px</code> hoog. Gebruikt een Navy basis: <code>rgba(18, 32, 83, 0.95)</code> met <code>backdrop-filter: blur(10px)</code>.</li>
                     <li><strong>Border-radius:</strong> Buitenkant widget is <code>20px</code>, binnen-elementen (knoppen, inputs) <code>12px</code> of <code>8px</code>.</li>
-                    <li><strong>Schaduw:</strong> Standaard widget drop-shadow is <code>0 8px 30px rgba(0,0,0,0.08)</code>.</li>
+                    <li><strong>Schaduw:</strong> Standaard widget drop-shadow is <code>0 8px 30px rgba(0,0,0,0.08)</code>. Modals gebruiken exact dezelfde schaduw.</li>
                 </ul>
             </div>
 
@@ -1220,9 +1226,9 @@
                 <h3>Cross-Browser & Rendering Fixes</h3>
                 <ul class="handoff-list">
                     <li><strong>Safari Tabel-spleet:</strong> Webkit heeft een sub-pixel bug bij `position: sticky`. Fix dit door de `&lt;th&gt;` op `top: -1px;` te zetten met een `border-top` als onzichtbaar dakje. Teken de rode lijn via `box-shadow: inset 0 -2px 0 var(--vrmwb-red);`.</li>
-                    <li><strong>Dashboard Layout:</strong> Om te voorkomen dat widgets in Chrome naar een nieuwe regel wrappen, gebruikt de `.dashboard-grid` <code>flex-wrap: nowrap;</code> met <code>overflow-x: auto;</code>.</li>
-                    <li><strong>Font Rendering:</strong> Gebruik uitsluitend <code>-webkit-font-smoothing: antialiased;</code> op de <code>body</code> zodat de Frutiger font in alle browsers (Safari én Chrome) dezelfde strakke weergave behoudt, zónder de originele dikte te verliezen.</li>
-                    <li><strong>Tab Wiebelen:</strong> Tab-containers hebben expliciet <code>overflow-y: hidden;</code> gekregen zodat de horizontale scrollbar niet zorgt voor een verticale 'wiebel'.</li>
+                    <li><strong>Dashboard Layout:</strong> Het <code>.dashboard-grid</code> gebruikt een robuuste <code>flex-wrap: wrap;</code>. Hiermee breken blokken netjes naar een nieuwe regel af zodra het venster te smal wordt, waardoor de pagina vloeiend meeschaalt. Geen oneindig canvas instellen.</li>
+                    <li><strong>Knoppen Layout Chrome:</strong> Het knoppen grid gebruikt <code>display: grid;</code>. Dit lost de bug op waar knoppen verticaal onder elkaar bleven hangen.</li>
+                    <li><strong>Metadata Spacing:</strong> In tekst widgets wordt <code>flex: 1;</code> op de <code>.tab-content</code> gebruikt, gecombineerd met <code>margin-top: auto;</code> op de <code>.w-meta-row</code>. Dit zorgt dat de footer gegarandeerd op de bodem ligt met voldoende ademruimte.</li>
                 </ul>
             </div>
             
