@@ -100,6 +100,20 @@
            ========================================= */
         .button-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; padding: 25px; background: #FFF; border-radius: var(--radius-outer); box-shadow: var(--shadow-subtle); border: 1px solid var(--card-border); margin-bottom: 20px; }
         .btn-col { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+        /* Micro Acties fix: Naar links verplaatsen */
+        .btn-col-full { 
+            grid-column: 1 / -1; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: flex-start; /* FIX: Was center, is nu links */
+            justify-content: flex-start; /* FIX: Was center, is nu links */
+            padding-top: 25px; 
+            margin-top: 10px;
+            border-top: 1px solid var(--input-border); 
+            width: 100%; 
+            position: relative; 
+        }
+
         .btn-desc { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
 
         .btn-base { border: none; font-family: inherit; cursor: pointer; transition: all .2s; display: inline-flex; align-items: center; justify-content: center; }
@@ -113,25 +127,25 @@
         .btn-save { background: var(--vrmwb-navy); color: #FFFFFF; padding: 8px 16px; border-radius: 6px; font-weight: 700; font-size: 13px; }
         
         .modal-close-btn { 
-    background: var(--vrmwb-red); 
-    color: #FFF; 
-    width: 30px; 
-    height: 30px; 
-    font-size: 24px;
-    border-radius: 15px;
-    font-weight: bold; 
-    position: absolute; 
-    top: 15px; 
-    right: 15px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    line-height: 1; 
-    z-index: 1000; 
-    border: none;
-    padding: 0 0 4px 0;
-}
-        /* ODj Beheer Datum Tool */
+            background: var(--vrmwb-red); 
+            color: #FFF; 
+            width: 30px; 
+            height: 30px; 
+            font-size: 24px;
+            border-radius: 15px;
+            font-weight: bold; 
+            position: absolute; 
+            top: 15px; 
+            right: 15px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            line-height: 1; 
+            z-index: 1000; 
+            border: none;
+            padding: 0 0 4px 0;
+        }
+            /* ODj Beheer Datum Tool */
         .bb-date-nav { height: 52px; border: none; border-radius: 26px; display: flex; align-items: center; justify-content: center; background: var(--vrmwb-navy); color: #F6F6F6; padding: 0 8px; box-shadow: 0 6px 20px rgba(18,32,83,0.4); transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; }
         .bb-date-nav:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(18,32,83,0.6); }
         .bb-nav-arrow { background: transparent; border: none; color: #F6F6F6; font-size: 32px; font-weight: 400; line-height: 0; cursor: pointer; padding: 0 12px; font-family: 'Frutiger', sans-serif; transform: translateY(-2px); }
@@ -153,7 +167,55 @@
 
         .demo-checkbox { width: 24px; height: 24px; border-radius: 4px; border: 2px solid var(--input-border); display: flex; justify-content: center; align-items: center; color: transparent; font-weight: bold; cursor: pointer; transition: all 0.2s; }
         .demo-checkbox.checked { background: var(--vrmwb-red); border-color: var(--vrmwb-red); color: white; }
+        /* Gecorrigeerde grid voor de Interactables */
+        .ui-class-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+            gap: 30px; 
+            align-items: flex-start;
+        }
 
+        /* Dashboard grid die weer netjes meeschaalt (wrap) */
+        .dashboard-grid { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 30px; 
+            align-items: flex-start; 
+            padding-bottom: 40px; 
+        }
+
+        /* Extra ruimte onderaan de body voor tekstwidgets */
+        .w-body { 
+            padding: 15px 20px 30px 20px; /* Verhoogd naar 30px voor meer ademruimte */
+            flex: 1; 
+            overflow-y: auto; 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        /* Spacing fix voor de metadata onderaan */
+        .w-meta-row { 
+            margin-top: auto; 
+            padding-top: 20px; /* Meer ruimte boven de stippellijn */
+            margin-bottom: 10px; /* Meer ruimte tot de onderste rand */
+            border-top: 1px dashed var(--input-border); 
+            font-size: 11px; 
+            color: var(--text-muted); 
+            font-style: italic; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 4px; 
+        }
+
+        .ui-class-container { 
+            background: #FFFFFF; 
+            border-radius: var(--radius-outer); 
+            box-shadow: var(--shadow-subtle); 
+            border: 1px solid var(--card-border); 
+            padding: 30px; 
+            margin-bottom: 30px; 
+        }
+                
         /* =========================================
            4. WIDGET TYPE 1: TEKSTEN & METADATA
            ========================================= */
@@ -304,7 +366,112 @@
         .handoff-list li::before { content: "•"; color: var(--vrmwb-red); font-weight: bold; position: absolute; left: 0; top: 0; font-size: 18px; }
         .handoff-code { background: #1E1E1E; color: #E8EAED; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 12px; display: block; margin-top: 5px; overflow-x: auto; border: 1px solid #333; }
         .color-swatch { display: inline-block; width: 14px; height: 14px; border-radius: 4px; vertical-align: middle; margin-right: 5px; border: 1px solid rgba(0,0,0,0.2); }
+       
+/* =========================================
+           CUSTOM DATEPICKER (FLATPICKR)
+           ========================================= */
+           .flatpickr-calendar { 
+            font-family: 'Frutiger', sans-serif !important; 
+            border-radius: 14px !important; 
+            box-shadow: 0 10px 40px rgba(0,0,0,.2) !important; 
+            border: none !important; 
+            padding: 0 !important; 
+            width: 320px !important; /* Fractie breder gemaakt voor de padding */
+            box-sizing: border-box !important;
+            overflow: hidden; 
+        }
+        
+        .custom-header-bg { 
+            background: var(--vrmwb-navy); 
+            padding: 15px 20px; 
+            color: #FFF; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-radius: 14px 14px 0 0; 
+        }
+        
+        .c-month-group, .c-year-group { display: flex; align-items: center; gap: 8px; }
+        .c-arrow { 
+        background: none; 
+        border: none; 
+        cursor: pointer; 
+        font-size: 24px; 
+        color: rgba(255,255,255,0.6); 
+        transition: color 0.2s; 
+        user-select: none; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        /* DE FIX: 3px padding aan de onderkant (0 boven, 5px rechts, 3px onder, 5px links) duwt het pijltje visueel exact naar het midden */
+        padding: 0 5px 5px 5px; 
+        line-height: 1; 
+    }   
+        .c-arrow:hover { color: var(--vrmwb-gold); }
+        .c-val { font-size: 16px; font-weight: 700; color: #FFF; text-align: center; text-transform: lowercase; display: inline-block; }
+        .month-val { width: 95px; } 
+        .year-val { width: 45px; }  
+        
+        /* FIX: 100% breedte en padding correct afhandelen zodat er niets buiten het venster valt */
+        .flatpickr-innerContainer { 
+            width: 100% !important; 
+            box-sizing: border-box !important; 
+            padding: 15px !important; 
+            display: block !important;
+        }
+        .flatpickr-rContainer, .flatpickr-days, .dayContainer, .flatpickr-weekdaycontainer { 
+            width: 100% !important; 
+            min-width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important; 
+        }
+        
+        /* Grid systeem voor kaarsrechte kolommen */
+        .flatpickr-weekdaycontainer, .dayContainer { 
+            display: grid !important; 
+            grid-template-columns: repeat(7, 1fr) !important; 
+            gap: 2px !important; /* Subtiele ademruimte tussen de dagen */
+        }
+        
+        .flatpickr-weekday { 
+            color: var(--text-muted) !important; 
+            font-weight: 900 !important; 
+            font-size: 11px !important; 
+            text-transform: lowercase; 
+            text-align: center !important;
+            margin-bottom: 10px !important;
+        }
+        
+        .flatpickr-day { 
+            width: 100% !important; 
+            max-width: 100% !important; 
+            height: 34px !important; /* Vaste hoogte voorkomt uitgerekte vormpjes */
+            display: flex !important; 
+            align-items: center !important; 
+            justify-content: center !important;
+            border-radius: 8px !important; 
+            font-weight: 700 !important; 
+            color: var(--text-main) !important; 
+            border: none !important; 
+            margin: 0 !important;
+            box-sizing: border-box !important;
+        }
+        
+        .flatpickr-day.today { background: rgba(0,0,0,0.05) !important; }
+        .flatpickr-day.selected { background: var(--vrmwb-navy) !important; color: #FFF !important; }
+        .flatpickr-day:hover { background: rgba(0,0,0,0.08) !important; }
+
+        /* Onzichtbare en verborgen dagen */
+        .flatpickr-day.prevMonthDay { visibility: hidden !important; pointer-events: none !important; }
+        .flatpickr-day.nextMonthDay { display: none !important; pointer-events: none !important; }
+
+        .flatpickr-today-btn { background: #F0F2F5; color: var(--vrmwb-navy); font-weight: 900; text-align: center; padding: 12px; cursor: pointer; text-transform: uppercase; font-size: 12px; transition: background 0.2s; border: none; width: 100%; border-top: 1px solid var(--input-border); }
+        .flatpickr-today-btn:hover { background: #E2E5E9; color: var(--vrmwb-gold); }
+        .flatpickr-months { display: none !important; }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/nl.js"></script>
 </head>
 <body>
 
@@ -317,61 +484,72 @@
          UI KIT: INTERACTABLES & KNOPPEN
          ======================================================== -->
     <h2 class="section-title">A. Interactables (Knoppen, Toggles & Navigatie)</h2>
-    <div class="button-grid">
-        <div class="btn-col">
-            <span class="btn-desc">Navigatie (ODj Beheer)</span>
-            <div class="bb-date-nav">
-                <button class="bb-nav-arrow">&#8249;</button>
-                <button class="bb-date-trigger">Vandaag</button>
-                <button class="bb-nav-arrow">&#8250;</button>
-            </div>
-            <button class="loc-btn">
-                <svg viewBox="0 0 24 24" class="loc-ico"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-                <span>Selecteer kazerne</span>
-                <svg viewBox="0 0 24 24" class="loc-chevron"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-        </div>
-
-        <div class="btn-col">
-            <span class="btn-desc">Hoofdknoppen</span>
-            <div style="display:flex; gap:10px;">
-                <button class="btn-base tb-btn white">ODj Widget</button>
-                <button class="btn-base tb-btn gold">START</button>
-            </div>
-            <div style="display:flex; gap:10px;">
-                <button class="btn-base btn-save">Opslaan</button>
-            </div>
-        </div>
-
-        <div class="btn-col">
-            <span class="btn-desc">Toggles & Status (Klikbaar)</span>
-            <div class="pp-toggle-row">
-                <span class="pp-toggle-lbl">Dark mode</span>
-                <button class="pp-toggle" role="switch" aria-checked="false" onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true');">
-                    <span class="pp-toggle-thumb"></span>
+    <div class="ui-class-container">
+        <div class="ui-class-grid" style="border-bottom: 1px solid var(--input-border); padding-bottom: 25px; margin-bottom: 25px;">
+            
+            <div class="btn-col">
+                <span class="btn-desc">Locatie Dropdown</span>
+                <button class="loc-btn">
+                    <svg viewBox="0 0 24 24" class="loc-ico"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                    <span>Selecteer kazerne</span>
+                    <svg viewBox="0 0 24 24" class="loc-chevron"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px; margin-top: 5px;">
-                <span class="pp-toggle-lbl">Taak Afronden</span>
-                <div class="demo-checkbox" onclick="this.classList.toggle('checked'); this.innerHTML = this.classList.contains('checked') ? '✓' : '';"></div>
-            </div>
-        </div>
-
-        <div class="btn-col">
-            <span class="btn-desc">Micro Acties (Widget)</span>
-            <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
-                <!-- Foto Tag (Size S) -->
-                <div class="w-tag-small" style="margin:0;">
-                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                    4 Foto's
+    
+            <div class="btn-col">
+                <span class="btn-desc">Hoofdknoppen</span>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn-base tb-btn white">ODj Widget</button>
+                    <button class="btn-base tb-btn gold">START</button>
                 </div>
-                <!-- Sluitknop (Modals) -->
-                <button class="btn-base modal-close-btn" style="position: static; margin: 0;">&times;</button>
+                <div style="display:flex; gap:10px; margin-top: 5px;">
+                    <button class="btn-base btn-save">Opslaan</button>
+                </div>
             </div>
-            <!-- Grote klikbare foto thumb (Size L / Modal) -->
-            <div style="width: 140px; margin-top: 5px;">
-                <div class="w-photo-thumb">Foto 1</div>
+    
+            <div class="btn-col">
+                <span class="btn-desc">Toggles & Status (Klikbaar)</span>
+                <div class="pp-toggle-row" style="margin-top: 0;">
+                    <span class="pp-toggle-lbl">Dark mode</span>
+                    <button class="pp-toggle" role="switch" aria-checked="false" onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true');">
+                        <span class="pp-toggle-thumb"></span>
+                    </button>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+                    <span class="pp-toggle-lbl">Taak Afronden</span>
+                    <div class="demo-checkbox" onclick="this.classList.toggle('checked'); this.innerHTML = this.classList.contains('checked') ? '✓' : '';"></div>
+                </div>
             </div>
+    
+        </div>
+    
+        <div class="ui-class-grid">
+
+            <div class="btn-col">
+                <span class="btn-desc">Micro Acties</span>
+                <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                    <div class="w-tag-small" style="margin:0;">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                        4 Foto's
+                    </div>
+                    <button class="btn-base modal-close-btn" style="position: static; margin: 0;">&times;</button>
+                </div>
+                <div style="width: 140px; margin-top: 5px;">
+                    <div class="w-photo-thumb">Foto 1</div>
+                </div>
+            </div>
+
+            <div class="btn-col">
+                <span class="btn-desc">Datum Navigatie (Klikbaar)</span>
+                <div class="bb-date-nav">
+                    <button class="bb-nav-arrow prev-day">&#8249;</button>
+                    <button class="bb-date-trigger">Vandaag</button>
+                    <button class="bb-nav-arrow next-day">&#8250;</button>
+                </div>
+            </div>
+    
+
+    
         </div>
     </div>
 
@@ -1355,6 +1533,94 @@
                 document.getElementById('open-tasks-modal').classList.add('active');
             });
         });
+        // =========================================
+        // DATEPICKER LOGICA (FLATPICKR)
+        // =========================================
+        const dateTrigger = document.querySelector('.bb-date-trigger');
+        let currentDate = new Date();
+
+        const fp = flatpickr(dateTrigger, {
+            locale: "nl",
+            dateFormat: "d-m-Y",
+            defaultDate: currentDate,
+            position: "above center", /* FIX: Forceert de kalender naar boven */
+            onChange: function(selectedDates, dateStr) {
+                if(selectedDates[0]) {
+                    currentDate = selectedDates[0];
+                    updateDateDisplay();
+                }
+            },
+            onReady: function(selectedDates, dateStr, instance) {
+                // 1. Maak custom header (met exact dezelfde pijltjes voor maand én jaar)
+                const customHeader = document.createElement('div');
+                customHeader.className = 'custom-header-bg';
+                customHeader.innerHTML = `
+                    <div class="c-month-group">
+                        <button type="button" class="c-arrow prev-month">&#8249;</button>
+                        <span class="c-val month-val"></span>
+                        <button type="button" class="c-arrow next-month">&#8250;</button>
+                    </div>
+                    <div class="c-year-group">
+                        <button type="button" class="c-arrow prev-year">&#8249;</button>
+                        <span class="c-val year-val"></span>
+                        <button type="button" class="c-arrow next-year">&#8250;</button>
+                    </div>
+                `;
+
+                const updateCustomHeader = () => {
+                    const months = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"];
+                    customHeader.querySelector('.month-val').innerText = months[instance.currentMonth];
+                    customHeader.querySelector('.year-val').innerText = instance.currentYear;
+                };
+
+                // Pijltjes functies
+                customHeader.querySelector('.prev-month').addEventListener('click', e => { e.stopPropagation(); instance.changeMonth(-1); updateCustomHeader(); });
+                customHeader.querySelector('.next-month').addEventListener('click', e => { e.stopPropagation(); instance.changeMonth(1); updateCustomHeader(); });
+                customHeader.querySelector('.prev-year').addEventListener('click', e => { e.stopPropagation(); instance.changeYear(instance.currentYear - 1); updateCustomHeader(); });
+                customHeader.querySelector('.next-year').addEventListener('click', e => { e.stopPropagation(); instance.changeYear(instance.currentYear + 1); updateCustomHeader(); });
+
+                instance.calendarContainer.prepend(customHeader);
+                instance.config.onMonthChange.push(updateCustomHeader);
+                instance.config.onYearChange.push(updateCustomHeader);
+                updateCustomHeader();
+
+                // 2. Maak de "Terug naar Vandaag" knop onderaan
+                const todayBtn = document.createElement('button');
+                todayBtn.className = 'flatpickr-today-btn';
+                todayBtn.innerText = 'Vandaag';
+                todayBtn.addEventListener('click', () => {
+                    instance.setDate(new Date(), true);
+                    instance.close();
+                });
+                instance.calendarContainer.appendChild(todayBtn);
+            }
+        });
+
+        // Update de tekst op de hoofdknop 
+        function updateDateDisplay() {
+            const today = new Date();
+            const isToday = currentDate.getDate() === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear();
+            
+            if (isToday) {
+                dateTrigger.innerText = "Vandaag";
+            } else {
+                const options = { day: 'numeric', month: 'long', year: 'numeric' };
+                dateTrigger.innerText = currentDate.toLocaleDateString('nl-NL', options);
+            }
+        }
+
+        // 3. Laat de buitenste pijltjes naast de 'Vandaag' knop 1 dag per klik skippen
+        const navArrows = document.querySelectorAll('.bb-nav-arrow');
+        if(navArrows.length >= 2) {
+            navArrows[0].addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() - 1);
+                fp.setDate(currentDate, true);
+            });
+            navArrows[1].addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() + 1);
+                fp.setDate(currentDate, true);
+            });
+        }
     </script>
 </body>
 </html>
