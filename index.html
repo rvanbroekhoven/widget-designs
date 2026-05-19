@@ -468,7 +468,6 @@
             border-top: 1px solid var(--input-border); 
             cursor: default; /* Voorkomt het 'handje' bij hoveren */
         }
-        .w-footer-link:hover { color: var(--vrmwb-gold); }
         .size-modal .w-footer-link, .size-modal .w-table-info-text { 
             color: var(--vrmwb-gold); 
             border-color: rgba(255,255,255,0.2); 
@@ -1825,29 +1824,6 @@
             document.getElementById('table-detail-modal').classList.add('active');
         }
 
-        // Open All Open Tasks Modal
-        document.querySelectorAll('.task-footer').forEach(footer => {
-            footer.addEventListener('click', (e) => {
-                const card = e.target.closest('.w-card');
-                const list = document.getElementById('open-tasks-list');
-                list.innerHTML = '';
-                const uncheckedTasks = card.querySelectorAll('.editor-check-toggle:not(.checked)');
-                
-                if(uncheckedTasks.length === 0) {
-                    list.innerHTML = '<p style="color:var(--text-main); font-weight:700;">Er zijn geen openstaande taken meer!</p>';
-                } else {
-                    uncheckedTasks.forEach(task => {
-                        const clone = task.cloneNode(true);
-                        // Haal de onclick er af zodat je in het overzichts-modal niet weer een modal opent
-                        clone.removeAttribute('onclick');
-                        clone.style.cursor = 'default';
-                        clone.style.pointerEvents = 'none';
-                        list.appendChild(clone);
-                    });
-                }
-                document.getElementById('open-tasks-modal').classList.add('active');
-            });
-        });
         // =========================================
         // DATEPICKER LOGICA (FLATPICKR)
         // =========================================
