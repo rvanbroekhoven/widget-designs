@@ -492,10 +492,10 @@
         .handoff-list li::before { content: "•"; color: var(--vrmwb-red); font-weight: bold; position: absolute; left: 0; top: 0; font-size: 18px; }
         .handoff-code { background: #1E1E1E; color: #E8EAED; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 12px; display: block; margin-top: 5px; overflow-x: auto; border: 1px solid #333; }
         .color-swatch { display: inline-block; width: 14px; height: 14px; border-radius: 4px; vertical-align: middle; margin-right: 5px; border: 1px solid rgba(0,0,0,0.2); }
-       
-/* =========================================
-           CUSTOM DATEPICKER (FLATPICKR)
-           ========================================= */
+        
+        /* =========================================
+            CUSTOM DATEPICKER (FLATPICKR)
+            ========================================= */
            .flatpickr-calendar { 
             font-family: 'Frutiger', sans-serif !important; 
             border-radius: 14px !important; 
@@ -594,6 +594,91 @@
         .flatpickr-today-btn { background: #F0F2F5; color: var(--vrmwb-navy); font-weight: 900; text-align: center; padding: 12px; cursor: pointer; text-transform: uppercase; font-size: 12px; transition: background 0.2s; border: none; width: 100%; border-top: 1px solid var(--input-border); }
         .flatpickr-today-btn:hover { background: #E2E5E9; color: var(--vrmwb-gold); }
         .flatpickr-months { display: none !important; }
+
+        /* =========================================
+            MOBILE RESPONSIVENESS VOOR FOTO GALERIJ
+            ========================================= */
+            @media (max-width: 768px) {
+            .gallery-modal-content {
+                padding: 15px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 0;
+            }
+            
+            /* Het fotovlak (placeholder) een strakke mobiele verhouding geven */
+            .modal-image-wrapper {
+                width: 90vw;
+                height: 60vh;
+                background-color: var(--input-bg);
+                border: 1px solid var(--input-border);
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: -60px; /* Duwt de foto iets omhoog zodat er plek is voor de knoppen */
+                overflow: hidden;
+            }
+            
+            #modal-img {
+                min-width: 0 !important;
+                min-height: 0 !important;
+                width: 100%;
+                height: 100%;
+                border: none !important;
+                background: transparent !important;
+                object-fit: contain;
+                /* Zorgt dat het kleine gebroken-afbeelding icoontje verdwijnt zolang de map leeg is */
+                color: transparent;
+                text-indent: 10000px; 
+            }
+            
+            /* --- DE CONTROL BAR ONDERAAN --- */
+            /* Pijltjes uit het fotovlak halen en onderaan plaatsen */
+            .gallery-nav-btn {
+                position: absolute;
+                bottom: 40px;
+                top: auto;
+                transform: none !important; 
+                width: 48px;
+                height: 48px;
+                font-size: 26px;
+                padding: 0 4px 4px 4px;
+                z-index: 20;
+            }
+            
+            /* Vorige-knop netjes links van het midden */
+            #prev-photo { 
+                left: auto;
+                right: calc(50% + 45px); 
+            }
+            
+            /* Volgende-knop netjes rechts van het midden */
+            #next-photo { 
+                right: auto;
+                left: calc(50% + 45px); 
+            }
+            
+            /* Teller in het midden exact tussen de pijltjes in */
+            .gallery-counter {
+                position: absolute;
+                bottom: 48px;
+                left: 50%;
+                transform: translateX(-50%);
+                margin-top: 0;
+                z-index: 20;
+            }
+            
+            /* Sluitknop veilig en compact in de hoek */
+            #close-photo {
+                top: 15px !important;
+                right: 15px !important;
+                width: 36px !important;
+                height: 36px !important;
+                font-size: 28px !important;
+            }
+        }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
