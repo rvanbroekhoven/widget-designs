@@ -63,7 +63,7 @@
 
         .w-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
         .w-scroll::-webkit-scrollbar-thumb { background-color: rgba(30, 30, 30, 0.15); border-radius: 10px; }
-        .size-modal .w-scroll::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.2); }
+        .size-mobile .w-scroll::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.2); }
 
         /* =========================================
            2. WIDGET BASIS CONTAINER & SIZES
@@ -81,7 +81,7 @@
 
         .size-s { width: 320px; height: 320px; } 
         .size-l { width: 670px; height: 320px; } 
-        .size-modal { width: 375px; height: 667px; 
+        .size-mobile { width: 375px; height: 667px; 
                       background: rgba(18, 32, 83, 0.95); backdrop-filter: blur(10px); color: #FFF; 
                       border: 1px solid rgba(255,255,255,0.1); }
 
@@ -265,30 +265,30 @@
         .w-tab-container { display: flex; gap: 5px; padding: 10px 20px 0 20px; border-bottom: 2px solid var(--input-border); overflow-x: auto; overflow-y: hidden; scrollbar-width: none; white-space: nowrap; flex-wrap: nowrap; flex-shrink: 0; }
         .w-tab-container::-webkit-scrollbar { height: 6px; }
         
-        .size-modal .w-tab-container { border-color: rgba(255,255,255,0.2); }
+        .size-mobile .w-tab-container { border-color: rgba(255,255,255,0.2); }
         .w-tab { flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 8px 8px 0 0; background: var(--input-bg); font-weight: 700; font-size: 13px; color: var(--text-muted); cursor: pointer; transition: background 0.2s; }
         .w-tab:hover { background: rgba(0,0,0,0.08); }
-        .size-modal .w-tab { background: rgba(0,0,0,0.3); color: rgba(255,255,255,0.5); }
-        .size-modal .w-tab:hover { background: rgba(255,255,255,0.05); }
+        .size-mobile .w-tab { background: rgba(0,0,0,0.3); color: rgba(255,255,255,0.5); }
+        .size-mobile .w-tab:hover { background: rgba(255,255,255,0.05); }
         .w-tab.active { background: var(--card-bg-light); color: var(--text-main); border: 1px solid var(--input-border); border-bottom: none; position: relative; top: 2px; }
-        .size-modal .w-tab.active { background: rgba(255,255,255,0.1); color: #FFF; border-color: rgba(255,255,255,0.2); }
+        .size-mobile .w-tab.active { background: rgba(255,255,255,0.1); color: #FFF; border-color: rgba(255,255,255,0.2); }
 
         /* Tab Content Handler met flex: 1 voor de footer ademruimte */
         .tab-content { display: none; flex-direction: column; height: 100%; flex: 1; }
         .tab-content.active { display: flex; }
 
         .w-text-content { font-size: 14px; line-height: 1.6; color: inherit; margin-bottom: 10px; }
-        .size-modal .w-text-content { font-size: 16px; }
+        .size-mobile .w-text-content { font-size: 16px; }
         
         .w-tag-small { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 900; background: var(--vrmwb-navy); color: #FFF; padding: 6px 12px; border-radius: 16px; margin-top: 10px; margin-bottom: 20px; align-self: flex-start; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
         .w-tag-small:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
         .w-tag-small svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
 
         .w-photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 15px; margin-bottom: 25px; }
-        .size-modal .w-photo-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 35px;}
+        .size-mobile .w-photo-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 35px;}
         .w-photo-thumb { width: 100%; aspect-ratio: 16/9; background: #e0e0e0; border-radius: 8px; border: 1px solid var(--input-border); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--text-muted); font-weight: 900; cursor: pointer; background-size: cover; background-position: center; transition: transform 0.2s; text-transform: uppercase; }
         .w-photo-thumb:hover { transform: translateY(-2px); border-color: var(--vrmwb-gold); color: var(--vrmwb-navy); }
-        .size-modal .w-photo-thumb { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.8); }
+        .size-mobile .w-photo-thumb { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.8); }
 
         /* Meta-data Footer Spacing Fix (Nu met meer ademruimte onderaan) */
         .w-meta-row { 
@@ -300,7 +300,7 @@
             display: flex; flex-direction: column; gap: 4px; 
         }
         .size-l .w-meta-row { flex-direction: row; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
-        .size-modal .w-meta-row { flex-direction: column; font-size: 13px; border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); }
+        .size-mobile .w-meta-row { flex-direction: column; font-size: 13px; border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); }
 
         /* Styling voor de full-screen galerij */
         .gallery-modal-content {
@@ -403,7 +403,7 @@
             box-shadow: inset 0 -2px 0 var(--vrmwb-red); 
             border-top: 1px solid var(--widget-bg);
         }
-        .size-modal .data-table th { 
+        .size-mobile .data-table th { 
             color: rgba(255,255,255,0.6); 
             background-color: #122053; 
             box-shadow: inset 0 -2px 0 var(--vrmwb-red); 
@@ -411,23 +411,23 @@
         }
         
         .data-table tbody tr:nth-child(even) td { background-color: rgba(0,0,0,0.03); }
-        .size-modal .data-table tbody tr:nth-child(even) td { background-color: rgba(255,255,255,0.05); }
+        .size-mobile .data-table tbody tr:nth-child(even) td { background-color: rgba(255,255,255,0.05); }
 
         /* Hover & Truncation for Tables */
         .data-table-clickable tbody tr { cursor: pointer; transition: background-color 0.2s; }
         .data-table-clickable tbody tr:hover { background-color: rgba(0,0,0,0.06) !important; }
-        .size-modal .data-table-clickable tbody tr:hover { background-color: rgba(255,255,255,0.1) !important; }
+        .size-mobile .data-table-clickable tbody tr:hover { background-color: rgba(255,255,255,0.1) !important; }
 
         .truncate-table-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px; display: block; }
         .size-s .truncate-table-text { max-width: 170px; }
         .size-l .truncate-table-text { max-width: 300px; }
-        .size-modal .truncate-table-text { max-width: 200px; }
+        .size-mobile .truncate-table-text { max-width: 200px; }
 
         .data-table-compact th, .data-table-compact td { padding: 10px; font-size: 12px; }
         .data-table-compact th { padding-top: 14px; }
         
         .td-highlight { font-weight: 700; color: var(--vrmwb-navy); white-space: nowrap; }
-        .size-modal .td-highlight { color: var(--vrmwb-gold); }
+        .size-mobile .td-highlight { color: var(--vrmwb-gold); }
         .td-sub { display: block; font-size: 10px; color: var(--text-muted); margin-top: 2px; font-weight: 700; }
 
         /* =========================================
@@ -437,12 +437,12 @@
         .editor-check-toggle:hover { background: rgba(0,0,0,0.02); }
         .editor-check-toggle-compact { padding: 8px 0; }
         
-        .size-modal .editor-check-toggle { border-bottom-color: rgba(255,255,255,0.1); padding: 16px 0; }
-        .size-modal .editor-check-toggle:hover { background: rgba(255,255,255,0.05); }
+        .size-mobile .editor-check-toggle { border-bottom-color: rgba(255,255,255,0.1); padding: 16px 0; }
+        .size-mobile .editor-check-toggle:hover { background: rgba(255,255,255,0.05); }
         .editor-check-toggle:last-child { border-bottom: none; }
         
         .check-box { width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--text-muted); display: flex; justify-content: center; align-items: center; color: transparent; font-weight: bold; flex-shrink: 0; transition: all 0.2s; }
-        .size-modal .check-box { width: 26px; height: 26px; border-color: rgba(255,255,255,0.5); }
+        .size-mobile .check-box { width: 26px; height: 26px; border-color: rgba(255,255,255,0.5); }
         .editor-check-toggle.checked .check-box { background: var(--vrmwb-red); border-color: var(--vrmwb-red); color: white; }
         
         .check-content { flex: 1; display: flex; flex-direction: column; gap: 2px; padding-top: 2px; min-width: 0; }
@@ -450,10 +450,10 @@
         .truncate-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; display: block; }
         
         .check-content strong { font-size: 14px; color: inherit; font-weight: 700; transition: opacity 0.2s; }
-        .size-modal .check-content strong { font-size: 16px; white-space: normal; line-height: 1.4; } 
+        .size-mobile .check-content strong { font-size: 16px; white-space: normal; line-height: 1.4; } 
         
         .check-content span { font-size: 11px; color: var(--text-muted); font-style: italic; }
-        .size-modal .check-content span { color: rgba(255,255,255,0.5); font-size: 13px; }
+        .size-mobile .check-content span { color: rgba(255,255,255,0.5); font-size: 13px; }
         .editor-check-toggle.checked .check-content strong { text-decoration: line-through; opacity: 0.5; }
 
         .w-footer-link, .w-table-info-text { 
@@ -468,7 +468,7 @@
             border-top: 1px solid var(--input-border); 
             cursor: default; /* Voorkomt het 'handje' bij hoveren */
         }
-        .size-modal .w-footer-link, .size-modal .w-table-info-text { 
+        .size-mobile .w-footer-link, .size-mobile .w-table-info-text { 
             color: var(--vrmwb-gold); 
             border-color: rgba(255,255,255,0.2); 
         }
@@ -702,6 +702,23 @@
             .col-select-wrap.open .col-select-menu { display: block; }
             .col-select-item { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: #1E1E1E; margin: 6px 0; white-space: nowrap; cursor: pointer; }
             .col-select-item input { cursor: pointer; margin: 0; }
+
+        /* Toevoeging voor Tabel UX & Info Iconen */
+        .data-table th { white-space: nowrap; } 
+        .info-cell { width: 34px; text-align: right; vertical-align: middle !important; }
+        .info-icon { width: 18px; height: 18px; fill: none; stroke: var(--text-muted); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; display: block; margin-left: auto;}
+        .data-table-clickable tbody tr:hover .info-icon { stroke: var(--vrmwb-navy); }
+        .size-mobile .data-table-clickable tbody tr:hover .info-icon { stroke: #FFF; }
+
+        /* Forceer dat de tabelkolom de volledige beschikbare ruimte pakt */
+        .w-card.size-s .data-table.no-time-col .truncate-table-text,
+        .w-card.size-mobile .data-table.no-time-col .truncate-table-text {
+            max-width: 100% !important;
+            white-space: normal !important; /* Zorgt dat tekst doorloopt naar de volgende regel ipv afkappen */
+            overflow: visible !important;
+            text-overflow: clip !important;
+            line-height: 1.3;
+        }
             
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -1013,8 +1030,8 @@
 
         <!-- MODAL: 375x667 -->
         <div>
-            <span class="label">Size Modal (375x667)</span>
-            <div class="w-card size-modal">
+            <span class="label">Size Mobile (375x667)</span>
+            <div class="w-card size-mobile">
                 <button class="btn-base modal-close-btn">&times;</button>
                 <div class="w-header">
                     <h2 class="w-title">TITEL TEKSTVAK</h2>
@@ -1266,8 +1283,8 @@
              </div>
      
              <div>
-                 <span class="label">Size Modal (375x667)</span>
-                 <div class="w-card size-modal" style="position: relative;">
+                 <span class="label">Size Mobile (375x667)</span>
+                 <div class="w-card size-mobile" style="position: relative;">
                      <button class="btn-base modal-close-btn">&times;</button>
                      <div class="w-header" style="padding-bottom: 15px;">
                          <h2 class="w-title">TITEL TABEL</h2>
@@ -1492,8 +1509,8 @@
 
         <!-- MODAL: 375x667 -->
         <div>
-            <span class="label">Size Modal (375x667)</span>
-            <div class="w-card size-modal">
+            <span class="label">Size Mobile (375x667)</span>
+            <div class="w-card size-mobile">
                 <button class="btn-base modal-close-btn">&times;</button>
                 <div class="w-header">
                     <h2 class="w-title">TITEL WERKZAAMHEDEN</h2>
@@ -1598,6 +1615,63 @@
         </div>
     </div>
 
+    <div id="event-detail-modal" class="kis-modal-wrapper">
+        <div class="kis-modal-content" style="max-height: 85vh; display: flex; flex-direction: column;">
+            <button class="btn-base modal-close-btn" onclick="document.getElementById('event-detail-modal').classList.remove('active')">&times;</button>
+            <h2 style="color: var(--vrmwb-gold); font-size: 14px; text-transform: uppercase; margin-bottom: 10px;">Eventgegevens</h2>
+            
+            <div class="w-scroll" style="overflow-y: auto; flex: 1; padding-right: 8px; margin-bottom: 20px;">
+                <h1 id="event-detail-title" style="font-size: 20px; font-weight: 900; color: var(--vrmwb-navy); margin-bottom: 15px; text-transform: uppercase;"></h1>
+                
+                <div style="display: flex; flex-direction: column; gap: 14px;">
+                    <div>
+                        <span style="font-size: 11px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 2px;">Locatie</span>
+                        <p id="event-detail-location" style="font-size: 14px; font-weight: 700; color: var(--text-main);"></p>
+                    </div>
+                    <div>
+                        <span style="font-size: 11px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 2px;">Aantal personen</span>
+                        <p id="event-detail-persons" style="font-size: 14px; font-weight: 700; color: var(--text-main);"></p>
+                    </div>
+                    <div>
+                        <span style="font-size: 11px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 2px;">Operationele gegevens</span>
+                        <p id="event-detail-ops" style="font-size: 14px; line-height: 1.5; color: var(--text-main);"></p>
+                    </div>
+                    <div>
+                        <span style="font-size: 11px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 2px;">Tijden</span>
+                        <p style="font-size: 14px; color: var(--text-main); line-height: 1.4;">
+                            <span id="event-detail-start"></span><br>
+                            <span id="event-detail-end"></span>
+                        </p>
+                    </div>
+                    <div>
+                        <span style="font-size: 11px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 2px;">Contact gegevens TBV Evenement</span>
+                        <p id="event-detail-contact" style="font-size: 14px; font-weight: 700; color: var(--text-main);"></p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn-base btn-save" id="download-docs-trigger" style="width: 100%; justify-content: center;">Download aanvullende gegevens</button>
+        </div>
+    </div>
+
+    <div id="event-download-modal" class="kis-modal-wrapper" style="z-index: 100005;">
+        <div class="kis-modal-content">
+            <button class="btn-base modal-close-btn" onclick="document.getElementById('event-download-modal').classList.remove('active')">&times;</button>
+            <h2 style="color: var(--vrmwb-gold); font-size: 14px; text-transform: uppercase; margin-bottom: 15px;">Beschikbare Bijlagen</h2>
+            
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; background: var(--input-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--input-border);">
+                    <span style="font-size: 13px; font-weight: 700; color: var(--text-main);">Veiligheidsplan_Oefening.pdf</span>
+                    <span style="color: var(--vrmwb-navy); font-weight: 900; font-size: 12px; cursor: pointer;">DOWNLOAD</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; background: var(--input-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--input-border);">
+                    <span style="font-size: 13px; font-weight: 700; color: var(--text-main);">Draaiboek_Scenario.pdf</span>
+                    <span style="color: var(--vrmwb-navy); font-weight: 900; font-size: 12px; cursor: pointer;">DOWNLOAD</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Taak Detail Modal -->
     <div id="task-detail-modal" class="kis-modal-wrapper">
         <div class="kis-modal-content">
@@ -1634,6 +1708,782 @@
             <h2 style="color: var(--vrmwb-gold); font-size: 14px; text-transform: uppercase; margin-bottom: 15px;">Openstaande Taken</h2>
             <div id="open-tasks-list" class="w-scroll" style="overflow-y: auto; flex: 1; padding-right: 10px;">
                 <!-- Wordt dynamisch gevuld via JavaScript -->
+            </div>
+        </div>
+    </div>
+    <h2 class="section-title">4. Evenementen Component</h2>
+    <div class="dashboard-grid">
+        <div>
+            <span class="label">Size S (320x320)</span>
+            <div class="w-card size-s">
+                <div class="w-header w-header-compact" style="padding-bottom: 10px;">
+                    <h2 class="w-title">Evenementen</h2>
+                    <div class="w-controls">
+                        <div class="col-select-wrap">
+                            <button class="w-ctrl-btn col-select-trigger" title="Kolommen bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                            <div class="col-select-menu">
+                                <label class="col-select-item"><input type="checkbox" checked data-col="tijd"> Tijd</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="evenement"> Evenement</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="locatie"> Locatie</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="personen"> Personen</label>
+                            </div>
+                        </div>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="table-container w-scroll" style="margin-bottom: 0;">
+                    <table class="data-table data-table-compact data-table-clickable">
+                        <thead><tr><th>Tijd</th><th>Evenement</th><th></th></tr></thead>
+                        <tbody>
+                            <tr onclick="openEventModal('Evaluatie Grote Brand Etten-Leur', 'Kazerne Etten-Leur', '15 bevelvoerders', 'Nabespreking en lering van de operationele inzet bij de industriebrand van afgelopen maand.', '20-05-2026 19:30', '20-05-2026 21:30', 'H. Willems (06-12345678)')">
+                                <td class="td-highlight" style="white-space: nowrap;">20 Mei</td>
+                                <td>
+                                    <span class="truncate-table-text">Evaluatie Grote Brand Etten-Leur</span>
+                                    <span class="td-sub td-sub-loc">Locatie: Kazerne Etten-Leur</span>
+                                    <span class="td-sub td-sub-pers">Personen: 15</span>
+                                </td>
+                                <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Grootschalige Oefening Moerdijk', 'Noordzeeomloop, Moerdijk', '80 deelnemers', 'Inzet Grip 1 scenario, opschaling naar grote brand. Communicatie via plangroep Midden.', '26-05-2026 19:00', '26-05-2026 22:30', 'K. de Jong (06-98765432)')">
+                                <td class="td-highlight" style="white-space: nowrap;">26 Mei</td>
+                                <td>
+                                    <span class="truncate-table-text">Grootschalige Oefening Moerdijk</span>
+                                    <span class="td-sub td-sub-loc">Locatie: Noordzeeomloop</span>
+                                    <span class="td-sub td-sub-pers">Personen: 80</span>
+                                </td>
+                                <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Instructie Avond Ademlucht', 'Centrale Werkplaats, Roosendaal', '25 personen', 'Bijscholing nieuwe ademluchtprocedures voor posten Baronie.', '28-05-2026 19:30', '28-05-2026 21:30', 'Martijn van Wensen (06-55667788)')">
+                                <td class="td-highlight" style="white-space: nowrap;">28 Mei</td>
+                                <td>
+                                    <span class="truncate-table-text">Instructie Avond Ademlucht</span>
+                                    <span class="td-sub td-sub-loc">Locatie: Centrale Werkplaats</span>
+                                    <span class="td-sub td-sub-pers">Personen: 25</span>
+                                </td>
+                                <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Fysieke Conditietest Manschappen', 'Sportcentrum Breda', '40 deelnemers', 'Jaarlijkse verplichte PPMO-test voor het behoud van de operationele brandweerstatus.', '02-06-2026 08:30', '02-06-2026 16:30', 'M. Verhoeven (06-87654321)')">
+                                <td class="td-highlight" style="white-space: nowrap;">02 Jun</td>
+                                <td>
+                                    <span class="truncate-table-text">Fysieke Conditietest Manschappen</span>
+                                    <span class="td-sub td-sub-loc">Locatie: Sportcentrum Breda</span>
+                                    <span class="td-sub td-sub-pers">Personen: 40</span>
+                                </td>
+                                <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Open Dag Kazerne Breda', 'Tramsingel 112, Breda', '500 bezoekers', 'Publieksevenement, demonstraties vloeistofbrand en TS-inzet om 11:00 en 14:00.', '06-06-2026 10:00', '06-06-2026 16:00', 'Paul van der Heijden (06-11223344)')">
+                                <td class="td-highlight" style="white-space: nowrap;">06 Jun</td>
+                                <td>
+                                    <span class="truncate-table-text">Open Dag Kazerne Breda</span>
+                                    <span class="td-sub td-sub-loc">Locatie: Tramsingel 112</span>
+                                    <span class="td-sub td-sub-pers">Personen: 500</span>
+                                </td>
+                                <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Netwerkbijeenkomst Crisispartners', 'Regionaal Kantoor, Tilburg', '60 personen', 'Periodieke afstemming van operationele crisisprocedures met politie, GHOR en gemeenten.', '12-06-2026 13:30', '12-06-2026 17:00', 'A. van den Broek (06-23456789)')">
+                                <td class="td-highlight" style="white-space: nowrap;">12 Jun</td>
+                                <td>
+                                    <span class="truncate-table-text">Netwerkbijeenkomst Crisispartners</span>
+                                    <span class="td-sub td-sub-loc">Locatie: Regionaal Kantoor</span>
+                                    <span class="td-sub td-sub-pers">Personen: 60</span>
+                                </td>
+                                <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Oefening Ongeval Gevaarlijke Stoffen', 'Industrieterrein Moerdijk', '35 specialisten', 'Gespecialiseerde inzet van het IBGS-team bij een gesimuleerd chemisch logistiek lek.', '20-06-2026 09:00', '20-06-2026 13:00', 'R. Smits (06-98765432)')">
+                                <td class="td-highlight" style="white-space: nowrap;">20 Jun</td>
+                                <td>
+                                    <span class="truncate-table-text">Oefening OGS (IBGS Inzet)</span>
+                                    <span class="td-sub td-sub-loc">Locatie: Ind. Moerdijk</span>
+                                    <span class="td-sub td-sub-pers">Personen: 35</span>
+                                </td>
+                                <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="w-table-info-text" style="margin: 10px;">Er zijn 7 evenementen</div>
+            </div>
+        </div>
+
+        <div>
+            <span class="label">Size L (670x320)</span>
+            <div class="w-card size-l">
+                <div class="w-header" style="padding-bottom: 15px;">
+                    <h2 class="w-title">Evenementen</h2>
+                    <div class="w-controls">
+                        <div class="col-select-wrap">
+                            <button class="w-ctrl-btn col-select-trigger" title="Kolommen bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                            <div class="col-select-menu">
+                                <label class="col-select-item"><input type="checkbox" checked data-col="tijd"> Datum/Tijd</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="evenement"> Evenement</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="locatie"> Locatie</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="personen"> Pers.</label>
+                            </div>
+                        </div>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="table-container" style="margin-bottom: 0; overflow-x: hidden;">
+                    <table class="data-table data-table-clickable" style="table-layout: fixed; width: 100%;">
+                        <thead><tr>
+                            <th style="width: 110px;">Datum/Tijd</th>
+                            <th>Evenement</th>
+                            <th>Locatie</th>
+                            <th style="width: 70px;">Pers.</th>
+                            <th class="info-cell" style="width: 55px;"></th>
+                        </tr></thead>
+                        <tbody>
+                            <tr onclick="openEventModal('Evaluatie Grote Brand Etten-Leur', 'Kazerne Etten-Leur', '15 bevelvoerders', 'Nabespreking en lering van de operationele inzet bij de industriebrand van afgelopen maand.', '20-05-2026 19:30', '20-05-2026 21:30', 'H. Willems (06-12345678)')">
+                                <td class="td-highlight" style="white-space: nowrap;">20 Mei<br><span style="color:var(--text-muted); font-weight:400;">19:30</span></td>
+                                <td><span class="truncate-table-text" style="max-width: 100%;">Evaluatie Grote Brand Etten-Leur</span></td>
+                                <td><span class="truncate-table-text" style="max-width: 100%;">Kazerne Etten-Leur</span></td>
+                                <td style="white-space: nowrap;">15</td>
+                                <td class="info-cell" style="padding-right: 20px;"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Grootschalige Oefening Moerdijk', 'Noordzeeomloop, Moerdijk', '80 deelnemers', 'Inzet Grip 1 scenario, opschaling naar grote brand. Communicatie via plangroep Midden.', '26-05-2026 19:00', '26-05-2026 22:30', 'K. de Jong (06-98765432)')">
+                                <td class="td-highlight" style="white-space: nowrap;">26 Mei<br><span style="color:var(--text-muted); font-weight:400;">19:00</span></td>
+                                <td><span class="truncate-table-text" style="max-width: 100%;">Grootschalige Oefening Moerdijk</span></td>
+                                <td><span class="truncate-table-text" style="max-width: 100%;">Noordzeeomloop, Moerdijk</span></td>
+                                <td style="white-space: nowrap;">80</td>
+                                <td class="info-cell" style="padding-right: 20px;"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Instructie Avond Ademlucht', 'Centrale Werkplaats, Roosendaal', '25 personen', 'Bijscholing nieuwe ademluchtprocedures voor posten Baronie.', '28-05-2026 19:30', '28-05-2026 21:30', 'Martijn van Wensen (06-55667788)')">
+                                <td class="td-highlight" style="white-space: nowrap;">28 Mei<br><span style="color:var(--text-muted); font-weight:400;">19:30</span></td>
+                                <td><span class="truncate-table-text" style="max-width: 100%;">Instructie Avond Ademlucht</span></td>
+                                <td><span class="truncate-table-text" style="max-width: 100%;">Centrale Werkplaats, Roosendaal</span></td>
+                                <td style="white-space: nowrap;">25</td>
+                                <td class="info-cell" style="padding-right: 20px;"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Fysieke Conditietest Manschappen', 'Sportcentrum Breda', '40 deelnemers', 'Jaarlijkse verplichte PPMO-test voor het behoud van de operationele brandweerstatus.', '02-06-2026 08:30', '02-06-2026 16:30', 'M. Verhoeven (06-87654321)')">
+                                <td class="td-highlight" style="white-space: nowrap;">02 Jun<br><span style="color:var(--text-muted); font-weight:400;">08:30</span></td>
+                                <td><span class="truncate-table-text" style="max-width: 100%;">Fysieke Conditietest Manschappen</span></td>
+                                <td><span class="truncate-table-text" style="max-width: 100%;">Sportcentrum Breda</span></td>
+                                <td style="white-space: nowrap;">40</td>
+                                <td class="info-cell" style="padding-right: 20px;"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Open Dag Kazerne Breda', 'Tramsingel 112, Breda', '500 bezoekers', 'Publieksevenement, demonstraties vloeistofbrand en TS-inzet om 11:00 en 14:00.', '06-06-2026 10:00', '06-06-2026 16:00', 'Paul van der Heijden (06-11223344)')">
+                                <td class="td-highlight" style="white-space: nowrap;">06 Jun<br><span style="color:var(--text-muted); font-weight:400;">10:00</span></td>
+                                <td><span class="truncate-table-text" style="max-width: 100%;">Open Dag Kazerne Breda</span></td>
+                                <td><span class="truncate-table-text" style="max-width: 100%;">Tramsingel 112, Breda</span></td>
+                                <td style="white-space: nowrap;">500</td>
+                                <td class="info-cell" style="padding-right: 20px;"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Netwerkbijeenkomst Crisispartners', 'Regionaal Kantoor, Tilburg', '60 personen', 'Periodieke afstemming van operationele crisisprocedures met politie, GHOR en gemeenten.', '12-06-2026 13:30', '12-06-2026 17:00', 'A. van den Broek (06-23456789)')">
+                                <td class="td-highlight" style="white-space: nowrap;">12 Jun<br><span style="color:var(--text-muted); font-weight:400;">13:30</span></td>
+                                <td><span class="truncate-table-text" style="max-width: 100%;">Netwerkbijeenkomst Crisispartners</span></td>
+                                <td><span class="truncate-table-text" style="max-width: 100%;">Regionaal Kantoor, Tilburg</span></td>
+                                <td style="white-space: nowrap;">60</td>
+                                <td class="info-cell" style="padding-right: 20px;"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Oefening Ongeval Gevaarlijke Stoffen', 'Industrieterrein Moerdijk', '35 specialisten', 'Gespecialiseerde inzet van het IBGS-team bij een gesimuleerd chemisch logistiek lek.', '20-06-2026 09:00', '20-06-2026 13:00', 'R. Smits (06-98765432)')">
+                                <td class="td-highlight" style="white-space: nowrap;">20 Jun<br><span style="color:var(--text-muted); font-weight:400;">09:00</span></td>
+                                <td><span class="truncate-table-text" style="max-width: 100%;">Oefening OGS (IBGS Inzet)</span></td>
+                                <td><span class="truncate-table-text" style="max-width: 100%;">Industrieterrein Moerdijk</span></td>
+                                <td style="white-space: nowrap;">35</td>
+                                <td class="info-cell" style="padding-right: 20px;"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="w-table-info-text" style="margin: 15px 20px 10px 20px;">Er zijn 7 evenementen</div>
+            </div>
+        </div>
+
+        <div>
+            <span class="label">Size Mobile (375x667)</span>
+            <div class="w-card size-mobile" style="position: relative;">
+                <button class="btn-base modal-close-btn">&times;</button>
+                <div class="w-header" style="padding-bottom: 15px;">
+                    <h2 class="w-title">Evenementen</h2>
+                    <div class="w-controls" style="position: absolute; top: 20px; right: 60px;">
+                        <div class="col-select-wrap">
+                            <button class="w-ctrl-btn col-select-trigger" title="Kolommen bewerken" style="color: rgba(255,255,255,0.6);"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                            <div class="col-select-menu">
+                                <label class="col-select-item"><input type="checkbox" checked data-col="tijd"> Tijd</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="evenement"> Evenement</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="locatie"> Locatie</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="personen"> Personen</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container w-scroll" style="margin-bottom: 0;">
+                    <table class="data-table data-table-clickable">
+                        <thead><tr><th style="color:#FFF;">Tijd</th><th style="color:#FFF;">Evenement</th><th></th></tr></thead>
+                        <tbody>
+                            <tr onclick="openEventModal('Evaluatie Grote Brand Etten-Leur', 'Kazerne Etten-Leur', '15 bevelvoerders', 'Nabespreking en lering van de operationele inzet bij de industriebrand van afgelopen maand.', '20-05-2026 19:30', '20-05-2026 21:30', 'H. Willems (06-12345678)')">
+                                <td class="td-highlight" style="white-space: nowrap;">19:30</td>
+                                <td>
+                                    <span class="truncate-table-text">Evaluatie Grote Brand Etten-Leur</span>
+                                    <span class="td-sub td-sub-loc">Locatie: Kazerne Etten-Leur</span>
+                                    <span class="td-sub td-sub-pers">Personen: 15</span>
+                                </td>
+                                <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Grootschalige Oefening Moerdijk', 'Noordzeeomloop, Moerdijk', '80 deelnemers', 'Inzet Grip 1 scenario, opschaling naar grote brand. Communicatie via plangroep Midden.', '26-05-2026 19:00', '26-05-2026 22:30', 'K. de Jong (06-98765432)')">
+                                <td class="td-highlight" style="white-space: nowrap;">19:00</td>
+                                <td>
+                                    <span class="truncate-table-text">Grootschalige Oefening Moerdijk</span>
+                                    <span class="td-sub td-sub-loc">Locatie: Noordzeeomloop</span>
+                                    <span class="td-sub td-sub-pers">Personen: 80</span>
+                                </td>
+                                <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Instructie Avond Ademlucht', 'Centrale Werkplaats, Roosendaal', '25 personen', 'Bijscholing nieuwe ademluchtprocedures voor posten Baronie.', '28-05-2026 19:30', '28-05-2026 21:30', 'Martijn van Wensen (06-55667788)')">
+                                <td class="td-highlight" style="white-space: nowrap;">19:30</td>
+                                <td>
+                                    <span class="truncate-table-text">Instructie Avond Ademlucht</span>
+                                    <span class="td-sub td-sub-loc">Locatie: Centrale Werkplaats</span>
+                                    <span class="td-sub td-sub-pers">Personen: 25</span>
+                                </td>
+                                <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Fysieke Conditietest Manschappen', 'Sportcentrum Breda', '40 deelnemers', 'Jaarlijkse verplichte PPMO-test voor het behoud van de operationele brandweerstatus.', '02-06-2026 08:30', '02-06-2026 16:30', 'M. Verhoeven (06-87654321)')">
+                                <td class="td-highlight" style="white-space: nowrap;">08:30</td>
+                                <td>
+                                    <span class="truncate-table-text">Fysieke Conditietest Manschappen</span>
+                                    <span class="td-sub td-sub-loc">Locatie: Sportcentrum Breda</span>
+                                    <span class="td-sub td-sub-pers">Personen: 40</span>
+                                </td>
+                                <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Open Dag Kazerne Breda', 'Tramsingel 112, Breda', '500 bezoekers', 'Publieksevenement, demonstraties vloeistofbrand en TS-inzet om 11:00 en 14:00.', '06-06-2026 10:00', '06-06-2026 16:00', 'Paul van der Heijden (06-11223344)')">
+                                <td class="td-highlight" style="white-space: nowrap;">10:00</td>
+                                <td>
+                                    <span class="truncate-table-text">Open Dag Kazerne Breda</span>
+                                    <span class="td-sub td-sub-loc">Locatie: Tramsingel 112</span>
+                                    <span class="td-sub td-sub-pers">Personen: 500</span>
+                                </td>
+                                <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Netwerkbijeenkomst Crisispartners', 'Regionaal Kantoor, Tilburg', '60 personen', 'Periodieke afstemming van operationele crisisprocedures met politie, GHOR en gemeenten.', '12-06-2026 13:30', '12-06-2026 17:00', 'A. van den Broek (06-23456789)')">
+                                <td class="td-highlight" style="white-space: nowrap;">13:30</td>
+                                <td>
+                                    <span class="truncate-table-text">Netwerkbijeenkomst Crisispartners</span>
+                                    <span class="td-sub td-sub-loc">Locatie: Regionaal Kantoor</span>
+                                    <span class="td-sub td-sub-pers">Personen: 60</span>
+                                </td>
+                                <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                            <tr onclick="openEventModal('Oefening Ongeval Gevaarlijke Stoffen', 'Industrieterrein Moerdijk', '35 specialisten', 'Gespecialiseerde inzet van het IBGS-team bij een gesimuleerd chemisch logistiek lek.', '20-06-2026 09:00', '20-06-2026 13:00', 'R. Smits (06-98765432)')">
+                                <td class="td-highlight" style="white-space: nowrap;">09:00</td>
+                                <td>
+                                    <span class="truncate-table-text">Oefening OGS (IBGS Inzet)</span>
+                                    <span class="td-sub td-sub-loc">Locatie: Industrieterrein Moerdijk</span>
+                                    <span class="td-sub td-sub-pers">Personen: 35</span>
+                                </td>
+                                <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="w-table-info-text" style="margin: 15px 20px 10px 20px;">Er zijn 7 evenementen</div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">5. Waarschuwingen & operationele fases Component</h2>
+    <div class="dashboard-grid">
+        <div>
+            <span class="label">Size S (320x320)</span>
+            <div class="w-card size-s">
+                <div class="w-header w-header-compact">
+                    <h2 class="w-title">Waarschuwingen & Operationale Fases</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-body-compact w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size S</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size L (670x320)</span>
+            <div class="w-card size-l">
+                <div class="w-header">
+                    <h2 class="w-title">Waarschuwingen & Operationale Fases</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size L</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size Mobile (375x667)</span>
+            <div class="w-card size-mobile">
+                <button class="btn-base modal-close-btn">&times;</button>
+                <div class="w-header">
+                    <h2 class="w-title">Waarschuwingen & Operationale Fases</h2>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: rgba(255,255,255,0.5); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size Mobile</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">6. Digitaal Loket Component</h2>
+    <div class="dashboard-grid">
+        <div>
+            <span class="label">Size S (320x320)</span>
+            <div class="w-card size-s">
+                <div class="w-header w-header-compact">
+                    <h2 class="w-title">Digitaal Loket</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-body-compact w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size S</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size L (670x320)</span>
+            <div class="w-card size-l">
+                <div class="w-header">
+                    <h2 class="w-title">Digitaal Loket</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size L</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size Mobile (375x667)</span>
+            <div class="w-card size-mobile">
+                <button class="btn-base modal-close-btn">&times;</button>
+                <div class="w-header">
+                    <h2 class="w-title">Digitaal Loket</h2>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: rgba(255,255,255,0.5); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size Mobile</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">7. Voertuigen tabel Component</h2>
+    <div class="dashboard-grid">
+        <div>
+            <span class="label">Size S (320x320)</span>
+            <div class="w-card size-s">
+                <div class="w-header w-header-compact">
+                    <h2 class="w-title">Voertuigen</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-body-compact w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size S</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size L (670x320)</span>
+            <div class="w-card size-l">
+                <div class="w-header">
+                    <h2 class="w-title">Voertuigen</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size L</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size Mobile (375x667)</span>
+            <div class="w-card size-mobile">
+                <button class="btn-base modal-close-btn">&times;</button>
+                <div class="w-header">
+                    <h2 class="w-title">Voertuigen</h2>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: rgba(255,255,255,0.5); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size Mobile</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">8. Incidenten tabel Component</h2>
+    <div class="dashboard-grid">
+        <div>
+            <span class="label">Size S (320x320)</span>
+            <div class="w-card size-s">
+                <div class="w-header w-header-compact">
+                    <h2 class="w-title">Incidenten</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-body-compact w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size S</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size L (670x320)</span>
+            <div class="w-card size-l">
+                <div class="w-header">
+                    <h2 class="w-title">Incidenten</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size L</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size Mobile (375x667)</span>
+            <div class="w-card size-mobile">
+                <button class="btn-base modal-close-btn">&times;</button>
+                <div class="w-header">
+                    <h2 class="w-title">Incidenten</h2>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: rgba(255,255,255,0.5); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size Mobile</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">9. Reservering ruimtes Component</h2>
+    <div class="dashboard-grid">
+        <div>
+            <span class="label">Size S (320x320)</span>
+            <div class="w-card size-s">
+                <div class="w-header w-header-compact">
+                    <h2 class="w-title">Reservering Ruimtes</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-body-compact w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size S</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size L (670x320)</span>
+            <div class="w-card size-l">
+                <div class="w-header">
+                    <h2 class="w-title">Reservering Ruimtes</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size L</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size Mobile (375x667)</span>
+            <div class="w-card size-mobile">
+                <button class="btn-base modal-close-btn">&times;</button>
+                <div class="w-header">
+                    <h2 class="w-title">Reservering Ruimtes</h2>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: rgba(255,255,255,0.5); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size Mobile</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">10. Precom Component</h2>
+    <div class="dashboard-grid">
+        <div>
+            <span class="label">Size S (320x320)</span>
+            <div class="w-card size-s">
+                <div class="w-header w-header-compact">
+                    <h2 class="w-title">Precom</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-body-compact w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size S</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size L (670x320)</span>
+            <div class="w-card size-l">
+                <div class="w-header">
+                    <h2 class="w-title">Precom</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size L</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size Mobile (375x667)</span>
+            <div class="w-card size-mobile">
+                <button class="btn-base modal-close-btn">&times;</button>
+                <div class="w-header">
+                    <h2 class="w-title">Precom</h2>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: rgba(255,255,255,0.5); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size Mobile</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">11. ICS Agenda Component</h2>
+    <div class="dashboard-grid">
+        <div>
+            <span class="label">Size S (320x320)</span>
+            <div class="w-card size-s">
+                <div class="w-header w-header-compact">
+                    <h2 class="w-title">ICS Agenda</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-body-compact w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size S</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size L (670x320)</span>
+            <div class="w-card size-l">
+                <div class="w-header">
+                    <h2 class="w-title">ICS Agenda</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size L</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size Mobile (375x667)</span>
+            <div class="w-card size-mobile">
+                <button class="btn-base modal-close-btn">&times;</button>
+                <div class="w-header">
+                    <h2 class="w-title">ICS Agenda</h2>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: rgba(255,255,255,0.5); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size Mobile</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">12. GIS Service Component</h2>
+    <div class="dashboard-grid">
+        <div>
+            <span class="label">Size S (320x320)</span>
+            <div class="w-card size-s">
+                <div class="w-header w-header-compact">
+                    <h2 class="w-title">GIS Service</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-body-compact w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size S</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size L (670x320)</span>
+            <div class="w-card size-l">
+                <div class="w-header">
+                    <h2 class="w-title">GIS Service</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size L</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size Mobile (375x667)</span>
+            <div class="w-card size-mobile">
+                <button class="btn-base modal-close-btn">&times;</button>
+                <div class="w-header">
+                    <h2 class="w-title">GIS Service</h2>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: rgba(255,255,255,0.5); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size Mobile</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">13. Roosterweb Component</h2>
+    <div class="dashboard-grid">
+        <div>
+            <span class="label">Size S (320x320)</span>
+            <div class="w-card size-s">
+                <div class="w-header w-header-compact">
+                    <h2 class="w-title">Roosterweb</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-body-compact w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size S</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size L (670x320)</span>
+            <div class="w-card size-l">
+                <div class="w-header">
+                    <h2 class="w-title">Roosterweb</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size L</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size Mobile (375x667)</span>
+            <div class="w-card size-mobile">
+                <button class="btn-base modal-close-btn">&times;</button>
+                <div class="w-header">
+                    <h2 class="w-title">Roosterweb</h2>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: rgba(255,255,255,0.5); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size Mobile</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">14. Asset Planning Component</h2>
+    <div class="dashboard-grid">
+        <div>
+            <span class="label">Size S (320x320)</span>
+            <div class="w-card size-s">
+                <div class="w-header w-header-compact">
+                    <h2 class="w-title">Asset Planning</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-body-compact w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size S</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size L (670x320)</span>
+            <div class="w-card size-l">
+                <div class="w-header">
+                    <h2 class="w-title">Asset Planning</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size L</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size Mobile (375x667)</span>
+            <div class="w-card size-mobile">
+                <button class="btn-base modal-close-btn">&times;</button>
+                <div class="w-header">
+                    <h2 class="w-title">Asset Planning</h2>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: rgba(255,255,255,0.5); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size Mobile</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">15. Activiteiten / Oefenmomenten Component</h2>
+    <div class="dashboard-grid">
+        <div>
+            <span class="label">Size S (320x320)</span>
+            <div class="w-card size-s">
+                <div class="w-header w-header-compact">
+                    <h2 class="w-title">Activiteiten & Oefenmomenten</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-body-compact w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size S</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size L (670x320)</span>
+            <div class="w-card size-l">
+                <div class="w-header">
+                    <h2 class="w-title">Activiteiten & Oefenmomenten</h2>
+                    <div class="w-controls">
+                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size L</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="label">Size Mobile (375x667)</span>
+            <div class="w-card size-mobile">
+                <button class="btn-base modal-close-btn">&times;</button>
+                <div class="w-header">
+                    <h2 class="w-title">Activiteiten & <p>Oefenmomenten</p></h2>
+                </div>
+                <div class="w-body w-scroll">
+                    <p class="w-text-content" style="color: rgba(255,255,255,0.5); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size Mobile</p>
+                </div>
             </div>
         </div>
     </div>
@@ -1681,7 +2531,7 @@
                         <li><strong>Widget Formaten:</strong> 
                             <br>• Size S: <code>width: 320px; height: 320px;</code>
                             <br>• Size L: <code>width: 670px; height: 320px;</code>
-                            <br>• Size Modal: <code>width: 375px; height: 667px;</code>
+                            <br>• Size Mobile: <code>width: 375px; height: 667px;</code>
                         </li>
                         <li><strong>Widget Opbouw:</strong> Een widget bestaat uit <code>.w-header</code>, evt. <code>.w-tab-container</code>, en <code>.w-body</code>. De body heeft <code>flex: 1; overflow-y: auto;</code> zodat content scrollbaar is maar de header en footer blijven staan.</li>
                     </ul>
@@ -2077,12 +2927,12 @@
                     const displayVal = isChecked ? '' : 'none';
 
                     if (card.classList.contains('size-l')) {
-                        // Size L maps directly to columns by row index
+                        // Size L maps directly to columns
                         let colIndex = -1;
                         if (colType === 'tijd') colIndex = 0;
-                        if (colType === 'kazerne') colIndex = 1;
-                        if (colType === 'omschrijving') colIndex = 2;
-                        if (colType === 'status') colIndex = 3;
+                        if (colType === 'evenement') colIndex = 1;
+                        if (colType === 'locatie') colIndex = 2;
+                        if (colType === 'personen') colIndex = 3;
                         
                         if (colIndex !== -1) {
                             table.querySelectorAll('tr').forEach(row => {
@@ -2093,7 +2943,7 @@
                             });
                         }
                     } else {
-                        // Size S & Size Modal combine contents
+                        // Size S & Size Mobile combine contents in sub-text
                         if (colType === 'tijd') {
                             table.querySelectorAll('tr').forEach(row => {
                                 const th = row.querySelector('th:nth-child(1)');
@@ -2101,18 +2951,46 @@
                                 if (th) th.style.display = displayVal;
                                 if (td) td.style.display = displayVal;
                             });
-                        } else if (colType === 'omschrijving') {
+
+                            // De klasse wordt hier toegevoegd aan de tabel zelf
+                            if (!isChecked) {
+                                table.classList.add('no-time-col');
+                            } else {
+                                table.classList.remove('no-time-col');
+                            }
+                        } else if (colType === 'evenement') {
                             table.querySelectorAll('.truncate-table-text').forEach(el => {
                                 el.style.display = displayVal;
                             });
-                        } else if (colType === 'status') {
-                            table.querySelectorAll('.td-sub').forEach(el => {
+                        } else if (colType === 'locatie') {
+                            table.querySelectorAll('.td-sub-loc').forEach(el => {
+                                el.style.display = displayVal;
+                            });
+                        } else if (colType === 'personen') {
+                            table.querySelectorAll('.td-sub-pers').forEach(el => {
                                 el.style.display = displayVal;
                             });
                         }
                     }
                 });
             });
+        });
+        // --- EVENEMENTEN MODAL POPUP LOGICA ---
+        function openEventModal(title, location, persons, ops, start, end, contact) {
+            document.getElementById('event-detail-title').innerText = title;
+            document.getElementById('event-detail-location').innerText = "Locatie: " + location;
+            document.getElementById('event-detail-persons').innerText = "Aantal personen: " + persons;
+            document.getElementById('event-detail-ops').innerText = "Operationele gegevens: " + ops;
+            document.getElementById('event-detail-start').innerText = "Evenement Start: " + start;
+            document.getElementById('event-detail-end').innerText = "Eind: " + end;
+            document.getElementById('event-detail-contact').innerText = "Contact gegevens: " + contact;
+            document.getElementById('event-detail-modal').classList.add('active');
+        }
+
+        // Trigger voor de sub-modal met downloadbare documenten
+        document.getElementById('download-docs-trigger').addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('event-download-modal').classList.add('active');
         });
     </script>
 </body>
