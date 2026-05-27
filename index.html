@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ODj Widget - UI Kit & Specificaties</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700;800&display=swap" rel="stylesheet">
     <style>
         /* =========================================
            1. BASIS BRANDING & RESET
            ========================================= */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        @font-face { font-family: 'Frutiger'; src: url('Frutiger Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; }
-        @font-face { font-family: 'Frutiger'; src: url('Frutiger Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; }
-        @font-face { font-family: 'Frutiger'; src: url('Frutiger Black.ttf') format('truetype'); font-weight: 900; font-style: normal; }
-
         :root {
             --vrmwb-navy: #122053; 
             --vrmwb-red:  #D2100B; 
@@ -37,7 +35,7 @@
         }
 
         body { 
-            font-family: 'Frutiger', sans-serif; 
+            font-family: 'Open Sans', sans-serif;            
             font-weight: 400; 
             background-color: var(--bg-grad-solid); 
             color: var(--text-main); 
@@ -2512,8 +2510,7 @@
                 <div class="handoff-card">
                     <h3>2. Typografie & Styling</h3>
                     <ul class="handoff-list">
-                        <li><strong>Font Family:</strong> <code>'Frutiger', sans-serif</code>. Altijd forceren via CSS.</li>
-                        <li><strong>Base styling:</strong> Base font-size is <code>14px</code> met een line-height van <code>1.6</code>. Paragrafen in Tekst Widgets gebruiken <code>margin-bottom: 10px</code>.</li>
+                        <li><strong>Font Family:</strong> <code>'Open Sans', sans-serif</code>. Altijd forceren via CSS.</li>                        <li><strong>Base styling:</strong> Base font-size is <code>14px</code> met een line-height van <code>1.6</code>. Paragrafen in Tekst Widgets gebruiken <code>margin-bottom: 10px</code>.</li>
                         <li><strong>Hoofdkoppen (Widget Titels):</strong> Grootte <code>18px</code>, gewicht <code>900</code> (Black), kleur Gold, <code>text-transform: uppercase</code>, en letter-spacing <code>0.5px</code>.</li>
                         <li><strong>Subtekst & Metadata (w-meta-row):</strong> Grootte <code>11px</code>, kleur Muted, <code>font-style: italic</code>. Staan onderaan in widgets, gescheiden door een dashed border <code>1px dashed var(--input-border)</code>.</li>
                         <li><strong>Truncation (Afkorten):</strong> Lange teksten in tabellen en werklijsten worden hard afgebroken met puntjes via de class <code>.truncate-table-text</code>.
