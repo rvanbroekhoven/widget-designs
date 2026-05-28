@@ -474,6 +474,31 @@
         .check-grid-l { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 15px; align-items: center; width: 100%; }
 
         /* =========================================
+            WAARSCHUWINGEN & FASES WIDGET
+            ========================================= */
+        .alert-card { background: rgba(0,0,0,0.03); border: 1px solid var(--input-border); border-radius: 8px; padding: 14px; margin-bottom: 10px; transition: display 0.3s; }
+        [data-theme="dark"] .alert-card { background: rgba(255,255,255,0.03); }
+
+        .alert-header { font-size: 11px; font-weight: 900; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
+
+        .alert-pill { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 900; color: #FFF; text-transform: uppercase; margin-bottom: 6px; }
+        .alert-pill.green { background: #009036; }
+        .alert-pill.orange { background: #E67E22; }
+        .alert-pill.red { background: var(--vrmwb-red); }
+        .alert-pill.grey { background: var(--text-muted); }
+
+        .alert-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+        .alert-text { font-size: 14px; font-weight: 700; color: var(--text-main); line-height: 1.3; }
+        .alert-subtext { font-size: 13px; font-weight: 400; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
+
+        .weather-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--input-border); }
+        .weather-info { display: flex; align-items: center; gap: 8px; font-size: 28px; font-weight: 900; color: var(--text-main); }
+        .weather-info svg { width: 32px; height: 32px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .weather-desc { text-align: right; font-size: 14px; font-weight: 700; color: var(--text-main); }
+        .weather-desc span { display: block; font-size: 12px; color: var(--text-muted); font-weight: 400; margin-top: 2px; }
+    
+        /* =========================================
            7. MODALS (Popups)
            ========================================= */
         .kis-modal-wrapper { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: none; justify-content: center; align-items: center; z-index: 100002; }
@@ -717,6 +742,8 @@
             text-overflow: clip !important;
             line-height: 1.3;
         }
+
+        .hide-element { display: none !important; }
             
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -1980,47 +2007,167 @@
         </div>
     </div>
 
-    <h2 class="section-title">5. Waarschuwingen & operationele fases Component</h2>
+    <h2 class="section-title">5. Waarschuwingen & Fases Component</h2>
     <div class="dashboard-grid">
+        
         <div>
             <span class="label">Size S (320x320)</span>
             <div class="w-card size-s">
-                <div class="w-header w-header-compact">
-                    <h2 class="w-title">Waarschuwingen & Operationale Fases</h2>
+                <div class="w-header w-header-compact" style="padding-bottom: 10px;">
+                    <h2 class="w-title">Waarschuwingen</h2>
                     <div class="w-controls">
-                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <div class="col-select-wrap">
+                            <button class="w-ctrl-btn col-select-trigger" title="Blokken bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                            <div class="col-select-menu">
+                                <label class="col-select-item"><input type="checkbox" checked data-col="mwb"> MWB Natuurbrand</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="zls"> ZLS Natuurbrand</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="knmi"> KNMI Weer</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="waarschuwingen"> Weerwaarschuwingen</label>
+                            </div>
+                        </div>
                         <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
                     </div>
                 </div>
-                <div class="w-body w-body-compact w-scroll">
-                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size S</p>
+                <div class="w-body w-body-compact" style="padding: 10px 15px; display: flex; flex-direction: column; gap: 8px;">
+                    
+                    <div class="alert-card weer-container" style="margin: 0; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px;">
+                        <div class="toggle-knmi" style="display: flex; align-items: center; gap: 12px;">
+                            <svg style="width: 28px; height: 28px; fill: none; stroke: var(--text-main); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;" viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 0 0 2.9-7.9 6 6 0 0 0-10.8-3.1 4 4 0 0 0-6.1 4A4.5 4.5 0 0 0 8 20h9.5Z"></path><path d="M12 12v4"></path><path d="M8 14v2"></path><path d="M16 14v2"></path></svg>
+                            <div style="font-size: 22px; font-weight: 900; color: var(--text-main); line-height: 1;">28°C</div>
+                        </div>
+                        <div class="toggle-waarschuwingen" style="text-align: right;">
+                            <span class="alert-pill red" style="margin: 0;">Code Rood</span>
+                            <div style="font-size: 11px; color: var(--text-muted); font-weight: 700; margin-top: 4px;">Extreem weer</div>
+                        </div>
+                    </div>
+
+                    <div class="alert-card natuurbrand-container" style="margin: 0; flex: 1;">
+                        <div class="alert-header" style="margin-bottom: 12px;">Natuurbrandrisico</div>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div class="toggle-mwb" style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 13px; font-weight: 700;">MWB</span>
+                                <span class="alert-pill red" style="margin: 0;">Hoog</span>
+                            </div>
+                            <div class="toggle-zls" style="border-top: 1px solid var(--input-border); padding-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 13px; font-weight: 700;">ZLS</span>
+                                <span class="alert-pill green" style="margin: 0;">Laag</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
+
         <div>
             <span class="label">Size L (670x320)</span>
             <div class="w-card size-l">
-                <div class="w-header">
-                    <h2 class="w-title">Waarschuwingen & Operationale Fases</h2>
+                <div class="w-header" style="padding-bottom: 10px;">
+                    <h2 class="w-title">Waarschuwingen & Fases</h2>
                     <div class="w-controls">
-                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <div class="col-select-wrap">
+                            <button class="w-ctrl-btn col-select-trigger" title="Blokken bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                            <div class="col-select-menu">
+                                <label class="col-select-item"><input type="checkbox" checked data-col="mwb"> MWB Natuurbrand</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="zls"> ZLS Natuurbrand</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="knmi"> KNMI Weer</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="waarschuwingen"> Weerwaarschuwingen</label>
+                            </div>
+                        </div>
                         <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
                     </div>
                 </div>
-                <div class="w-body w-scroll">
-                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size L</p>
+                <div class="w-body" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 5px 20px 20px 20px; align-items: stretch;">
+                    
+                    <div class="alert-card natuurbrand-container" style="margin: 0; display: flex; flex-direction: column;">
+                        <div class="alert-header" style="margin-bottom: 10px;">Natuurbrandrisico</div>
+                        <div style="display: flex; flex-direction: column; justify-content: space-between; flex: 1;">
+                            <div class="toggle-mwb">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+                                    <span style="font-size: 13px; font-weight: 700;">MWB</span>
+                                    <span class="alert-pill orange" style="margin: 0;">Middel</span>
+                                </div>
+                                <div class="alert-subtext" style="margin-top: 0;">Verhoogde kans op natuurbranden. Materieel stand-by.</div>
+                            </div>
+                            <div class="toggle-zls" style="border-top: 1px solid var(--input-border); padding-top: 12px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+                                    <span style="font-size: 13px; font-weight: 700;">ZLS</span>
+                                    <span class="alert-pill grey" style="margin: 0;">Grijs</span>
+                                </div>
+                                <div class="alert-subtext" style="margin-top: 0;">Buiten het natuurbrandseizoen. Geen verhoogd risico.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert-card weer-container" style="margin: 0; display: flex; flex-direction: column;">
+                        <div class="weather-row toggle-knmi" style="padding-bottom: 10px; margin-bottom: 10px;">
+                            <div>
+                                <div class="alert-header" style="margin-bottom: 4px;">Actueel Weer</div>
+                                <div class="weather-info">
+                                    <svg viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 0 0 2.9-7.9 6 6 0 0 0-10.8-3.1 4 4 0 0 0-6.1 4A4.5 4.5 0 0 0 8 20h9.5Z"></path></svg> 
+                                    14°C
+                                </div>
+                            </div>
+                            <div class="weather-desc">Zware bewolking<span>Windkracht 6 ZW</span></div>
+                        </div>
+                        <div class="toggle-waarschuwingen" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                <div class="alert-header" style="margin: 0;">Waarschuwingen</div>
+                                <span class="alert-pill orange" style="margin: 0;">Code Oranje</span>
+                            </div>
+                            <div class="alert-text">Zware windstoten</div>
+                            <div class="alert-subtext" style="margin-top: 2px;">Kans op zware windstoten (75-90 km/u) in de loop van de middag.</div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
+
         <div>
             <span class="label">Size Mobile (375x667)</span>
-            <div class="w-card size-mobile">
+            <div class="w-card size-mobile" style="position: relative;">
                 <button class="btn-base modal-close-btn">&times;</button>
-                <div class="w-header">
-                    <h2 class="w-title">Waarschuwingen & Operationale Fases</h2>
+                <div class="w-header" style="padding-bottom: 15px;">
+                    <h2 class="w-title">Waarschuwingen</h2>
+                    <div class="w-controls" style="position: absolute; top: 20px; right: 60px;">
+                        <div class="col-select-wrap">
+                            <button class="w-ctrl-btn col-select-trigger" title="Blokken bewerken" style="color: rgba(255,255,255,0.6);"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                            <div class="col-select-menu">
+                                <label class="col-select-item"><input type="checkbox" checked data-col="mwb"> MWB Natuurbrand</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="zls"> ZLS Natuurbrand</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="waarschuwingen"> Weerwaarschuwingen</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="w-body w-scroll">
-                    <p class="w-text-content" style="color: rgba(255,255,255,0.5); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size Mobile</p>
+                <div class="w-body w-scroll" style="padding: 10px 20px; display: flex; flex-direction: column; gap: 15px;">
+                    
+                    <div class="alert-card weer-container" style="border-color: rgba(255,255,255,0.2); margin: 0;">
+                        <div class="toggle-waarschuwingen">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <div class="alert-header" style="margin: 0; color: rgba(255,255,255,0.5);">Weerwaarschuwingen</div>
+                                <span class="alert-pill green" style="margin: 0;">Code Groen</span>
+                            </div>
+                            <div class="alert-text" style="color: #FFF;">Geen waarschuwingen</div>
+                            <div class="alert-subtext" style="color: rgba(255,255,255,0.6);">Er is momenteel geen extreem weer of overlast voorspeld.</div>
+                        </div>
+                    </div>
+
+                    <div class="alert-card natuurbrand-container" style="border-color: rgba(255,255,255,0.2); margin: 0;">
+                        <div class="alert-header" style="color: rgba(255,255,255,0.5); margin-bottom: 12px;">Natuurbrandrisico</div>
+                        <div style="display: flex; flex-direction: column; gap: 14px;">
+                            <div class="toggle-mwb" style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 13px; font-weight: 700; color: #FFF;">MWB</span>
+                                <span class="alert-pill green" style="margin: 0;">Fase 1 (Laag)</span>
+                            </div>
+                            <div class="toggle-zls" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 13px; font-weight: 700; color: #FFF;">ZLS</span>
+                                <span class="alert-pill green" style="margin: 0;">Fase 1 (Laag)</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -2917,11 +3064,56 @@
                     const colType = checkbox.getAttribute('data-col');
                     const isChecked = checkbox.checked;
                     const card = checkbox.closest('.w-card');
-                    const table = card.querySelector('.data-table');
-                    
-                    if (!table) return;
-
                     const displayVal = isChecked ? '' : 'none';
+
+// 1. EERST: Specifieke logica voor de Waarschuwingen & Fases Widget (Heeft geen tabel)
+if (['mwb', 'zls', 'knmi', 'waarschuwingen'].includes(colType)) {
+                        card.querySelectorAll('.toggle-' + colType).forEach(el => {
+                            if (isChecked) el.classList.remove('hide-element');
+                            else el.classList.add('hide-element');
+                        });
+                        
+                        // Fix borders dynamisch: verwijder border-top van ZLS als MWB verborgen is
+                        const mwb = card.querySelector('.toggle-mwb');
+                        const zls = card.querySelector('.toggle-zls');
+                        if (mwb && zls) {
+                            if (mwb.classList.contains('hide-element')) {
+                                zls.style.borderTop = 'none'; zls.style.paddingTop = '0';
+                            } else {
+                                zls.style.borderTop = card.classList.contains('size-mobile') ? '1px solid rgba(255,255,255,0.1)' : '1px solid var(--input-border)';
+                                zls.style.paddingTop = card.classList.contains('size-mobile') ? '14px' : (card.classList.contains('size-l') ? '12px' : '10px');
+                            }
+                        }
+
+                        // Verberg het hele "Natuurbrand" kader als beide uit staan
+                        card.querySelectorAll('.natuurbrand-container').forEach(container => {
+                            const hasVisible = Array.from(container.querySelectorAll('.toggle-mwb, .toggle-zls')).some(el => !el.classList.contains('hide-element'));
+                            if (hasVisible) container.classList.remove('hide-element');
+                            else container.classList.add('hide-element');
+                        });
+
+                        // Verberg het hele "Weer" kader als beide uit staan
+                        card.querySelectorAll('.weer-container').forEach(container => {
+                            const hasVisible = Array.from(container.querySelectorAll('.toggle-knmi, .toggle-waarschuwingen')).some(el => !el.classList.contains('hide-element'));
+                            if (hasVisible) container.classList.remove('hide-element');
+                            else container.classList.add('hide-element');
+                            
+                            const knmi = container.querySelector('.toggle-knmi');
+                            const alerts = container.querySelector('.toggle-waarschuwingen');
+                            if (knmi && alerts && card.classList.contains('size-l')) {
+                                if (!alerts.classList.contains('hide-element') && !knmi.classList.contains('hide-element')) {
+                                   knmi.style.borderBottom = '1px solid var(--input-border)'; knmi.style.paddingBottom = '10px'; knmi.style.marginBottom = '10px';
+                                } else {
+                                   knmi.style.borderBottom = 'none'; knmi.style.paddingBottom = '0'; knmi.style.marginBottom = '0';
+                                }
+                            }
+                        });
+                        return; // Stop het script hier, ga niet verder naar de tabel-logica
+                    }
+
+                    // 2. DAARNA: Tabel logica (Stopt als er geen tabel in de widget zit)
+                    const table = card.querySelector('.data-table');
+                    if (!table) return;
 
                     if (card.classList.contains('size-l')) {
                         // Size L maps directly to columns
@@ -2949,24 +3141,14 @@
                                 if (td) td.style.display = displayVal;
                             });
 
-                            // De klasse wordt hier toegevoegd aan de tabel zelf
-                            if (!isChecked) {
-                                table.classList.add('no-time-col');
-                            } else {
-                                table.classList.remove('no-time-col');
-                            }
+                            if (!isChecked) table.classList.add('no-time-col');
+                            else table.classList.remove('no-time-col');
                         } else if (colType === 'evenement') {
-                            table.querySelectorAll('.truncate-table-text').forEach(el => {
-                                el.style.display = displayVal;
-                            });
+                            table.querySelectorAll('.truncate-table-text').forEach(el => el.style.display = displayVal);
                         } else if (colType === 'locatie') {
-                            table.querySelectorAll('.td-sub-loc').forEach(el => {
-                                el.style.display = displayVal;
-                            });
+                            table.querySelectorAll('.td-sub-loc').forEach(el => el.style.display = displayVal);
                         } else if (colType === 'personen') {
-                            table.querySelectorAll('.td-sub-pers').forEach(el => {
-                                el.style.display = displayVal;
-                            });
+                            table.querySelectorAll('.td-sub-pers').forEach(el => el.style.display = displayVal);
                         }
                     }
                 });
