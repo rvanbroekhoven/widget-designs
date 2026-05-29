@@ -13,26 +13,70 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         :root {
-            --vrmwb-navy: #122053; 
-            --vrmwb-red:  #D2100B; 
-            --vrmwb-gold: #CC9933;
+            /* 1. Nieuw Palet */
+            --navy: #122053; --red: #D2100B; --gold: #CC9933;
+            --bg-color: #0A0C10; --surface: #FFFFFF; --surface-alt: #F4F5F8;
+            --text-main-color: #1E1E1E; --text-sub: #707172; --text-muted-color: #9DA3B0;
+            --black-90: rgba(0,0,0,0.90); --black-70: rgba(0,0,0,0.70); --black-40: rgba(0,0,0,0.40); --black-15: rgba(0,0,0,0.15); --black-08: rgba(0,0,0,0.08); --black-04: rgba(0,0,0,0.04);
+            --white-90: rgba(255,255,255,0.90); --white-70: rgba(255,255,255,0.70); --white-15: rgba(255,255,255,0.15); --white-08: rgba(255,255,255,0.08); --white-04: rgba(255,255,255,0.04);
 
-            --text-main: #1E1E1E; 
-            --text-muted: #707172; 
-            --bg-grad-solid: #E8EAED;
+            /* 2. Koppeling aan UI Kit */
+            --vrmwb-navy: var(--navy); 
+            --vrmwb-red:  var(--red); 
+            --vrmwb-gold: var(--gold);
 
-            --widget-bg: #FFFFFF;
-            --card-border: rgba(0, 0, 0, 0.08);
-            --input-bg: rgba(0,0,0,.04); 
-            --input-border: #E5E5E5;
+            --text-main: var(--text-main-color); 
+            --text-muted: var(--text-sub); 
+            --bg-grad-solid: var(--surface-alt);
+
+            --widget-bg: var(--surface);
+            --card-border: var(--black-08);
+            --input-bg: var(--black-04); 
+            --input-border: var(--black-08);
 
             --radius-outer: 20px; 
             --radius-inner: 12px;
             
-            --shadow-subtle: 0 4px 10px rgba(0,0,0,0.04);
-            --shadow-hover: 0 8px 20px rgba(0,0,0,0.1);
-            --shadow-widget: 0 8px 30px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-subtle: 0 4px 10px var(--black-04);
+            --shadow-hover: 0 8px 20px var(--black-08);
+            --shadow-widget: 0 8px 30px var(--black-08), 0 2px 8px var(--black-04);
         }
+
+        /* DARK MODE VARIABELEN (PALET COMPLIANT) */
+        [data-theme="dark"] {
+            --surface: #16181F; 
+            --surface-alt: #1E2030; 
+            --text-main-color: #E8EAED; 
+            --text-sub: #8A909E; 
+            --text-muted-color: #4E5566; 
+
+            --text-main: var(--text-main-color); 
+            --text-muted: var(--text-sub); 
+            --bg-grad-solid: var(--surface-alt);
+            --widget-bg: var(--surface);
+            
+            --card-border: var(--white-04); 
+            --input-bg: var(--white-04); 
+            --input-border: var(--white-08); 
+            
+            --shadow-subtle: 0 4px 10px var(--black-40); 
+            --shadow-hover: 0 8px 20px var(--black-70); 
+            --shadow-widget: 0 8px 30px var(--black-90), 0 2px 8px var(--black-40);
+        }
+
+        /* Zorgt dat de achtergrond netjes meeschaalt met de dark mode toggle */
+        body {
+            background-color: var(--bg-grad-solid);
+            color: var(--text-main);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .bg-selector-wrap { position: relative; display: inline-block; }
+        .bg-selector-menu { position: absolute; top: calc(100% + 8px); left: 0; background: var(--surface); border: 1px solid var(--card-border); border-radius: 8px; box-shadow: var(--shadow-hover); padding: 8px; display: none; gap: 8px; z-index: 1000; flex-wrap: wrap; width: 230px; }
+        .bg-selector-wrap.open .bg-selector-menu { display: flex; }
+        .bg-thumb { width: 45px; height: 45px; border-radius: 6px; cursor: pointer; border: 2px solid transparent; background-size: cover; background-position: center; }
+        .bg-thumb.active { border-color: var(--vrmwb-gold); }
+        .bg-thumb.solid { background: var(--surface-alt); }
 
         body { 
             font-family: 'Open Sans', sans-serif;            
@@ -211,7 +255,7 @@
         }
 
         .ui-class-container { 
-            background: #FFFFFF; 
+            background: var(--surface); 
             border-radius: var(--radius-outer); 
             box-shadow: var(--shadow-subtle); 
             border: 1px solid var(--card-border); 
@@ -286,6 +330,10 @@
         .size-mobile .w-photo-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 35px;}
         .w-photo-thumb { width: 100%; aspect-ratio: 16/9; background: #e0e0e0; border-radius: 8px; border: 1px solid var(--input-border); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--text-muted); font-weight: 900; cursor: pointer; background-size: cover; background-position: center; transition: transform 0.2s; text-transform: uppercase; }
         .w-photo-thumb:hover { transform: translateY(-2px); border-color: var(--vrmwb-gold); color: var(--vrmwb-navy); }
+        [data-theme="dark"] .w-photo-thumb:hover,
+        [data-theme="dark"] .modal-download-link { 
+            color: var(--vrmwb-red) !important; 
+        }
         .size-mobile .w-photo-thumb { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.8); }
 
         /* Meta-data Footer Spacing Fix (Nu met meer ademruimte onderaan) */
@@ -531,15 +579,16 @@
         /* =========================================
             CUSTOM DATEPICKER (FLATPICKR)
             ========================================= */
-           .flatpickr-calendar { 
+        .flatpickr-calendar { 
             font-family: 'Frutiger', sans-serif !important; 
             border-radius: 14px !important; 
-            box-shadow: 0 10px 40px rgba(0,0,0,.2) !important; 
-            border: none !important; 
+            box-shadow: var(--shadow-widget) !important; 
+            border: 1px solid var(--card-border) !important; 
             padding: 0 !important; 
-            width: 320px !important; /* Fractie breder gemaakt voor de padding */
+            width: 320px !important; 
             box-sizing: border-box !important;
             overflow: hidden; 
+            background: var(--surface) !important; 
         }
         
         .custom-header-bg { 
@@ -626,8 +675,24 @@
         .flatpickr-day.prevMonthDay { visibility: hidden !important; pointer-events: none !important; }
         .flatpickr-day.nextMonthDay { display: none !important; pointer-events: none !important; }
 
-        .flatpickr-today-btn { background: #F0F2F5; color: var(--vrmwb-navy); font-weight: 900; text-align: center; padding: 12px; cursor: pointer; text-transform: uppercase; font-size: 12px; transition: background 0.2s; border: none; width: 100%; border-top: 1px solid var(--input-border); }
-        .flatpickr-today-btn:hover { background: #E2E5E9; color: var(--vrmwb-gold); }
+        .flatpickr-today-btn { 
+            background: var(--surface-alt) !important; 
+            color: var(--vrmwb-navy) !important; 
+            font-weight: 900; 
+            text-align: center; 
+            padding: 12px; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            font-size: 12px; 
+            transition: background 0.2s; 
+            border: none; 
+            width: 100%; 
+            border-top: 1px solid var(--card-border) !important; 
+        }
+        
+        .flatpickr-today-btn:hover { 
+            background: var(--black-04) !important; 
+        }
         .flatpickr-months { display: none !important; }
 
         /* =========================================
@@ -744,7 +809,132 @@
         }
 
         .hide-element { display: none !important; }
-            
+
+        /* =========================================
+           PROFIEL MENU TABS & EXTRA ACTIES
+           ========================================= */
+           .pp-tabs { display: flex; gap: 15px; border-bottom: 2px solid var(--input-border); margin-bottom: 20px; padding: 0 5px; }
+        .pp-tab { font-size: 11px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); cursor: pointer; padding-bottom: 8px; position: relative; transition: color 0.2s; letter-spacing: 0.5px; }
+        .pp-tab:hover { color: var(--text-main); }
+        .pp-tab.active { color: var(--vrmwb-navy); }
+        [data-theme="dark"] .pp-tab.active { color: var(--text-main); }
+        .pp-tab.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: var(--vrmwb-navy); }
+        [data-theme="dark"] .pp-tab.active::after { background: var(--vrmwb-gold); }
+        
+        .pp-tab-content { display: none; flex-direction: column; }
+        .pp-tab-content.active { display: flex; }
+        
+        .pp-select { width: 100%; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--input-border); background: var(--input-bg); color: var(--text-main); font-size: 13px; font-family: inherit; font-weight: 600; cursor: pointer; }
+        
+        .pp-action-btn { width: 100%; padding: 10px; border-radius: 8px; font-size: 12px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: all 0.2s; border: 1px solid transparent; }
+        .pp-action-btn.secondary { background: var(--input-bg); color: var(--text-main); border-color: var(--input-border); }
+        .pp-action-btn.secondary:hover { background: var(--card-border); }
+        .pp-action-btn.destructive { background: transparent; color: var(--vrmwb-red); border-color: var(--vrmwb-red); }
+        .pp-action-btn.destructive:hover { background: var(--vrmwb-red); color: #FFF; }
+
+        /* Mobile App Icoon (Widget Trigger) */
+        .app-icon-btn {
+            width: 56px; 
+            height: 56px; 
+            border-radius: 14px; 
+            background: var(--vrmwb-navy); 
+            color: #FFFFFF; 
+            border: 1px solid rgba(255,255,255,0.1); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            cursor: pointer; 
+            transition: all 0.2s;
+            box-shadow: 0 6px 15px rgba(18,32,83,0.3);
+        }
+        .app-icon-btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 20px rgba(18,32,83,0.5); 
+            color: var(--vrmwb-gold);
+        }
+        .app-icon-btn svg { 
+            width: 24px; 
+            height: 24px; 
+            stroke: currentColor; 
+            fill: none; 
+            stroke-width: 2; 
+            stroke-linecap: round; 
+            stroke-linejoin: round; 
+        }
+
+        /* =========================================
+            HARDE KLEUREN OVERSCHRIJVINGEN (PALET COMPLIANCE)
+            ========================================= */
+        .tb-btn.white { background: var(--surface) !important; color: var(--text-main-color) !important; border-color: var(--black-15) !important; }
+        .tb-btn.white:hover { background: var(--white-90) !important; }
+        .loc-btn { background: var(--black-04) !important; }
+        .loc-btn:hover { background: var(--black-08) !important; }
+        .loc-menu { background: var(--surface) !important; box-shadow: 0 8px 32px var(--black-15), 0 1px 4px var(--black-08) !important; border-color: var(--black-08) !important; }
+        .loc-item:hover { background: var(--black-04) !important; }
+        .loc-item.active { background: var(--black-08) !important; }
+        .loc-nested-wrap { border-color: var(--black-08) !important; }
+        .loc-nested-menu { background: var(--black-04) !important; }
+        .size-mobile { background: var(--navy) !important; border-color: var(--white-08) !important; }
+        .size-mobile .w-tab { background: var(--black-40) !important; color: var(--white-70) !important; }
+        .size-mobile .w-tab:hover { background: var(--white-04) !important; }
+        .w-photo-thumb { background: var(--black-04) !important; }
+        .data-table tbody tr:nth-child(even) td { background-color: var(--black-04) !important; }
+        .size-mobile .data-table tbody tr:nth-child(even) td { background-color: var(--white-04) !important; }
+        .data-table-clickable tbody tr:hover { background-color: var(--black-08) !important; }
+        .size-mobile .data-table-clickable tbody tr:hover { background-color: var(--white-08) !important; }
+        .editor-check-toggle:hover { background: var(--black-04) !important; }
+        .size-mobile .editor-check-toggle:hover { background: var(--white-04) !important; }
+        .alert-card { background: var(--black-04) !important; }
+        [data-theme="dark"] .alert-card { background: var(--white-04) !important; }
+        .flatpickr-day.today { background: var(--black-04) !important; }
+        .flatpickr-day:hover { background: var(--black-08) !important; }
+        .flatpickr-today-btn { background: var(--surface-alt) !important; border-color: var(--black-08) !important; }
+        .flatpickr-today-btn:hover { background: var(--black-04) !important; }
+        .topbar { background: var(--white-90) !important; border-color: var(--black-08) !important; box-shadow: 0 3px 14px var(--black-08) !important; }
+        .btmbar { background: var(--white-90) !important; border-color: var(--black-08) !important; box-shadow: 0 -3px 14px var(--black-08) !important; }
+        [data-theme="dark"] .topbar, [data-theme="dark"] .btmbar { background: var(--bg-color) !important; border-color: var(--white-08) !important; box-shadow: 0 3px 14px var(--black-40) !important; }
+        .tb-divider { background: var(--black-15) !important; }
+        [data-theme="dark"] .tb-divider { background: var(--white-15) !important; }
+        .kis-glass-row, .kis-rooster-card { background: var(--white-15) !important; border-color: var(--white-15) !important; box-shadow: 0 10px 30px var(--black-40) !important; }
+        .bg-layer::after { background: linear-gradient(to bottom, var(--white-90) 20%, transparent 65%) !important; }
+        [data-theme="dark"] .bg-layer::after { background: linear-gradient(to bottom, var(--black-70) 20%, transparent 65%) !important; }
+
+        /* Wijzig donkerblauwe tekst naar rood in darkmode (UITGEZONDERD Size Mobile) */
+        [data-theme="dark"] .w-card:not(.size-mobile) .w-table-info-text,
+        [data-theme="dark"] .w-card:not(.size-mobile) .w-footer-link,
+        [data-theme="dark"] .w-card:not(.size-mobile) .td-highlight,
+        [data-theme="dark"] .flatpickr-today-btn {
+            color: var(--vrmwb-red) !important;
+        }
+
+        /* Zorg dat alert-cards in Size Mobile altijd licht transparant zijn, ongeacht het thema */
+        .size-mobile .alert-card {
+            background: var(--white-04) !important;
+        }
+
+        /* Locatie Dropdown Dark Mode highlights */
+        [data-theme="dark"] .loc-ico { fill: var(--vrmwb-gold) !important; }
+        [data-theme="dark"] .loc-item.active { color: var(--vrmwb-gold) !important; }
+
+        /* =========================================
+           DARK MODE FIXES VOOR MODALS (POP-UPS)
+           ========================================= */
+           [data-theme="dark"] .kis-modal-content {
+            background: var(--surface) !important;
+            color: var(--text-main) !important;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow-widget);
+        }
+
+        [data-theme="dark"] .kis-modal-wrapper {
+            background: var(--black-70); /* Maakt gebruik van de palet overlay */
+        }
+
+        /* Overschrijft de inline donkerblauwe titel voor leesbaarheid */
+        [data-theme="dark"] #event-detail-title {
+            color: var(--text-main) !important;
+        }
+
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -813,16 +1003,12 @@
             </div>
     
             <div class="btn-col">
-                <span class="btn-desc">Toggles & Status (Klikbaar)</span>
-                <div class="pp-toggle-row" style="margin-top: 0;">
-                    <span class="pp-toggle-lbl">Dark mode</span>
-                    <button class="pp-toggle" role="switch" aria-checked="false" onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true');">
+                <span class="btn-desc">Toggles & Checkbox (klikbaar)</span>
+                <div style="display: flex; gap: 15px; align-items: center; margin-top: 5px;">
+                    <button class="pp-toggle" role="switch" aria-checked="true" onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true');">
                         <span class="pp-toggle-thumb"></span>
                     </button>
-                </div>
-                <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
-                    <span class="pp-toggle-lbl">Taak Afronden</span>
-                    <div class="demo-checkbox" onclick="this.classList.toggle('checked'); this.innerHTML = this.classList.contains('checked') ? '✓' : '';"></div>
+                    <div class="demo-checkbox checked" onclick="this.classList.toggle('checked'); this.innerHTML = this.classList.contains('checked') ? '✓' : '';">✓</div>
                 </div>
             </div>
     
@@ -852,9 +1038,107 @@
                     <button class="bb-nav-arrow next-day">&#8250;</button>
                 </div>
             </div>
-    
 
-    
+            <div class="btn-col">
+                <span class="btn-desc">Size Mobile Widget Icon</span>
+                <button class="app-icon-btn" title="Open Widget">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                        <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                        <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                        <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                    </svg>
+                </button>
+            </div>
+
+<div class="btn-col" id="ui-profile-wrapper" style="position: relative; width: 100%; max-width: 320px; z-index: 1001;">
+                <span class="btn-desc">Profiel Menu Trigger (Klikbaar)</span>
+                
+                <button class="bb-profile" id="ui-profile-trigger" style="width: 100%; display: flex; align-items: center; justify-content: flex-start; padding: 8px 0; border: none; background: transparent; box-shadow: none;">
+                    <div class="bb-avatar" id="ui-avatar-trigger" style="background: var(--vrmwb-navy); color: #FFF; width: 38px; height: 38px; font-size: 14px; font-weight: 800; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">RV</div>
+                    <div class="bb-pinfo" style="margin-left: 10px; text-align: left;">
+                        <div class="bb-pname" id="ui-pname-trigger" style="color: var(--text-main); font-size: 13px; font-weight: 900;">Robbe van Broekhoven</div>
+                        <div class="bb-prole" id="ui-prole-trigger" style="color: var(--text-muted); font-size: 11px; font-weight: 400;">Beheerder</div>
+                    </div>
+                </button>
+
+                <div class="profile-panel" id="ui-profile-panel" style="position: absolute; top: calc(100% + 5px); bottom: auto; left: 0; width: 320px; box-shadow: var(--shadow-widget); display: none; background: var(--surface); border: 1px solid var(--card-border); border-radius: 14px; padding: 20px;">
+                    
+                    <div class="pp-tabs">
+                        <div class="pp-tab active" data-target="pp-overzicht">Overzicht</div>
+                        <div class="pp-tab" data-target="pp-instellingen">Instellingen</div>
+                    </div>
+
+                    <div id="pp-overzicht" class="pp-tab-content active">
+                        <div class="pp-avatar" id="ui-panel-avatar" style="background: var(--vrmwb-navy); color: #FFF; margin: 0 auto 12px; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 20px; font-weight: 900;">RV</div>
+                        
+                        <div style="text-align: center; margin-bottom: 20px; background: var(--input-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--input-border);">
+                            <span style="font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px;">Account-type</span>
+                            <span style="font-size: 13px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 10px;">Persoonsgebonden</span>
+                            
+                            <span style="font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px;">Gebruikersrol</span>
+                            <span style="font-size: 13px; font-weight: 700; color: var(--text-main); display: block;">Beheerder</span>
+                        </div>
+                        
+                        <label class="pp-lbl" style="font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px;">Voornaam</label>
+                        <input type="text" class="pp-inp" id="ui-inp-voornaam" placeholder="Voornaam" style="width: 100%; margin-bottom: 10px; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--input-border); background: var(--input-bg); color: var(--text-main); font-size: 13px;">
+                        
+                        <label class="pp-lbl" style="font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px;">Achternaam</label>
+                        <input type="text" class="pp-inp" id="ui-inp-achternaam" placeholder="Achternaam" style="width: 100%; margin-bottom: 10px; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--input-border); background: var(--input-bg); color: var(--text-main); font-size: 13px;">
+                        
+                        <label class="pp-lbl" style="font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px;">Functie</label>
+                        <input type="text" class="pp-inp" id="ui-inp-rol" placeholder="bijv. Ploegcommandant" style="width: 100%; margin-bottom: 16px; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--input-border); background: var(--input-bg); color: var(--text-main); font-size: 13px;">
+                    </div>
+
+                    <div id="pp-instellingen" class="pp-tab-content">
+                        
+                        <div class="pp-toggle-row" style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 13px; font-weight: 700; color: var(--text-main);">Dark mode</span>
+                            <button class="pp-toggle" id="ui-theme-toggle" role="switch" aria-checked="false" style="width: 44px; height: 24px;">
+                                <span class="pp-toggle-thumb" style="width: 18px; height: 18px;"></span>
+                            </button>
+                        </div>
+
+                        <div class="pp-toggle-row" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <span style="font-size: 13px; font-weight: 700; color: var(--text-main); display: block;">Start op vandaag</span>
+                                <span style="font-size: 10px; color: var(--text-muted);">ODj opent standaard op huidige datum</span>
+                            </div>
+                            <button class="pp-toggle" role="switch" aria-checked="true" onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true');" style="width: 44px; height: 24px;">
+                                <span class="pp-toggle-thumb" style="width: 18px; height: 18px;"></span>
+                            </button>
+                        </div>
+
+                        <div style="margin-bottom: 20px;">
+                            <label class="pp-lbl" style="font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 6px;">Presentatieperiode</label>
+                            <select class="pp-select">
+                                <option>Standaard (Automatisch)</option>
+                                <option>Week 1</option>
+                                <option>Week 2</option>
+                                <option>Week 4</option>
+                            </select>
+                            <span style="font-size: 10px; color: var(--text-muted); display: block; margin-top: 4px;">Periode bij openen van de Presentatie</span>
+                        </div>
+
+                        <div style="margin-bottom: 20px;">
+                            <span class="pp-toggle-lbl" style="display: block; font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Achtergrond</span>
+                            <div id="ui-bg-menu" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;">
+                                <div class="bg-thumb solid active" data-bg="none" style="width: 100%; aspect-ratio: 16/9; height: auto; border-radius: 4px; border-color: var(--vrmwb-navy);"></div>
+                                <div class="bg-thumb" data-bg="url('img/intro-1.jpg')" style="width: 100%; aspect-ratio: 16/9; height: auto; border-radius: 4px; background-color: var(--black-15);"></div>
+                                <div class="bg-thumb" data-bg="url('img/intro-2.jpg')" style="width: 100%; aspect-ratio: 16/9; height: auto; border-radius: 4px; background-color: var(--black-15);"></div>
+                                <div class="bg-thumb" data-bg="url('img/intro-3.jpg')" style="width: 100%; aspect-ratio: 16/9; height: auto; border-radius: 4px; background-color: var(--black-15);"></div>
+                            </div>
+                        </div>
+
+                        <div style="border-top: 1px solid var(--input-border); padding-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+                            <button class="pp-action-btn secondary">Applicatie Verversen</button>
+                            <button class="pp-action-btn destructive">Gebruiker Uitloggen</button>
+                        </div>
+                    </div>
+                    
+                    <button class="pp-save" id="ui-profile-save" style="width: 100%; background: var(--vrmwb-navy); color: #FFF; padding: 10px; border-radius: 8px; border: none; font-size: 12px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.2s; margin-top: 15px;">Opslaan</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1687,11 +1971,11 @@
             <div style="display: flex; flex-direction: column; gap: 10px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; background: var(--input-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--input-border);">
                     <span style="font-size: 13px; font-weight: 700; color: var(--text-main);">Veiligheidsplan_Oefening.pdf</span>
-                    <span style="color: var(--vrmwb-navy); font-weight: 900; font-size: 12px; cursor: pointer;">DOWNLOAD</span>
+                    <span class="modal-download-link" style="color: var(--vrmwb-navy); font-weight: 900; font-size: 12px; cursor: pointer;">DOWNLOAD</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; align-items: center; background: var(--input-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--input-border);">
                     <span style="font-size: 13px; font-weight: 700; color: var(--text-main);">Draaiboek_Scenario.pdf</span>
-                    <span style="color: var(--vrmwb-navy); font-weight: 900; font-size: 12px; cursor: pointer;">DOWNLOAD</span>
+                    <span class="modal-download-link" style="color: var(--vrmwb-navy); font-weight: 900; font-size: 12px; cursor: pointer;">DOWNLOAD</span>
                 </div>
             </div>
         </div>
@@ -2645,12 +2929,10 @@
                 <div class="handoff-card">
                     <h3>1. Kleurpalet & Variabelen</h3>
                     <ul class="handoff-list">
-                        <li><span class="color-swatch" style="background: #122053;"></span><strong>Navy (Primary):</strong> <code>var(--vrmwb-navy)</code> / <code>#122053</code>. Gebruikt voor topbars, opslaan-knoppen, kalenderheaders, en hover states van foto-modal controls.</li>
-                        <li><span class="color-swatch" style="background: #D2100B;"></span><strong>Red (Alert):</strong> <code>var(--vrmwb-red)</code> / <code>#D2100B</code>. Gebruikt voor delete-knoppen, sluit-iconen (modals), afgevinkte werklijsten en sticky table headers (via shadow).</li>
-                        <li><span class="color-swatch" style="background: #CC9933;"></span><strong>Gold (Accent):</strong> <code>var(--vrmwb-gold)</code> / <code>#CC9933</code>. Gebruikt voor widgettitels, hover-states op Navy elementen, edit-knoppen en actieve tab-borders.</li>
-                        <li><span class="color-swatch" style="background: #1E1E1E;"></span><strong>Tekst Main:</strong> <code>var(--text-main)</code> / <code>#1E1E1E</code>. Standaard tekstkleur.</li>
-                        <li><span class="color-swatch" style="background: #707172;"></span><strong>Tekst Muted:</strong> <code>var(--text-muted)</code> / <code>#707172</code>. Voor timestamps, secundaire info en placeholders.</li>
-                        <li><span class="color-swatch" style="background: rgba(0,0,0,0.04);"></span><strong>Input / Inner BG:</strong> <code>var(--input-bg)</code> / <code>rgba(0,0,0,0.04)</code> met border <code>var(--input-border)</code> / <code>#E5E5E5</code>.</li>
+                        <li><span class="color-swatch" style="background: #122053;"></span><strong>Brand Colors:</strong> <code>var(--navy)</code> (#122053), <code>var(--red)</code> (#D2100B), <code>var(--gold)</code> (#CC9933). Gekoppeld aan respectievelijk <code>--vrmwb-navy</code>, <code>--vrmwb-red</code>, en <code>--vrmwb-gold</code>.</li>
+                        <li><span class="color-swatch" style="background: #FFFFFF;"></span><strong>Surfaces (Light/Dark adaptief):</strong> <code>var(--surface)</code> (Wit / #16181F) voor harde vlakken, en <code>var(--surface-alt)</code> (#F4F5F8 / #1E2030) voor afwijkende oppervlakken of applicatie-achtergronden.</li>
+                        <li><span class="color-swatch" style="background: #1E1E1E;"></span><strong>Typografie:</strong> <code>var(--text-main-color)</code> (#1E1E1E / #E8EAED) als primary tekst, <code>var(--text-sub)</code> (#707172 / #8A909E) voor secundaire tekst, en <code>var(--text-muted-color)</code> voor tertiaire info.</li>
+                        <li><span class="color-swatch" style="background: rgba(0,0,0,0.08);"></span><strong>Alpha Channels (Zwart/Wit):</strong> Gebruik <em>uitsluitend</em> de vaste alpha-variabelen voor opmaak. Bijv. <code>var(--black-08)</code> voor dividers/borders (vervangt oude harde hex-codes) en <code>var(--black-04)</code> voor zachte invulkleuren zoals <code>--input-bg</code>. Dark mode vangt de contrasten slim op.</li>
                     </ul>
                 </div>
     
@@ -3170,6 +3452,102 @@ if (['mwb', 'zls', 'knmi', 'waarschuwingen'].includes(colType)) {
         document.getElementById('download-docs-trigger').addEventListener('click', (e) => {
             e.stopPropagation();
             document.getElementById('event-download-modal').classList.add('active');
+        });
+
+        // --- INTERACTIEVE UI KIT PROFIEL LOGICA ---
+        const uiTrigger = document.getElementById('ui-profile-trigger');
+        const uiPanel = document.getElementById('ui-profile-panel');
+        const uiWrapper = document.getElementById('ui-profile-wrapper');
+        const uiSaveBtn = document.getElementById('ui-profile-save');
+
+        if (uiTrigger && uiPanel) {
+            // Panel openen en sluiten
+            uiTrigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = uiPanel.style.display === 'block';
+                uiPanel.style.display = isOpen ? 'none' : 'block';
+            });
+
+            // Voorkom dat klikken binnen het panel de dropdown sluit
+            uiPanel.addEventListener('click', (e) => e.stopPropagation());
+
+            // Sluit dropdown als er ergens anders op het scherm wordt geklikt
+            document.addEventListener('click', (e) => {
+                if (uiWrapper && !uiWrapper.contains(e.target)) {
+                    uiPanel.style.display = 'none';
+                }
+            });
+
+            // Live Opslaan & Gegevens Updaten binnen de UI Kit
+            uiSaveBtn.addEventListener('click', () => {
+                const vn = document.getElementById('ui-inp-voornaam').value.trim();
+                const an = document.getElementById('ui-inp-achternaam').value.trim();
+                const rol = document.getElementById('ui-inp-rol').value.trim();
+                
+                // Bereken initialen
+                const i1 = vn ? vn[0].toUpperCase() : '';
+                const i2 = an ? an[0].toUpperCase() : '';
+                const initials = (i1 + i2) || '?';
+
+                // Update de interface elementen direct
+                document.getElementById('ui-avatar-trigger').innerText = initials;
+                document.getElementById('ui-panel-avatar').innerText = initials;
+                document.getElementById('ui-pname-trigger').innerText = `${vn} ${an}`.trim() || 'Naam';
+                document.getElementById('ui-prole-trigger').innerText = rol || 'Geen Rol';
+
+                // Sluit panel met animatie-effect via handmatige trigger
+                uiPanel.style.display = 'none';
+            });
+        }
+
+// --- THEMA & ACHTERGROND LOGICA (GEKOPPELD AAN PROFIEL MENU) ---
+const themeToggle = document.getElementById('ui-theme-toggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', function() {
+                const isDark = this.getAttribute('aria-checked') === 'true';
+                this.setAttribute('aria-checked', !isDark ? 'true' : 'false');
+                document.body.setAttribute('data-theme', !isDark ? 'dark' : 'light');
+            });
+        }
+
+        const bgMenu = document.getElementById('ui-bg-menu');
+        if (bgMenu) {
+            bgMenu.querySelectorAll('.bg-thumb').forEach(thumb => {
+                thumb.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Voorkomt dat het hele profiel menu ongewenst sluit
+                    bgMenu.querySelectorAll('.bg-thumb').forEach(t => t.classList.remove('active'));
+                    thumb.classList.add('active');
+                    
+                    const bg = thumb.getAttribute('data-bg');
+                    if (bg === 'none') {
+                        document.body.style.backgroundImage = 'none';
+                    } else {
+                        document.body.style.backgroundImage = bg;
+                        document.body.style.backgroundSize = 'cover';
+                        document.body.style.backgroundPosition = 'center';
+                        document.body.style.backgroundAttachment = 'fixed';
+                    }
+                });
+            });
+        }
+
+        // --- TAB LOGICA VOOR HET PROFIEL MENU ---
+        document.querySelectorAll('.pp-tab').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
+                // Active state van de tabs updaten
+                const tabsContainer = tab.closest('.pp-tabs');
+                tabsContainer.querySelectorAll('.pp-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Alle content verbergen en de gekozen tab content tonen
+                const panel = tab.closest('.profile-panel');
+                panel.querySelectorAll('.pp-tab-content').forEach(c => c.classList.remove('active'));
+                
+                const targetId = tab.getAttribute('data-target');
+                panel.querySelector('#' + targetId).classList.add('active');
+            });
         });
     </script>
 </body>
