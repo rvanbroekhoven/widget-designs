@@ -935,6 +935,51 @@
             color: var(--text-main) !important;
         }
 
+        /* =========================================
+           STATUS VOERTUIGEN WIDGET
+           ========================================= */
+        .v-status { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 8px; flex-shrink: 0; }
+        .v-status.green { background-color: #009036; box-shadow: 0 0 6px rgba(0,144,54,0.4); }
+        .v-status.red { background-color: var(--vrmwb-red); box-shadow: 0 0 6px rgba(210,16,11,0.4); }
+        .v-status.grey { background-color: var(--text-muted); }
+        
+        .v-name { display: flex; align-items: center; font-weight: 700; color: var(--text-main); font-size: 13px; white-space: nowrap; }
+        .v-type { font-weight: 900; margin-left: 4px; }
+        .v-details { font-size: 11px; color: var(--text-muted); font-weight: 700; letter-spacing: 0.2px; }
+
+        .data-table td.toggle-col-kazerne,
+        .data-table td.toggle-col-status,
+        .data-table td.toggle-col-wijziging,
+        .data-table td.toggle-col-gepland {
+            white-space: nowrap;
+            word-break: normal;
+        }
+        
+        /* Interne Tab Navigatie */
+        .w-tabs-row { display: flex; gap: 4px; padding: 0 15px; background: var(--input-bg); border-bottom: 1px solid var(--input-border); }
+        .w-tab-btn { padding: 10px 12px; font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 0.5px; }
+        .w-tab-btn:hover { color: var(--text-main); }
+        .w-tab-btn.active { color: var(--vrmwb-navy); border-bottom-color: var(--vrmwb-navy); }
+        
+        [data-theme="dark"] .w-tab-btn.active { color: var(--text-main); border-bottom-color: var(--vrmwb-gold); }
+        .size-mobile .w-tabs-row { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
+        .size-mobile .w-tab-btn { color: rgba(255,255,255,0.5); }
+        .size-mobile .w-tab-btn:hover { color: #FFF; }
+        .size-mobile .w-tab-btn.active { color: #FFF; border-bottom-color: var(--vrmwb-gold); }
+
+        /* Aanvulling voor Status Voertuigen: Mobiele sub-data en tabbladen */
+        .v-sub-info { font-size: 11px; color: var(--text-muted); margin-top: 6px; display: flex; flex-direction: column; gap: 3px; }
+        .v-sub-info span strong { color: var(--text-main); font-weight: 800; }
+        .v-tab-content { display: none; }
+        .v-tab-content.active { display: block; }
+        
+        /* Specifieke dark-mode / mobile overrides voor de sub-info */
+        .size-mobile .v-sub-info span strong { color: #FFF; }
+        .size-mobile .v-sub-info { color: rgba(255,255,255,0.6); }
+
+        /* Zorgt ervoor dat uitgevinkte kolommen/data écht verdwijnen */
+        .hide-element { display: none !important; }
+
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -2503,47 +2548,618 @@
         </div>
     </div>
 
-    <h2 class="section-title">7. Voertuigen tabel Component</h2>
+    <h2 class="section-title">7. Status Voertuigen Component</h2>
     <div class="dashboard-grid">
+        
         <div>
             <span class="label">Size S (320x320)</span>
             <div class="w-card size-s">
-                <div class="w-header w-header-compact">
+                <div class="w-header" style="padding-bottom: 20px;">
                     <h2 class="w-title">Voertuigen</h2>
                     <div class="w-controls">
-                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <div class="col-select-wrap">
+                            <button class="w-ctrl-btn col-select-trigger" title="Kolommen bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                            <div class="col-select-menu" style="width: 180px;">
+                                <label class="col-select-item"><input type="checkbox" data-col="col-kazerne"> Kazerne</label>
+                                <label class="col-select-item"><input type="checkbox" data-col="col-status"> Status code</label>
+                                <label class="col-select-item"><input type="checkbox" data-col="col-wijziging"> Wijziging (Tijd)</label>
+                                <label class="col-select-item"><input type="checkbox" data-col="col-details"> Details (W/B)</label>
+                                <label class="col-select-item"><input type="checkbox" data-col="col-gepland"> Gepland BD</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="col-toelichting"> Toelichting</label>
+                            </div>
+                        </div>
                         <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
                     </div>
                 </div>
-                <div class="w-body w-body-compact w-scroll">
-                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size S</p>
+                <div class="w-tabs-row">
+                    <div class="w-tab-btn active" data-target="tab-kazerne">Kazerne</div>
+                    <div class="w-tab-btn" data-target="tab-regio">Regio</div>
+                    <div class="w-tab-btn" data-target="tab-bd">Buiten Dienst</div>
+                </div>
+                <div class="w-body w-scroll" style="padding: 0;">
+                    
+                    <div class="v-tab-content tab-kazerne active">
+                        <table class="data-table">
+                            <thead><tr><th>Voertuig</th><th class="toggle-col-toelichting">Toelichting</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="v-name"><div class="v-status green"></div> 201531 <span class="v-type">(TS)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 28-05-2026</span>
+                                            <span class="toggle-col-details hide-element"><strong>Details:</strong> W: 100% | B: 79.6%</span>
+                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> -</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Geen opmerkingen</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="v-name"><div class="v-status red"></div> 201551 <span class="v-type">(HW)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 27-05-2026</span>
+                                            <span class="toggle-col-details hide-element"><strong>Details:</strong> -</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting"><span class="v-details" style="color: var(--vrmwb-red);">Inzet Prio 1</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="v-name"><div class="v-status grey"></div> 201562 <span class="v-type">(KW)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 17-05-2023</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Kleinschalige watervoorziening (1KM)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="v-tab-content tab-regio">
+                        <table class="data-table">
+                            <thead><tr><th>Voertuig</th><th class="toggle-col-toelichting">Toelichting</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="v-name"><div class="v-status red"></div> 203192 <span class="v-type">(OVD)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> REGIO_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 28-05-2026</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting"><span class="v-details" style="color: var(--vrmwb-red);">Inzet Prio 1</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="v-name"><div class="v-status green"></div> 201091 <span class="v-type">(HOVD)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> REGIO_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 28-05-2026</span>
+                                            <span class="toggle-col-details hide-element"><strong>Details:</strong> B: 90%</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Geen opmerkingen</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="v-name"><div class="v-status green"></div> 201231 <span class="v-type">(TS)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> REGIO_2</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 27-05-2026</span>
+                                            <span class="toggle-col-details hide-element"><strong>Details:</strong> W: 100% | B: 85%</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Geen opmerkingen</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="v-name"><div class="v-status green"></div> 201181 <span class="v-type">(AGS)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> REGIO_3</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 25-05-2026</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Geen opmerkingen</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="v-tab-content tab-bd">
+                        <table class="data-table">
+                            <thead><tr><th>Voertuig</th><th class="toggle-col-toelichting">Toelichting</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="v-name"><div class="v-status grey"></div> 200023 <span class="v-type">(GSH)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 16-12-2021</span>
+                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> 11-07-2026</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Vervanging (GEVAARLIJKE STOFFEN)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="v-name"><div class="v-status grey"></div> 201562 <span class="v-type">(KW)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 17-05-2023</span>
+                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> 17-05-2026</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Onderhoud pomp (1KM slangen)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="v-name"><div class="v-status grey"></div> 203351 <span class="v-type">(HW)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> ROOSD_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 01-05-2026</span>
+                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> Onbekend</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Defect mast</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="v-name"><div class="v-status grey"></div> 201131 <span class="v-type">(TS)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BREDA_2</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 15-05-2026</span>
+                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> 02-06-2026</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">APK Keuring</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div>
             <span class="label">Size L (670x320)</span>
             <div class="w-card size-l">
-                <div class="w-header">
-                    <h2 class="w-title">Voertuigen</h2>
+                <div class="w-header" style="padding-bottom: 15px;">
+                    <h2 class="w-title">Status Voertuigen</h2>
                     <div class="w-controls">
-                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <div class="col-select-wrap">
+                            <button class="w-ctrl-btn col-select-trigger" title="Kolommen bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                            <div class="col-select-menu" style="width: 180px;">
+                                <label class="col-select-item"><input type="checkbox" checked data-col="col-kazerne"> Kazerne</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="col-status"> Status code</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="col-wijziging"> Wijziging (Tijd)</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="col-details"> Details (W/B)</label>
+                                <label class="col-select-item"><input type="checkbox" data-col="col-gepland"> Gepland BD</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="col-toelichting"> Toelichting</label>
+                            </div>
+                        </div>
                         <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
                     </div>
                 </div>
-                <div class="w-body w-scroll">
-                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size L</p>
+                <div class="w-tabs-row" style="padding: 0 20px;">
+                    <div class="w-tab-btn active" data-target="tab-kazerne">Kazerne</div>
+                    <div class="w-tab-btn" data-target="tab-regio">Regio</div>
+                    <div class="w-tab-btn" data-target="tab-bd">Buiten Dienst</div>
+                </div>
+                <div class="w-body w-scroll" style="padding: 0;">
+                    
+                    <div class="v-tab-content tab-kazerne active">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 18%;">Voertuig</th>
+                                    <th class="toggle-col-kazerne" style="width: 12%;">Kazerne</th>
+                                    <th class="toggle-col-status" style="width: 10%;">Status</th>
+                                    <th class="toggle-col-wijziging" style="width: 12%;">Wijziging</th>
+                                    <th class="toggle-col-details" style="width: 12%;">Details</th>
+                                    <th class="toggle-col-gepland hide-element" style="width: 12%;">Gepland BD</th>
+                                    <th class="toggle-col-toelichting" style="width: 24%;">Toelichting</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><div class="v-name"><div class="v-status green"></div> 201531 <span class="v-type">(TS)</span></div></td>
+                                    <td class="toggle-col-kazerne">BERGZM_1</td>
+                                    <td class="toggle-col-status">kz (5)</td>
+                                    <td class="toggle-col-wijziging">28-05-2026</td>
+                                    <td class="toggle-col-details"><span class="v-details">W: 100% | B: 79%</span></td>
+                                    <td class="toggle-col-gepland hide-element"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Geen opmerkingen</span></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="v-name"><div class="v-status red"></div> 201551 <span class="v-type">(HW)</span></div></td>
+                                    <td class="toggle-col-kazerne">BERGZM_1</td>
+                                    <td class="toggle-col-status">kz (5)</td>
+                                    <td class="toggle-col-wijziging">27-05-2026</td>
+                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-gepland hide-element"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-toelichting"><span class="v-details" style="color: var(--vrmwb-red);">Inzet Prio 1</span></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="v-name"><div class="v-status green"></div> 201082 <span class="v-type">(PBA)</span></div></td>
+                                    <td class="toggle-col-kazerne">BERGZM_1</td>
+                                    <td class="toggle-col-status">kz (5)</td>
+                                    <td class="toggle-col-wijziging">11-07-2025</td>
+                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-gepland hide-element"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Let op GEEN klasse D poeder</span></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="v-name"><div class="v-status grey"></div> 201562 <span class="v-type">(KW)</span></div></td>
+                                    <td class="toggle-col-kazerne">BERGZM_1</td>
+                                    <td class="toggle-col-status">bd (6)</td>
+                                    <td class="toggle-col-wijziging">17-05-2023</td>
+                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-gepland hide-element"><span class="v-details">17-05-2026</span></td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Kleinschalige watervoorziening (1KM)</span></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="v-name"><div class="v-status grey"></div> 200023 <span class="v-type">(GSH)</span></div></td>
+                                    <td class="toggle-col-kazerne">BERGZM_1</td>
+                                    <td class="toggle-col-status">bd (6)</td>
+                                    <td class="toggle-col-wijziging">16-12-2021</td>
+                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-gepland hide-element"><span class="v-details">11-07-2026</span></td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Vervanging (GEVAARLIJKE STOFFEN BAK)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="v-tab-content tab-regio">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 18%;">Voertuig</th>
+                                    <th class="toggle-col-kazerne" style="width: 12%;">Kazerne</th>
+                                    <th class="toggle-col-status" style="width: 10%;">Status</th>
+                                    <th class="toggle-col-wijziging" style="width: 12%;">Wijziging</th>
+                                    <th class="toggle-col-details" style="width: 12%;">Details</th>
+                                    <th class="toggle-col-gepland hide-element" style="width: 12%;">Gepland BD</th>
+                                    <th class="toggle-col-toelichting" style="width: 24%;">Toelichting</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><div class="v-name"><div class="v-status red"></div> 203192 <span class="v-type">(OVD)</span></div></td>
+                                    <td class="toggle-col-kazerne">REGIO_1</td>
+                                    <td class="toggle-col-status">kz (5)</td>
+                                    <td class="toggle-col-wijziging">28-05-2026</td>
+                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-gepland hide-element"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-toelichting"><span class="v-details" style="color: var(--vrmwb-red);">Inzet Prio 1</span></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="v-name"><div class="v-status green"></div> 201091 <span class="v-type">(HOVD)</span></div></td>
+                                    <td class="toggle-col-kazerne">REGIO_1</td>
+                                    <td class="toggle-col-status">kz (5)</td>
+                                    <td class="toggle-col-wijziging">28-05-2026</td>
+                                    <td class="toggle-col-details"><span class="v-details">B: 90%</span></td>
+                                    <td class="toggle-col-gepland hide-element"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Geen opmerkingen</span></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="v-name"><div class="v-status green"></div> 201231 <span class="v-type">(TS)</span></div></td>
+                                    <td class="toggle-col-kazerne">REGIO_2</td>
+                                    <td class="toggle-col-status">kz (5)</td>
+                                    <td class="toggle-col-wijziging">27-05-2026</td>
+                                    <td class="toggle-col-details"><span class="v-details">W: 100% | B: 85%</span></td>
+                                    <td class="toggle-col-gepland hide-element"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Geen opmerkingen</span></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="v-name"><div class="v-status green"></div> 201181 <span class="v-type">(AGS)</span></div></td>
+                                    <td class="toggle-col-kazerne">REGIO_3</td>
+                                    <td class="toggle-col-status">kz (5)</td>
+                                    <td class="toggle-col-wijziging">25-05-2026</td>
+                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-gepland hide-element"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Geen opmerkingen</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="v-tab-content tab-bd">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 18%;">Voertuig</th>
+                                    <th class="toggle-col-kazerne" style="width: 12%;">Kazerne</th>
+                                    <th class="toggle-col-status" style="width: 10%;">Status</th>
+                                    <th class="toggle-col-wijziging" style="width: 12%;">Wijziging</th>
+                                    <th class="toggle-col-details" style="width: 12%;">Details</th>
+                                    <th class="toggle-col-gepland hide-element" style="width: 12%;">Gepland BD</th>
+                                    <th class="toggle-col-toelichting" style="width: 24%;">Toelichting</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><div class="v-name"><div class="v-status grey"></div> 200023 <span class="v-type">(GSH)</span></div></td>
+                                    <td class="toggle-col-kazerne">BERGZM_1</td>
+                                    <td class="toggle-col-status">bd (6)</td>
+                                    <td class="toggle-col-wijziging">16-12-2021</td>
+                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-gepland hide-element"><span class="v-details">11-07-2026</span></td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Vervanging (GEVAARLIJKE STOFFEN)</span></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="v-name"><div class="v-status grey"></div> 201562 <span class="v-type">(KW)</span></div></td>
+                                    <td class="toggle-col-kazerne">BERGZM_1</td>
+                                    <td class="toggle-col-status">bd (6)</td>
+                                    <td class="toggle-col-wijziging">17-05-2023</td>
+                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-gepland hide-element"><span class="v-details">17-05-2026</span></td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Onderhoud pomp (1KM slangen)</span></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="v-name"><div class="v-status grey"></div> 203351 <span class="v-type">(HW)</span></div></td>
+                                    <td class="toggle-col-kazerne">ROOSD_1</td>
+                                    <td class="toggle-col-status">bd (6)</td>
+                                    <td class="toggle-col-wijziging">01-05-2026</td>
+                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-gepland hide-element"><span class="v-details">Onbekend</span></td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Defect mast</span></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="v-name"><div class="v-status grey"></div> 201131 <span class="v-type">(TS)</span></div></td>
+                                    <td class="toggle-col-kazerne">BREDA_2</td>
+                                    <td class="toggle-col-status">bd (6)</td>
+                                    <td class="toggle-col-wijziging">15-05-2026</td>
+                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-gepland hide-element"><span class="v-details">02-06-2026</span></td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">APK Keuring</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="v-tab-content tab-regio"><div style="padding: 20px; color: var(--text-muted); text-align: center;">Regio voertuigen...</div></div>
+                    <div class="v-tab-content tab-bd"><div style="padding: 20px; color: var(--text-muted); text-align: center;">Buiten dienst voertuigen...</div></div>
                 </div>
             </div>
         </div>
+
         <div>
             <span class="label">Size Mobile (375x667)</span>
-            <div class="w-card size-mobile">
+            <div class="w-card size-mobile" style="position: relative;">
                 <button class="btn-base modal-close-btn">&times;</button>
-                <div class="w-header">
+                <div class="w-header" style="padding-top: 25px; padding-bottom: 25px;">
                     <h2 class="w-title">Voertuigen</h2>
+                    <div class="w-controls" style="position: absolute; top: 25px; right: 60px;">
+                        <div class="col-select-wrap">
+                            <button class="w-ctrl-btn col-select-trigger" title="Kolommen bewerken" style="color: rgba(255,255,255,0.6);"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                            <div class="col-select-menu" style="width: 180px;">
+                                <label class="col-select-item"><input type="checkbox" data-col="col-kazerne"> Kazerne</label>
+                                <label class="col-select-item"><input type="checkbox" data-col="col-status"> Status code</label>
+                                <label class="col-select-item"><input type="checkbox" data-col="col-wijziging"> Wijziging (Tijd)</label>
+                                <label class="col-select-item"><input type="checkbox" data-col="col-details"> Details (W/B)</label>
+                                <label class="col-select-item"><input type="checkbox" data-col="col-gepland"> Gepland BD</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="col-toelichting"> Toelichting</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="w-body w-scroll">
-                    <p class="w-text-content" style="color: rgba(255,255,255,0.5); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size Mobile</p>
+                <div class="w-tabs-row">
+                    <div class="w-tab-btn active" data-target="tab-kazerne">Kazerne</div>
+                    <div class="w-tab-btn" data-target="tab-regio">Regio</div>
+                    <div class="w-tab-btn" data-target="tab-bd">Buiten Dienst</div>
+                </div>
+                <div class="w-body w-scroll" style="padding: 0;">
+                    
+                    <div class="v-tab-content tab-kazerne active">
+                        <table class="data-table">
+                            <thead><tr><th style="background: rgba(255,255,255,0.05); color: #FFF; border-color: rgba(255,255,255,0.1);">Voertuig</th><th class="toggle-col-toelichting" style="background: rgba(255,255,255,0.05); color: #FFF; border-color: rgba(255,255,255,0.1);">Toelichting</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td style="border-color: rgba(255,255,255,0.1);">
+                                        <div class="v-name" style="color: #FFF;"><div class="v-status green"></div> 201531 <span class="v-type" style="color: rgba(255,255,255,0.6);">(TS)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 28-05-2026</span>
+                                            <span class="toggle-col-details hide-element"><strong>Details:</strong> W: 100% | B: 79%</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Geen opmerkingen</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color: rgba(255,255,255,0.1);">
+                                        <div class="v-name" style="color: #FFF;"><div class="v-status red"></div> 201551 <span class="v-type" style="color: rgba(255,255,255,0.6);">(HW)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 27-05-2026</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: var(--vrmwb-red);">Inzet Prio 1</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color: rgba(255,255,255,0.1);">
+                                        <div class="v-name" style="color: #FFF;"><div class="v-status green"></div> 203111 <span class="v-type" style="color: rgba(255,255,255,0.6);">(WO)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 25-05-2026</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Geen opmerkingen</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color: rgba(255,255,255,0.1);">
+                                        <div class="v-name" style="color: #FFF;"><div class="v-status green"></div> 201082 <span class="v-type" style="color: rgba(255,255,255,0.6);">(PBA)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 11-07-2025</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Let op GEEN klasse D poeder</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color: rgba(255,255,255,0.1);">
+                                        <div class="v-name" style="color: #FFF;"><div class="v-status grey"></div> 201562 <span class="v-type" style="color: rgba(255,255,255,0.6);">(KW)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 17-05-2023</span>
+                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> 17-05-2026</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Kleinschalige watervoorziening (1KM)</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color: rgba(255,255,255,0.1);">
+                                        <div class="v-name" style="color: #FFF;"><div class="v-status grey"></div> 200023 <span class="v-type" style="color: rgba(255,255,255,0.6);">(GSH)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 16-12-2021</span>
+                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> 11-07-2026</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Vervanging (GEVAARLIJKE STOFFEN)</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color: rgba(255,255,255,0.1); border-bottom: none;">
+                                        <div class="v-name" style="color: #FFF;"><div class="v-status green"></div> 200065 <span class="v-type" style="color: rgba(255,255,255,0.6);">(VNA)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 29-01-2025</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1); border-bottom: none;"><span class="v-details" style="color: rgba(255,255,255,0.6);">Ventilator</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="v-tab-content tab-regio">
+                        <table class="data-table">
+                            <thead><tr><th style="background: rgba(255,255,255,0.05); color: #FFF; border-color: rgba(255,255,255,0.1);">Voertuig</th><th class="toggle-col-toelichting" style="background: rgba(255,255,255,0.05); color: #FFF; border-color: rgba(255,255,255,0.1);">Toelichting</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td style="border-color: rgba(255,255,255,0.1);">
+                                        <div class="v-name" style="color: #FFF;"><div class="v-status red"></div> 203192 <span class="v-type" style="color: rgba(255,255,255,0.6);">(OVD)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> REGIO_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 28-05-2026</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: var(--vrmwb-red);">Inzet Prio 1</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color: rgba(255,255,255,0.1);">
+                                        <div class="v-name" style="color: #FFF;"><div class="v-status green"></div> 201091 <span class="v-type" style="color: rgba(255,255,255,0.6);">(HOVD)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> REGIO_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 28-05-2026</span>
+                                            <span class="toggle-col-details hide-element"><strong>Details:</strong> B: 90%</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Geen opmerkingen</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color: rgba(255,255,255,0.1);">
+                                        <div class="v-name" style="color: #FFF;"><div class="v-status green"></div> 201231 <span class="v-type" style="color: rgba(255,255,255,0.6);">(TS)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> REGIO_2</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 27-05-2026</span>
+                                            <span class="toggle-col-details hide-element"><strong>Details:</strong> W: 100% | B: 85%</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Geen opmerkingen</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color: rgba(255,255,255,0.1); border-bottom: none;">
+                                        <div class="v-name" style="color: #FFF;"><div class="v-status green"></div> 201181 <span class="v-type" style="color: rgba(255,255,255,0.6);">(AGS)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> REGIO_3</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 25-05-2026</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1); border-bottom: none;"><span class="v-details" style="color: rgba(255,255,255,0.6);">Geen opmerkingen</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="v-tab-content tab-bd">
+                        <table class="data-table">
+                            <thead><tr><th style="background: rgba(255,255,255,0.05); color: #FFF; border-color: rgba(255,255,255,0.1);">Voertuig</th><th class="toggle-col-toelichting" style="background: rgba(255,255,255,0.05); color: #FFF; border-color: rgba(255,255,255,0.1);">Toelichting</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td style="border-color: rgba(255,255,255,0.1);">
+                                        <div class="v-name" style="color: #FFF;"><div class="v-status grey"></div> 200023 <span class="v-type" style="color: rgba(255,255,255,0.6);">(GSH)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 16-12-2021</span>
+                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> 11-07-2026</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Vervanging (GEVAARLIJKE STOFFEN)</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color: rgba(255,255,255,0.1);">
+                                        <div class="v-name" style="color: #FFF;"><div class="v-status grey"></div> 201562 <span class="v-type" style="color: rgba(255,255,255,0.6);">(KW)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 17-05-2023</span>
+                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> 17-05-2026</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Onderhoud pomp (1KM slangen)</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color: rgba(255,255,255,0.1);">
+                                        <div class="v-name" style="color: #FFF;"><div class="v-status grey"></div> 203351 <span class="v-type" style="color: rgba(255,255,255,0.6);">(HW)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> ROOSD_1</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 01-05-2026</span>
+                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> Onbekend</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Defect mast</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color: rgba(255,255,255,0.1); border-bottom: none;">
+                                        <div class="v-name" style="color: #FFF;"><div class="v-status grey"></div> 201131 <span class="v-type" style="color: rgba(255,255,255,0.6);">(TS)</span></div>
+                                        <div class="v-sub-info">
+                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BREDA_2</span>
+                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
+                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 15-05-2026</span>
+                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> 02-06-2026</span>
+                                        </div>
+                                    </td>
+                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1); border-bottom: none;"><span class="v-details" style="color: rgba(255,255,255,0.6);">APK Keuring</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -3348,8 +3964,8 @@
                     const card = checkbox.closest('.w-card');
                     const displayVal = isChecked ? '' : 'none';
 
-// 1. EERST: Specifieke logica voor de Waarschuwingen & Fases Widget (Heeft geen tabel)
-if (['mwb', 'zls', 'knmi', 'waarschuwingen'].includes(colType)) {
+                    // 1. EERST: Specifieke logica voor de Waarschuwingen & Fases Widget (Heeft geen tabel)
+                    if (['mwb', 'zls', 'knmi', 'waarschuwingen'].includes(colType)) {
                         card.querySelectorAll('.toggle-' + colType).forEach(el => {
                             if (isChecked) el.classList.remove('hide-element');
                             else el.classList.add('hide-element');
@@ -3391,6 +4007,15 @@ if (['mwb', 'zls', 'knmi', 'waarschuwingen'].includes(colType)) {
                             }
                         });
                         return; // Stop het script hier, ga niet verder naar de tabel-logica
+                    }
+
+                    // Specifieke logica voor de Status Voertuigen kolommen
+                    if (['col-kazerne', 'col-status', 'col-wijziging', 'col-details', 'col-gepland', 'col-toelichting'].includes(colType)) {
+                        card.querySelectorAll('.toggle-' + colType).forEach(el => {
+                            if (isChecked) el.classList.remove('hide-element');
+                            else el.classList.add('hide-element');
+                        });
+                        return; // Stop het script hier
                     }
 
                     // 2. DAARNA: Tabel logica (Stopt als er geen tabel in de widget zit)
@@ -3547,6 +4172,28 @@ const themeToggle = document.getElementById('ui-theme-toggle');
                 
                 const targetId = tab.getAttribute('data-target');
                 panel.querySelector('#' + targetId).classList.add('active');
+            });
+        });
+
+        // --- WIDGET INTERNE TABS LOGICA (VERBETERD) ---
+        document.querySelectorAll('.w-tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const row = btn.closest('.w-tabs-row');
+                const card = btn.closest('.w-card');
+                const target = btn.getAttribute('data-target');
+                
+                // Update knoppen status
+                row.querySelectorAll('.w-tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Wissel de juiste content div binnen deze widget af
+                if (target && card) {
+                    card.querySelectorAll('.v-tab-content').forEach(c => {
+                        c.classList.remove('active');
+                    });
+                    const targetContent = card.querySelector('.v-tab-content.' + target);
+                    if (targetContent) targetContent.classList.add('active');
+                }
             });
         });
     </script>
