@@ -1494,6 +1494,7 @@
          ======================================================== -->
          <h2 class="section-title">2. Tabel Component</h2>
          <div class="dashboard-grid">
+             
              <div>
                  <span class="label">Size S (320x320)</span>
                  <div class="w-card size-s">
@@ -1503,7 +1504,7 @@
                              <div class="col-select-wrap">
                                  <button class="w-ctrl-btn col-select-trigger" title="Kolommen bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
                                  <div class="col-select-menu">
-                                     <label class="col-select-item"><input type="checkbox" checked data-col="tijd"> Tijd</label>
+                                     <label class="col-select-item"><input type="checkbox" checked data-col="tijd"> Datum/Tijd</label>
                                      <label class="col-select-item"><input type="checkbox" checked data-col="omschrijving"> Omschrijving</label>
                                      <label class="col-select-item"><input type="checkbox" checked data-col="status"> Status</label>
                                  </div>
@@ -1513,20 +1514,41 @@
                      </div>
                      <div class="table-container w-scroll" style="margin-bottom: 0;">
                          <table class="data-table data-table-compact data-table-clickable">
-                             <thead><tr><th>Datum/Tijd</th><th>Melding</th></tr></thead>
+                             <thead>
+                                 <tr>
+                                     <th class="toggle-tijd">Datum/Tijd</th>
+                                     <th>Melding</th>
+                                 </tr>
+                             </thead>
                              <tbody>
-                                 <tr onclick="openTableModal('Deur garage 2 sluit niet meer af na inzet gisteravond, motor ratelt enorm bij het openen.', '10:45', 'Breda', 'Open')"><td class="td-highlight">10:45</td><td><span class="truncate-table-text">Deur garage 2 sluit niet meer af na inzet gisteravond, motor ratelt.</span><span class="td-sub">Status: Open</span></td></tr>
-                                 <tr onclick="openTableModal('Printer kantoor BG vertoont strepen op alle kleurenafdrukken.', 'Gisteren 14:20', 'Breda', 'In Behandeling')"><td class="td-highlight">Gisteren</td><td><span class="truncate-table-text">Printer kantoor BG vertoont strepen op alle kleurenafdrukken.</span><span class="td-sub">Status: In Behandeling</span></td></tr>
-                                 <tr onclick="openTableModal('Zeepdispenser wasruimte heren leeg en mechanisme lekt zeep over de vloertegels.', 'Gisteren 09:15', 'Breda', 'In Behandeling')"><td class="td-highlight">Gisteren</td><td><span class="truncate-table-text">Zeepdispenser wasruimte heren leeg en mechanisme lekt.</span><span class="td-sub">Status: In Behandeling</span></td></tr>
-                                 <tr onclick="openTableModal('Lamp in kleedkamer heren knippert constant and valt soms uit. Armatuur is losgekomen.', '28 Apr 16:30', 'Breda', 'Opgelost')"><td class="td-highlight">28 Apr</td><td><span class="truncate-table-text">Lamp in kleedkamer heren knippert constant en valt soms uit.</span><span class="td-sub">Status: Opgelost</span></td></tr>
-                                 <tr onclick="openTableModal('Lekkage bij wasbak toilet 1e verdieping, sifon lekt water.', '28 Apr 11:05', 'Breda', 'Open')"><td class="td-highlight">28 Apr</td><td><span class="truncate-table-text">Lekkage bij wasbak toilet 1e verdieping, sifon lekt water.</span><span class="td-sub">Status: Open</span></td></tr>
-                                 <tr onclick="openTableModal('Toegangspas lezer buitenpoort defect, poort gaat niet open voor personeelspassen.', '27 Apr 08:45', 'Breda', 'In Behandeling')"><td class="td-highlight">27 Apr</td><td><span class="truncate-table-text">Toegangspas lezer buitenpoort defect, poort gaat niet open.</span><span class="td-sub">Status: In Behandeling</span></td></tr>
-                                 <tr onclick="openTableModal('Raam kantine sluit niet goed in de hoek, waardoor tocht en vocht naar binnen komt.', '26 Apr 15:10', 'Breda', 'Opgelost')"><td class="td-highlight">26 Apr</td><td><span class="truncate-table-text">Raam kantine sluit niet goed in de hoek, waardoor tocht.</span><span class="td-sub">Status: Opgelost</span></td></tr>
-                                 <tr onclick="openTableModal('Afzuiging voertuigenhal maakt luid lawaai bij het opstarten van de ventilatoren.', '25 Apr 13:25', 'Breda', 'In Behandeling')"><td class="td-highlight">25 Apr</td><td><span class="truncate-table-text">Afzuiging voertuigenhal maakt luid lawaai bij opstarten.</span><span class="td-sub">Status: In Behandeling</span></td></tr>
-                                 <tr onclick="openTableModal('Stoel kantoor bevelvoerder kapot. Wieltje is afgebroken en gasveer werkt niet meer.', '24 Apr 09:50', 'Breda', 'Opgelost')"><td class="td-highlight">24 Apr</td><td><span class="truncate-table-text">Stoel kantoor bevelvoerder kapot, wieltje is afgebroken.</span><span class="td-sub">Status: Opgelost</span></td></tr>
-                                 <tr onclick="openTableModal('Internetverbinding meldkamer tijdelijk uitgevallen, router herstart vereist.', '23 Apr 11:15', 'Breda', 'Opgelost')"><td class="td-highlight">23 Apr</td><td><span class="truncate-table-text">Internetverbinding meldkamer tijdelijk uitgevallen, router herstart vereist.</span><span class="td-sub">Status: Opgelost</span></td></tr>
-                                 <tr onclick="openTableModal('Koffiezetapparaat geeft foutcode E04 en verwarmt het water niet meer.', '22 Apr 07:30', 'Breda', 'In Behandeling')"><td class="td-highlight">22 Apr</td><td><span class="truncate-table-text">Koffiezetapparaat geeft foutcode E04 en verwarmt het water niet meer.</span><span class="td-sub">Status: In Behandeling</span></td></tr>
-                                 <tr onclick="openTableModal('Buitenverlichting oprit werkt niet, lampen moeten worden vervangen.', '21 Apr 22:00', 'Breda', 'Open')"><td class="td-highlight">21 Apr</td><td><span class="truncate-table-text">Buitenverlichting oprit werkt niet, lampen moeten worden vervangen.</span><span class="td-sub">Status: Open</span></td></tr>
+                                 <tr onclick="openTableModal('Deur garage 2 sluit niet meer af na inzet gisteravond, motor ratelt enorm bij het openen.', '10:45', 'Breda', 'Open')">
+                                     <td class="td-highlight toggle-tijd">10:45</td>
+                                     <td>
+                                         <span class="truncate-table-text toggle-omschrijving">Deur garage 2 sluit niet meer af na inzet gisteravond, motor ratelt.</span>
+                                         <span class="td-sub toggle-status">Status: Open</span>
+                                     </td>
+                                 </tr>
+                                 <tr onclick="openTableModal('Printer kantoor BG vertoont strepen op alle kleurenafdrukken.', 'Gisteren 14:20', 'Breda', 'In Behandeling')">
+                                     <td class="td-highlight toggle-tijd">Gisteren</td>
+                                     <td>
+                                         <span class="truncate-table-text toggle-omschrijving">Printer kantoor BG vertoont strepen op alle kleurenafdrukken.</span>
+                                         <span class="td-sub toggle-status">Status: In Behandeling</span>
+                                     </td>
+                                 </tr>
+                                 <tr onclick="openTableModal('Zeepdispenser wasruimte heren leeg en mechanisme lekt zeep over de vloertegels.', 'Gisteren 09:15', 'Breda', 'In Behandeling')">
+                                     <td class="td-highlight toggle-tijd">Gisteren</td>
+                                     <td>
+                                         <span class="truncate-table-text toggle-omschrijving">Zeepdispenser wasruimte heren leeg en mechanisme lekt.</span>
+                                         <span class="td-sub toggle-status">Status: In Behandeling</span>
+                                     </td>
+                                 </tr>
+                                 <tr onclick="openTableModal('Lamp in kleedkamer heren knippert constant and valt soms uit.', '28 Apr 16:30', 'Breda', 'Opgelost')">
+                                     <td class="td-highlight toggle-tijd">28 Apr</td>
+                                     <td>
+                                         <span class="truncate-table-text toggle-omschrijving">Lamp in kleedkamer heren knippert constant en valt soms uit.</span>
+                                         <span class="td-sub toggle-status">Status: Opgelost</span>
+                                     </td>
+                                 </tr>
                              </tbody>
                          </table>
                      </div>
@@ -1554,79 +1576,38 @@
                      </div>
                      <div class="table-container w-scroll" style="margin-bottom: 0;">
                          <table class="data-table data-table-clickable">
-                             <thead><tr><th>Datum/Tijd</th><th>Kazerne</th><th>Omschrijving</th><th>Status</th></tr></thead>
+                             <thead>
+                                 <tr>
+                                     <th class="toggle-tijd">Datum/Tijd</th>
+                                     <th class="toggle-kazerne">Kazerne</th>
+                                     <th class="toggle-omschrijving">Omschrijving</th>
+                                     <th class="toggle-status">Status</th>
+                                 </tr>
+                             </thead>
                              <tbody>
                                  <tr onclick="openTableModal('Deur garage 2 sluit niet meer af na inzet gisteravond, motor ratelt enorm bij het openen.', 'Vandaag 10:45', 'Breda', 'Open')">
-                                     <td class="td-highlight">Vandaag<br><span style="color:var(--text-muted); font-weight:400;">10:45</span></td>
-                                     <td>Breda</td>
-                                     <td><span class="truncate-table-text">Deur garage 2 sluit niet meer af na inzet gisteravond, motor ratelt enorm bij het openen.</span></td>
-                                     <td><span>Open</span></td>
+                                     <td class="td-highlight toggle-tijd">Vandaag<br><span style="color:var(--text-muted); font-weight:400;">10:45</span></td>
+                                     <td class="toggle-kazerne">Breda</td>
+                                     <td class="toggle-omschrijving"><span class="truncate-table-text">Deur garage 2 sluit niet meer af na inzet gisteravond, motor ratelt enorm.</span></td>
+                                     <td class="toggle-status"><span>Open</span></td>
                                  </tr>
                                  <tr onclick="openTableModal('Printer kantoor BG vertoont strepen op alle kleurenafdrukken. Zwarte inkt gisteren vervangen zonder resultaat.', 'Gisteren 14:20', 'Breda', 'In Behandeling')">
-                                     <td class="td-highlight">Gisteren<br><span style="color:var(--text-muted); font-weight:400;">14:20</span></td>
-                                     <td>Breda</td>
-                                     <td><span class="truncate-table-text">Printer kantoor BG vertoont strepen op alle kleurenafdrukken. Zwarte inkt gisteren vervangen zonder resultaat.</span></td>
-                                     <td>In Behandeling</td>
+                                     <td class="td-highlight toggle-tijd">Gisteren<br><span style="color:var(--text-muted); font-weight:400;">14:20</span></td>
+                                     <td class="toggle-kazerne">Breda</td>
+                                     <td class="toggle-omschrijving"><span class="truncate-table-text">Printer kantoor BG vertoont strepen op alle kleurenafdrukken.</span></td>
+                                     <td class="toggle-status">In Behandeling</td>
                                  </tr>
                                  <tr onclick="openTableModal('Zeepdispenser wasruimte heren leeg en mechanisme lekt zeep over de vloertegels.', 'Gisteren 09:15', 'Breda', 'In Behandeling')">
-                                     <td class="td-highlight">Gisteren<br><span style="color:var(--text-muted); font-weight:400;">09:15</span></td>
-                                     <td>Breda</td>
-                                     <td><span class="truncate-table-text">Zeepdispenser wasruimte heren leeg en mechanisme lekt zeep over de vloertegels.</span></td>
-                                     <td>In Behandeling</td>
+                                     <td class="td-highlight toggle-tijd">Gisteren<br><span style="color:var(--text-muted); font-weight:400;">09:15</span></td>
+                                     <td class="toggle-kazerne">Breda</td>
+                                     <td class="toggle-omschrijving"><span class="truncate-table-text">Zeepdispenser wasruimte heren leeg en mechanisme lekt zeep over de vloertegels.</span></td>
+                                     <td class="toggle-status">In Behandeling</td>
                                  </tr>
                                  <tr onclick="openTableModal('Lamp in kleedkamer heren knippert constant en valt soms uit. Armatuur is losgekomen.', '28 Apr 16:30', 'Breda', 'Opgelost')">
-                                     <td class="td-highlight">28 Apr<br><span style="color:var(--text-muted); font-weight:400;">16:30</span></td>
-                                     <td>Breda</td>
-                                     <td><span class="truncate-table-text">Lamp in kleedkamer heren knippert constant en valt soms uit. Armatuur is losgekomen.</span></td>
-                                     <td><span>Opgelost</span></td>
-                                 </tr>
-                                 <tr onclick="openTableModal('Lekkage bij wasbak toilet 1e verdieping, sifon lekt water.', '28 Apr 11:05', 'Breda', 'Open')">
-                                     <td class="td-highlight">28 Apr<br><span style="color:var(--text-muted); font-weight:400;">11:05</span></td>
-                                     <td>Breda</td>
-                                     <td><span class="truncate-table-text">Lekkage bij wasbak toilet 1e verdieping, sifon lekt water.</span></td>
-                                     <td><span>Open</span></td>
-                                 </tr>
-                                 <tr onclick="openTableModal('Toegangspas lezer buitenpoort defect, poort gaat niet open voor personeelspassen.', '27 Apr 08:45', 'Breda', 'In Behandeling')">
-                                     <td class="td-highlight">27 Apr<br><span style="color:var(--text-muted); font-weight:400;">08:45</span></td>
-                                     <td>Breda</td>
-                                     <td><span class="truncate-table-text">Toegangspas lezer buitenpoort defect, poort gaat niet open voor personeelspassen.</span></td>
-                                     <td>In Behandeling</td>
-                                 </tr>
-                                 <tr onclick="openTableModal('Raam kantine sluit niet goed in de hoek, waardoor tocht en vocht naar binnen komt.', '26 Apr 15:10', 'Breda', 'Opgelost')">
-                                     <td class="td-highlight">26 Apr<br><span style="color:var(--text-muted); font-weight:400;">15:10</span></td>
-                                     <td>Breda</td>
-                                     <td><span class="truncate-table-text">Raam kantine sluit niet goed in de hoek, waardoor tocht en vocht naar binnen komt.</span></td>
-                                     <td><span>Opgelost</span></td>
-                                 </tr>
-                                 <tr onclick="openTableModal('Afzuiging voertuigenhal maakt luid lawaai bij het opstarten van de ventilatoren.', '25 Apr 13:25', 'Breda', 'In Behandeling')">
-                                     <td class="td-highlight">25 Apr<br><span style="color:var(--text-muted); font-weight:400;">13:25</span></td>
-                                     <td>Breda</td>
-                                     <td><span class="truncate-table-text">Afzuiging voertuigenhal maakt luid lawaai bij het opstarten van de ventilatoren.</span></td>
-                                     <td>In Behandeling</td>
-                                 </tr>
-                                 <tr onclick="openTableModal('Stoel kantoor bevelvoerder kapot. Wieltje is afgebroken en gasveer werkt niet meer.', '24 Apr 09:50', 'Breda', 'Opgelost')">
-                                     <td class="td-highlight">24 Apr<br><span style="color:var(--text-muted); font-weight:400;">09:50</span></td>
-                                     <td>Breda</td>
-                                     <td><span class="truncate-table-text">Stoel kantoor bevelvoerder kapot. Wieltje is afgebroken en gasveer werkt niet meer.</span></td>
-                                     <td><span>Opgelost</span></td>
-                                 </tr>
-                                 <tr onclick="openTableModal('Internetverbinding meldkamer tijdelijk uitgevallen, router herstart vereist.', '23 Apr 11:15', 'Breda', 'Opgelost')">
-                                     <td class="td-highlight">23 Apr<br><span style="color:var(--text-muted); font-weight:400;">11:15</span></td>
-                                     <td>Breda</td>
-                                     <td><span class="truncate-table-text">Internetverbinding meldkamer tijdelijk uitgevallen, router herstart vereist.</span></td>
-                                     <td><span>Opgelost</span></td>
-                                 </tr>
-                                 <tr onclick="openTableModal('Koffiezetapparaat geeft foutcode E04 en verwarmt het water niet meer.', '22 Apr 07:30', 'Breda', 'In Behandeling')">
-                                     <td class="td-highlight">22 Apr<br><span style="color:var(--text-muted); font-weight:400;">07:30</span></td>
-                                     <td>Breda</td>
-                                     <td><span class="truncate-table-text">Koffiezetapparaat geeft foutcode E04 en verwarmt het water niet meer.</span></td>
-                                     <td>In Behandeling</td>
-                                 </tr>
-                                 <tr onclick="openTableModal('Buitenverlichting oprit werkt niet, lampen moeten worden vervangen.', '21 Apr 22:00', 'Breda', 'Open')">
-                                     <td class="td-highlight">21 Apr<br><span style="color:var(--text-muted); font-weight:400;">22:00</span></td>
-                                     <td>Breda</td>
-                                     <td><span class="truncate-table-text">Buitenverlichting oprit werkt niet, lampen moeten worden vervangen.</span></td>
-                                     <td><span>Open</span></td>
+                                     <td class="td-highlight toggle-tijd">28 Apr<br><span style="color:var(--text-muted); font-weight:400;">16:30</span></td>
+                                     <td class="toggle-kazerne">Breda</td>
+                                     <td class="toggle-omschrijving"><span class="truncate-table-text">Lamp in kleedkamer heren knippert constant en valt soms uit.</span></td>
+                                     <td class="toggle-status"><span>Opgelost</span></td>
                                  </tr>
                              </tbody>
                          </table>
@@ -1645,7 +1626,7 @@
                              <div class="col-select-wrap">
                                  <button class="w-ctrl-btn col-select-trigger" title="Kolommen bewerken" style="color: rgba(255,255,255,0.6);"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
                                  <div class="col-select-menu">
-                                     <label class="col-select-item"><input type="checkbox" checked data-col="tijd"> Tijd</label>
+                                     <label class="col-select-item"><input type="checkbox" checked data-col="tijd"> Datum/Tijd</label>
                                      <label class="col-select-item"><input type="checkbox" checked data-col="omschrijving"> Omschrijving</label>
                                      <label class="col-select-item"><input type="checkbox" checked data-col="status"> Status</label>
                                  </div>
@@ -1654,43 +1635,40 @@
                      </div>
                      <div class="table-container w-scroll" style="margin-bottom: 0;">
                          <table class="data-table data-table-clickable">
-                             <thead><tr><th style="color:#FFF;">Datum/Tijd</th><th style="color:#FFF;">Details</th></tr></thead>
+                             <thead>
+                                 <tr>
+                                     <th class="toggle-tijd" style="color:#FFF;">Datum/Tijd</th>
+                                     <th style="color:#FFF;">Details</th>
+                                 </tr>
+                             </thead>
                              <tbody>
                                  <tr onclick="openTableModal('Deur garage 2 sluit niet meer af na inzet gisteravond, motor ratelt enorm bij het openen.', '10:45', 'Breda', 'Open')">
-                                     <td class="td-highlight">10:45</td>
-                                     <td><span class="truncate-table-text">Deur garage 2 sluit niet meer af na inzet gisteravond, motor ratelt.</span><span class="td-sub">Status: Open</span></td>
+                                     <td class="td-highlight toggle-tijd">10:45</td>
+                                     <td>
+                                         <span class="truncate-table-text toggle-omschrijving">Deur garage 2 sluit niet meer af na inzet gisteravond, motor ratelt.</span>
+                                         <span class="td-sub toggle-status">Status: Open</span>
+                                     </td>
                                  </tr>
-                                 <tr onclick="openTableModal('Printer kantoor BG vertoont strepen op alle kleurenafdrukken. Zwarte inkt gisteren vervangen zonder resultaat.', 'Gisteren', 'Breda', 'In Behandeling')">
-                                     <td class="td-highlight">Gisteren</td>
-                                     <td><span class="truncate-table-text">Printer kantoor BG vertoont strepen op alle kleurenafdrukken.</span><span class="td-sub">Status: In Behandeling</span></td>
+                                 <tr onclick="openTableModal('Printer kantoor BG vertoont strepen op alle kleurenafdrukken.', 'Gisteren', 'Breda', 'In Behandeling')">
+                                     <td class="td-highlight toggle-tijd">Gisteren</td>
+                                     <td>
+                                         <span class="truncate-table-text toggle-omschrijving">Printer kantoor BG vertoont strepen op alle kleurenafdrukken.</span>
+                                         <span class="td-sub toggle-status">Status: In Behandeling</span>
+                                     </td>
                                  </tr>
                                  <tr onclick="openTableModal('Zeepdispenser wasruimte heren leeg en mechanisme lekt zeep over de vloertegels.', 'Gisteren', 'Breda', 'In Behandeling')">
-                                     <td class="td-highlight">Gisteren</td>
-                                     <td><span class="truncate-table-text">Zeepdispenser wasruimte heren leeg Stoel mechanisme lekt.</span><span class="td-sub">Status: In Behandeling</span></td>
+                                     <td class="td-highlight toggle-tijd">Gisteren</td>
+                                     <td>
+                                         <span class="truncate-table-text toggle-omschrijving">Zeepdispenser wasruimte heren leeg Stoel mechanisme lekt.</span>
+                                         <span class="td-sub toggle-status">Status: In Behandeling</span>
+                                     </td>
                                  </tr>
-                                 <tr onclick="openTableModal('Lamp in kleedkamer heren knippert constant en valt soms uit. Armatuur is losgekomen.', '28 Apr', 'Breda', 'Opgelost')">
-                                     <td class="td-highlight">28 Apr</td>
-                                     <td><span class="truncate-table-text">Lamp in kleedkamer heren knippert constant en valt soms uit.</span><span class="td-sub">Status: Opgelost</span></td>
-                                 </tr>
-                                 <tr onclick="openTableModal('Lekkage bij wasbak toilet 1e verdieping, sifon lekt water.', '28 Apr', 'Breda', 'Open')">
-                                     <td class="td-highlight">28 Apr</td>
-                                     <td><span class="truncate-table-text">Lekkage bij wasbak toilet 1e verdieping, sifon lekt water.</span><span class="td-sub">Status: Open</span></td>
-                                 </tr>
-                                 <tr onclick="openTableModal('Toegangspas lezer buitenpoort defect, poort gaat niet open voor personeelspassen.', '27 Apr', 'Breda', 'In Behandeling')">
-                                     <td class="td-highlight">27 Apr</td>
-                                     <td><span class="truncate-table-text">Toegangspas lezer buitenpoort defect, poort gaat niet open.</span><span class="td-sub">Status: In Behandeling</span></td>
-                                 </tr>
-                                 <tr onclick="openTableModal('Raam kantine sluit niet goed in de hoek, waardoor tocht en vocht naar binnen komt.', '26 Apr', 'Breda', 'Opgelost')">
-                                     <td class="td-highlight">26 Apr</td>
-                                     <td><span class="truncate-table-text">Raam kantine sluit niet goed in de hoek, waardoor tocht.</span><span class="td-sub">Status: Opgelost</span></td>
-                                 </tr>
-                                 <tr onclick="openTableModal('Afzuiging voertuigenhal maakt luid lawaai bij het opstarten van de ventilatoren.', '25 Apr', 'Breda', 'In Behandeling')">
-                                     <td class="td-highlight">25 Apr</td>
-                                     <td><span class="truncate-table-text">Afzuiging voertuigenhal maakt luid lawaai bij opstarten.</span><span class="td-sub">Status: In Behandeling</span></td>
-                                 </tr>
-                                 <tr onclick="openTableModal('Stoel kantoor bevelvoerder kapot. Wieltje is afgebroken en gasveer werkt niet meer.', '24 Apr', 'Breda', 'Opgelost')">
-                                     <td class="td-highlight">24 Apr</td>
-                                     <td><span class="truncate-table-text">Stoel kantoor bevelvoerder kapot, wieltje is afgebroken.</span><span class="td-sub">Status: Opgelost</span></td>
+                                 <tr onclick="openTableModal('Lamp in kleedkamer heren knippert constant en valt soms uit.', '28 Apr', 'Breda', 'Opgelost')">
+                                     <td class="td-highlight toggle-tijd">28 Apr</td>
+                                     <td>
+                                         <span class="truncate-table-text toggle-omschrijving">Lamp in kleedkamer heren knippert constant en valt soms uit.</span>
+                                         <span class="td-sub toggle-status">Status: Opgelost</span>
+                                     </td>
                                  </tr>
                              </tbody>
                          </table>
@@ -3910,11 +3888,15 @@
             });
         }
     });
-    // --- TABEL KOLOM SELECTIE LOGICA ---
-    document.querySelectorAll('.col-select-trigger').forEach(trigger => {
+
+        // --- TABEL KOLOM SELECTIE LOGICA ---
+        // 1. Openen/Sluiten van het dropdown menu
+        document.querySelectorAll('.col-select-trigger').forEach(trigger => {
             trigger.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const wrap = trigger.closest('.col-select-wrap');
+                
+                // Sluit eventuele andere open menu's
                 document.querySelectorAll('.col-select-wrap').forEach(w => {
                     if (w !== wrap) w.classList.remove('open');
                 });
@@ -3922,28 +3904,28 @@
             });
         });
 
+        // Sluit het menu als je ergens anders klikt
         document.addEventListener('click', () => {
             document.querySelectorAll('.col-select-wrap').forEach(w => w.classList.remove('open'));
         });
 
+        // 2. Het aan- en uitzetten van de kolommen
         document.querySelectorAll('.col-select-menu').forEach(menu => {
-            menu.addEventListener('click', e => e.stopPropagation());
+            menu.addEventListener('click', e => e.stopPropagation()); // Zorgt dat het menu niet ongewenst sluit
             
             menu.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
                 checkbox.addEventListener('change', () => {
                     const colType = checkbox.getAttribute('data-col');
                     const isChecked = checkbox.checked;
                     const card = checkbox.closest('.w-card');
-                    const displayVal = isChecked ? '' : 'none';
 
-                    // 1. EERST: Specifieke logica voor de Waarschuwingen & Fases Widget (Heeft geen tabel)
+                    // A. Uitzondering voor Waarschuwingen (Werkt anders dan tabellen)
                     if (['mwb', 'zls', 'knmi', 'waarschuwingen'].includes(colType)) {
                         card.querySelectorAll('.toggle-' + colType).forEach(el => {
                             if (isChecked) el.classList.remove('hide-element');
                             else el.classList.add('hide-element');
                         });
                         
-                        // Fix borders dynamisch: verwijder border-top van ZLS als MWB verborgen is
                         const mwb = card.querySelector('.toggle-mwb');
                         const zls = card.querySelector('.toggle-zls');
                         if (mwb && zls) {
@@ -3955,101 +3937,49 @@
                             }
                         }
 
-                        // Verberg het hele "Natuurbrand" kader als beide uit staan
                         card.querySelectorAll('.natuurbrand-container').forEach(container => {
                             const hasVisible = Array.from(container.querySelectorAll('.toggle-mwb, .toggle-zls')).some(el => !el.classList.contains('hide-element'));
                             if (hasVisible) container.classList.remove('hide-element');
                             else container.classList.add('hide-element');
                         });
 
-                        // Verberg het hele "Weer" kader als beide uit staan
                         card.querySelectorAll('.weer-container').forEach(container => {
                             const hasVisible = Array.from(container.querySelectorAll('.toggle-knmi, .toggle-waarschuwingen')).some(el => !el.classList.contains('hide-element'));
                             if (hasVisible) container.classList.remove('hide-element');
                             else container.classList.add('hide-element');
-                            
-                            const knmi = container.querySelector('.toggle-knmi');
-                            const alerts = container.querySelector('.toggle-waarschuwingen');
-                            if (knmi && alerts && card.classList.contains('size-l')) {
-                                if (!alerts.classList.contains('hide-element') && !knmi.classList.contains('hide-element')) {
-                                   knmi.style.borderBottom = '1px solid var(--input-border)'; knmi.style.paddingBottom = '10px'; knmi.style.marginBottom = '10px';
-                                } else {
-                                   knmi.style.borderBottom = 'none'; knmi.style.paddingBottom = '0'; knmi.style.marginBottom = '0';
-                                }
-                            }
                         });
-                        return; // Stop het script hier, ga niet verder naar de tabel-logica
+                        return; // Stop script hier voor de waarschuwingen widget
                     }
 
-                    // Specifieke logica voor de Status Voertuigen kolommen (inclusief nieuwe W/B/A/AB)
-                    if (['col-kazerne', 'col-status', 'col-wijziging', 'col-gepland', 'col-toelichting'].includes(colType)) {
-                        card.querySelectorAll('.toggle-' + colType).forEach(el => {
-                            if (isChecked) el.classList.remove('hide-element');
-                            else el.classList.add('hide-element');
-                        });
-                        return;
-                    }
+                    // B. Universele Toggle voor Tabellen (Slimme check voor verschillende benamingen)
+                    const baseCol = colType.replace('col-', '');
+                    
+                    card.querySelectorAll(`.toggle-${baseCol}, .toggle-col-${baseCol}`).forEach(el => {
+                        if (isChecked) el.classList.remove('hide-element');
+                        else el.classList.add('hide-element');
+                    });
 
-                    if (['detail-w', 'detail-b', 'detail-a', 'detail-ab'].includes(colType)) {
-                        card.querySelectorAll('.toggle-' + colType).forEach(el => {
-                            if (isChecked) el.classList.remove('hide-element');
-                            else el.classList.add('hide-element');
-                        });
-                        
-                        // Controleer of de hoofdkolom 'Details' nog getoond moet worden (als er minimaal 1 detail aan staat)
-                        const detailWrappers = card.querySelectorAll('.toggle-col-details');
+                    // C. Fallback: als de 4 details (W/B/A/AB) uit staan bij Voertuigen, verberg de hoofdkolom
+                    if (['detail-w', 'detail-b', 'detail-a', 'detail-ab'].includes(baseCol)) {
+                        const detailWrappers = card.querySelectorAll('.toggle-col-details, .toggle-details');
                         const anyChecked = Array.from(card.querySelectorAll('input[data-col^="detail-"]')).some(cb => cb.checked);
                         
                         detailWrappers.forEach(wrap => {
                             if(anyChecked) wrap.classList.remove('hide-element');
                             else wrap.classList.add('hide-element');
                         });
-                        return;
                     }
 
-                    // 2. DAARNA: Tabel logica (Stopt als er geen tabel in de widget zit)
+                    // D. Fix voor Tabel-opmaak als de Datum-kolom verdwijnt
                     const table = card.querySelector('.data-table');
-                    if (!table) return;
-
-                    if (card.classList.contains('size-l')) {
-                        // Size L maps directly to columns
-                        let colIndex = -1;
-                        if (colType === 'tijd') colIndex = 0;
-                        if (colType === 'evenement') colIndex = 1;
-                        if (colType === 'locatie') colIndex = 2;
-                        if (colType === 'personen') colIndex = 3;
-                        
-                        if (colIndex !== -1) {
-                            table.querySelectorAll('tr').forEach(row => {
-                                const th = row.querySelector(`th:nth-child(${colIndex + 1})`);
-                                const td = row.querySelector(`td:nth-child(${colIndex + 1})`);
-                                if (th) th.style.display = displayVal;
-                                if (td) td.style.display = displayVal;
-                            });
-                        }
-                    } else {
-                        // Size S & Size Mobile combine contents in sub-text
-                        if (colType === 'tijd') {
-                            table.querySelectorAll('tr').forEach(row => {
-                                const th = row.querySelector('th:nth-child(1)');
-                                const td = row.querySelector('td:nth-child(1)');
-                                if (th) th.style.display = displayVal;
-                                if (td) td.style.display = displayVal;
-                            });
-
-                            if (!isChecked) table.classList.add('no-time-col');
-                            else table.classList.remove('no-time-col');
-                        } else if (colType === 'evenement') {
-                            table.querySelectorAll('.truncate-table-text').forEach(el => el.style.display = displayVal);
-                        } else if (colType === 'locatie') {
-                            table.querySelectorAll('.td-sub-loc').forEach(el => el.style.display = displayVal);
-                        } else if (colType === 'personen') {
-                            table.querySelectorAll('.td-sub-pers').forEach(el => el.style.display = displayVal);
-                        }
+                    if (table && baseCol === 'tijd') {
+                        if (!isChecked) table.classList.add('no-time-col');
+                        else table.classList.remove('no-time-col');
                     }
                 });
             });
         });
+
         // --- EVENEMENTEN MODAL POPUP LOGICA ---
         function openEventModal(title, location, persons, ops, start, end, contact) {
             document.getElementById('event-detail-title').innerText = title;
