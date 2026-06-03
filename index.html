@@ -63,13 +63,6 @@
             --shadow-hover: 0 8px 20px var(--black-70); 
             --shadow-widget: 0 8px 30px var(--black-90), 0 2px 8px var(--black-40);
         }
-
-        /* Zorgt dat de achtergrond netjes meeschaalt met de dark mode toggle */
-        body {
-            background-color: var(--bg-grad-solid);
-            color: var(--text-main);
-            transition: background-color 0.3s, color 0.3s;
-        }
         
         .bg-selector-wrap { position: relative; display: inline-block; }
         .bg-selector-menu { position: absolute; top: calc(100% + 8px); left: 0; background: var(--surface); border: 1px solid var(--card-border); border-radius: 8px; box-shadow: var(--shadow-hover); padding: 8px; display: none; gap: 8px; z-index: 1000; flex-wrap: wrap; width: 230px; }
@@ -85,6 +78,8 @@
             color: var(--text-main); 
             padding: 25px;
             -webkit-font-smoothing: antialiased; 
+            transition: background-color 0.3s, color 0.3s;
+
         }
 
         .sheet-header { margin-bottom: 50px; border-bottom: 4px solid var(--vrmwb-gold); padding-bottom: 20px; }
@@ -980,6 +975,9 @@
         /* Zorgt ervoor dat uitgevinkte kolommen/data écht verdwijnen */
         .hide-element { display: none !important; }
 
+        /* V-details list voor de nieuwe layout met W/B/A/AB */
+        .v-details-list { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; font-size: 11px; color: var(--text-muted); font-weight: 700; letter-spacing: 0.2px; }
+
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -1107,13 +1105,12 @@
                     </div>
                 </button>
 
-                <div class="profile-panel" id="ui-profile-panel" style="position: absolute; top: calc(100% + 5px); bottom: auto; left: 0; width: 320px; box-shadow: var(--shadow-widget); display: none; background: var(--surface); border: 1px solid var(--card-border); border-radius: 14px; padding: 20px;">
-                    
+                <div class="profile-panel" id="ui-profile-panel" style="position: absolute; top: calc(100% + 10px); bottom: auto; left: 0; width: 320px; box-shadow: var(--shadow-widget); display: none; background: var(--surface); border: 1px solid var(--card-border); border-radius: 14px; padding: 20px; z-index: 1000;">                
                     <div class="pp-tabs">
                         <div class="pp-tab active" data-target="pp-overzicht">Overzicht</div>
                         <div class="pp-tab" data-target="pp-instellingen">Instellingen</div>
                     </div>
-
+    
                     <div id="pp-overzicht" class="pp-tab-content active">
                         <div class="pp-avatar" id="ui-panel-avatar" style="background: var(--vrmwb-navy); color: #FFF; margin: 0 auto 12px; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 20px; font-weight: 900;">RV</div>
                         
@@ -1125,26 +1122,29 @@
                             <span style="font-size: 13px; font-weight: 700; color: var(--text-main); display: block;">Beheerder</span>
                         </div>
                         
-                        <label class="pp-lbl" style="font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px;">Voornaam</label>
-                        <input type="text" class="pp-inp" id="ui-inp-voornaam" placeholder="Voornaam" style="width: 100%; margin-bottom: 10px; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--input-border); background: var(--input-bg); color: var(--text-main); font-size: 13px;">
-                        
-                        <label class="pp-lbl" style="font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px;">Achternaam</label>
-                        <input type="text" class="pp-inp" id="ui-inp-achternaam" placeholder="Achternaam" style="width: 100%; margin-bottom: 10px; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--input-border); background: var(--input-bg); color: var(--text-main); font-size: 13px;">
-                        
-                        <label class="pp-lbl" style="font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px;">Functie</label>
-                        <input type="text" class="pp-inp" id="ui-inp-rol" placeholder="bijv. Ploegcommandant" style="width: 100%; margin-bottom: 16px; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--input-border); background: var(--input-bg); color: var(--text-main); font-size: 13px;">
+                        <div style="margin-bottom: 5px; padding-top: 10px; border-top: 1px dashed var(--input-border);">
+                            <label class="pp-lbl" style="font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 6px;">Dev gebruiksrol switch</label>
+                            <select class="pp-select">
+                                <option value="viewer">viewer</option>
+                                <option value="editor">editor</option>
+                                <option value="editor+">editor+</option>
+                                <option value="beheer" selected>beheer</option>
+                                <option value="beheer+">beheer+</option>
+                                <option value="all-access">all-access</option>
+                            </select>
+                        </div>
                     </div>
-
+    
                     <div id="pp-instellingen" class="pp-tab-content">
                         
-                        <div class="pp-toggle-row" style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+                        <div class="pp-toggle-row" style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; border-top:none; margin-top:0; padding-top:0;">
                             <span style="font-size: 13px; font-weight: 700; color: var(--text-main);">Dark mode</span>
                             <button class="pp-toggle" id="ui-theme-toggle" role="switch" aria-checked="false" style="width: 44px; height: 24px;">
                                 <span class="pp-toggle-thumb" style="width: 18px; height: 18px;"></span>
                             </button>
                         </div>
-
-                        <div class="pp-toggle-row" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+    
+                        <div class="pp-toggle-row" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; border-top:none;">
                             <div>
                                 <span style="font-size: 13px; font-weight: 700; color: var(--text-main); display: block;">Start op vandaag</span>
                                 <span style="font-size: 10px; color: var(--text-muted);">ODj opent standaard op huidige datum</span>
@@ -1153,35 +1153,34 @@
                                 <span class="pp-toggle-thumb" style="width: 18px; height: 18px;"></span>
                             </button>
                         </div>
-
+    
                         <div style="margin-bottom: 20px;">
                             <label class="pp-lbl" style="font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 6px;">Presentatieperiode</label>
                             <select class="pp-select">
                                 <option>Standaard (Automatisch)</option>
-                                <option>Week 1</option>
-                                <option>Week 2</option>
-                                <option>Week 4</option>
+                                <option>Huidige dienst (12 uur)</option>
+                                <option>Volledige dag (24 uur)</option>
                             </select>
                             <span style="font-size: 10px; color: var(--text-muted); display: block; margin-top: 4px;">Periode bij openen van de Presentatie</span>
                         </div>
-
+    
                         <div style="margin-bottom: 20px;">
                             <span class="pp-toggle-lbl" style="display: block; font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Achtergrond</span>
                             <div id="ui-bg-menu" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;">
                                 <div class="bg-thumb solid active" data-bg="none" style="width: 100%; aspect-ratio: 16/9; height: auto; border-radius: 4px; border-color: var(--vrmwb-navy);"></div>
-                                <div class="bg-thumb" data-bg="url('img/intro-1.jpg')" style="width: 100%; aspect-ratio: 16/9; height: auto; border-radius: 4px; background-color: var(--black-15);"></div>
-                                <div class="bg-thumb" data-bg="url('img/intro-2.jpg')" style="width: 100%; aspect-ratio: 16/9; height: auto; border-radius: 4px; background-color: var(--black-15);"></div>
-                                <div class="bg-thumb" data-bg="url('img/intro-3.jpg')" style="width: 100%; aspect-ratio: 16/9; height: auto; border-radius: 4px; background-color: var(--black-15);"></div>
+                                <div class="bg-thumb" data-bg="url('img/intro-1.jpg')" style="width: 100%; aspect-ratio: 16/9; height: auto; border-radius: 4px; background-color: var(--black-15); background-image: url('img/intro-1.jpg'); background-size: cover;"></div>
+                                <div class="bg-thumb" data-bg="url('img/intro-2.jpg')" style="width: 100%; aspect-ratio: 16/9; height: auto; border-radius: 4px; background-color: var(--black-15); background-image: url('img/intro-2.jpg'); background-size: cover;"></div>
+                                <div class="bg-thumb" data-bg="url('img/intro-3.jpg')" style="width: 100%; aspect-ratio: 16/9; height: auto; border-radius: 4px; background-color: var(--black-15); background-image: url('img/intro-3.jpg'); background-size: cover;"></div>
                             </div>
                         </div>
-
+    
                         <div style="border-top: 1px solid var(--input-border); padding-top: 20px; display: flex; flex-direction: column; gap: 10px;">
                             <button class="pp-action-btn secondary">Applicatie Verversen</button>
                             <button class="pp-action-btn destructive">Gebruiker Uitloggen</button>
                         </div>
+                        
+                        <button class="pp-save" id="ui-profile-save" style="width: 100%; background: var(--vrmwb-navy); color: #FFF; padding: 10px; border-radius: 8px; border: none; font-size: 12px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.2s; margin-top: 15px;">Opslaan</button>
                     </div>
-                    
-                    <button class="pp-save" id="ui-profile-save" style="width: 100%; background: var(--vrmwb-navy); color: #FFF; padding: 10px; border-radius: 8px; border: none; font-size: 12px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.2s; margin-top: 15px;">Opslaan</button>
                 </div>
             </div>
         </div>
@@ -2563,7 +2562,10 @@
                                 <label class="col-select-item"><input type="checkbox" data-col="col-kazerne"> Kazerne</label>
                                 <label class="col-select-item"><input type="checkbox" data-col="col-status"> Status code</label>
                                 <label class="col-select-item"><input type="checkbox" data-col="col-wijziging"> Wijziging (Tijd)</label>
-                                <label class="col-select-item"><input type="checkbox" data-col="col-details"> Details (W/B)</label>
+                                <label class="col-select-item" style="border-top: 1px solid var(--input-border); padding-top: 6px; margin-top: 6px;"><input type="checkbox" data-col="detail-w"> Water (W)</label>
+                                <label class="col-select-item"><input type="checkbox" data-col="detail-b"> Brandstof (B)</label>
+                                <label class="col-select-item"><input type="checkbox" data-col="detail-a"> Accu (A)</label>
+                                <label class="col-select-item" style="border-bottom: 1px solid var(--input-border); padding-bottom: 6px; margin-bottom: 6px;"><input type="checkbox" data-col="detail-ab"> AdBlue (AB)</label>
                                 <label class="col-select-item"><input type="checkbox" data-col="col-gepland"> Gepland BD</label>
                                 <label class="col-select-item"><input type="checkbox" checked data-col="col-toelichting"> Toelichting</label>
                             </div>
@@ -2589,7 +2591,15 @@
                                             <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
                                             <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
                                             <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 28-05-2026</span>
-                                            <span class="toggle-col-details hide-element"><strong>Details:</strong> W: 100% | B: 79.6%</span>
+                                            <div class="toggle-col-details hide-element" style="display: flex; align-items: flex-start; gap: 6px; margin-top: 2px;">
+                                                <strong>Details:</strong>
+                                                <div class="v-details-list">
+                                                    <span class="toggle-detail-w hide-element">W:100%</span>
+                                                    <span class="toggle-detail-b hide-element">B:79%</span>
+                                                    <span class="toggle-detail-a hide-element">A:100%</span>
+                                                    <span class="toggle-detail-ab hide-element">AB:80%</span>
+                                                </div>
+                                            </div>
                                             <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> -</span>
                                         </div>
                                     </td>
@@ -2602,7 +2612,15 @@
                                             <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
                                             <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
                                             <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 27-05-2026</span>
-                                            <span class="toggle-col-details hide-element"><strong>Details:</strong> -</span>
+                                            <div class="toggle-col-details hide-element" style="display: flex; align-items: flex-start; gap: 6px; margin-top: 2px;">
+                                                <strong>Details:</strong>
+                                                <div class="v-details-list">
+                                                    <span class="toggle-detail-b hide-element">B:60%</span>
+                                                    <span class="toggle-detail-a hide-element">A:95%</span>
+                                                    <span class="toggle-detail-ab hide-element">AB:50%</span>
+                                                </div>
+                                            </div>
+                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> -</span>
                                         </div>
                                     </td>
                                     <td class="toggle-col-toelichting"><span class="v-details" style="color: var(--vrmwb-red);">Inzet Prio 1</span></td>
@@ -2614,6 +2632,15 @@
                                             <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
                                             <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
                                             <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 17-05-2023</span>
+                                            <div class="toggle-col-details hide-element" style="display: flex; align-items: flex-start; gap: 6px; margin-top: 2px;">
+                                                <strong>Details:</strong>
+                                                <div class="v-details-list">
+                                                    <span class="toggle-detail-w hide-element">W:0%</span>
+                                                    <span class="toggle-detail-b hide-element">B:80%</span>
+                                                    <span class="toggle-detail-a hide-element">A:100%</span>
+                                                </div>
+                                            </div>
+                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> 17-05-2026</span>
                                         </div>
                                     </td>
                                     <td class="toggle-col-toelichting"><span class="v-details">Kleinschalige watervoorziening (1KM)</span></td>
@@ -2621,6 +2648,7 @@
                             </tbody>
                         </table>
                     </div>
+
                     <div class="v-tab-content tab-regio">
                         <table class="data-table">
                             <thead><tr><th>Voertuig</th><th class="toggle-col-toelichting">Toelichting</th></tr></thead>
@@ -2632,21 +2660,16 @@
                                             <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> REGIO_1</span>
                                             <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
                                             <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 28-05-2026</span>
+                                            <div class="toggle-col-details hide-element" style="display: flex; align-items: flex-start; gap: 6px; margin-top: 2px;">
+                                                <strong>Details:</strong>
+                                                <div class="v-details-list">
+                                                    <span class="toggle-detail-b hide-element">B:85%</span>
+                                                    <span class="toggle-detail-a hide-element">A:98%</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="toggle-col-toelichting"><span class="v-details" style="color: var(--vrmwb-red);">Inzet Prio 1</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="v-name"><div class="v-status green"></div> 201091 <span class="v-type">(HOVD)</span></div>
-                                        <div class="v-sub-info">
-                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> REGIO_1</span>
-                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
-                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 28-05-2026</span>
-                                            <span class="toggle-col-details hide-element"><strong>Details:</strong> B: 90%</span>
-                                        </div>
-                                    </td>
-                                    <td class="toggle-col-toelichting"><span class="v-details">Geen opmerkingen</span></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -2655,18 +2678,15 @@
                                             <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> REGIO_2</span>
                                             <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
                                             <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 27-05-2026</span>
-                                            <span class="toggle-col-details hide-element"><strong>Details:</strong> W: 100% | B: 85%</span>
-                                        </div>
-                                    </td>
-                                    <td class="toggle-col-toelichting"><span class="v-details">Geen opmerkingen</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="v-name"><div class="v-status green"></div> 201181 <span class="v-type">(AGS)</span></div>
-                                        <div class="v-sub-info">
-                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> REGIO_3</span>
-                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
-                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 25-05-2026</span>
+                                            <div class="toggle-col-details hide-element" style="display: flex; align-items: flex-start; gap: 6px; margin-top: 2px;">
+                                                <strong>Details:</strong>
+                                                <div class="v-details-list">
+                                                    <span class="toggle-detail-w hide-element">W:100%</span>
+                                                    <span class="toggle-detail-b hide-element">B:85%</span>
+                                                    <span class="toggle-detail-a hide-element">A:100%</span>
+                                                    <span class="toggle-detail-ab hide-element">AB:75%</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="toggle-col-toelichting"><span class="v-details">Geen opmerkingen</span></td>
@@ -2686,46 +2706,17 @@
                                             <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
                                             <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
                                             <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 16-12-2021</span>
+                                            <div class="toggle-col-details hide-element" style="display: flex; align-items: flex-start; gap: 6px; margin-top: 2px;">
+                                                <strong>Details:</strong>
+                                                <div class="v-details-list">
+                                                    <span class="toggle-detail-b hide-element">B:40%</span>
+                                                    <span class="toggle-detail-a hide-element">A:80%</span>
+                                                </div>
+                                            </div>
                                             <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> 11-07-2026</span>
                                         </div>
                                     </td>
                                     <td class="toggle-col-toelichting"><span class="v-details">Vervanging (GEVAARLIJKE STOFFEN)</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="v-name"><div class="v-status grey"></div> 201562 <span class="v-type">(KW)</span></div>
-                                        <div class="v-sub-info">
-                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
-                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
-                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 17-05-2023</span>
-                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> 17-05-2026</span>
-                                        </div>
-                                    </td>
-                                    <td class="toggle-col-toelichting"><span class="v-details">Onderhoud pomp (1KM slangen)</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="v-name"><div class="v-status grey"></div> 203351 <span class="v-type">(HW)</span></div>
-                                        <div class="v-sub-info">
-                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> ROOSD_1</span>
-                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
-                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 01-05-2026</span>
-                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> Onbekend</span>
-                                        </div>
-                                    </td>
-                                    <td class="toggle-col-toelichting"><span class="v-details">Defect mast</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="v-name"><div class="v-status grey"></div> 201131 <span class="v-type">(TS)</span></div>
-                                        <div class="v-sub-info">
-                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BREDA_2</span>
-                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
-                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 15-05-2026</span>
-                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> 02-06-2026</span>
-                                        </div>
-                                    </td>
-                                    <td class="toggle-col-toelichting"><span class="v-details">APK Keuring</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -2746,7 +2737,10 @@
                                 <label class="col-select-item"><input type="checkbox" checked data-col="col-kazerne"> Kazerne</label>
                                 <label class="col-select-item"><input type="checkbox" checked data-col="col-status"> Status code</label>
                                 <label class="col-select-item"><input type="checkbox" checked data-col="col-wijziging"> Wijziging (Tijd)</label>
-                                <label class="col-select-item"><input type="checkbox" checked data-col="col-details"> Details (W/B)</label>
+                                <label class="col-select-item" style="border-top: 1px solid var(--input-border); padding-top: 6px; margin-top: 6px;"><input type="checkbox" checked data-col="detail-w"> Water (W)</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="detail-b"> Brandstof (B)</label>
+                                <label class="col-select-item"><input type="checkbox" checked data-col="detail-a"> Accu (A)</label>
+                                <label class="col-select-item" style="border-bottom: 1px solid var(--input-border); padding-bottom: 6px; margin-bottom: 6px;"><input type="checkbox" checked data-col="detail-ab"> AdBlue (AB)</label>
                                 <label class="col-select-item"><input type="checkbox" data-col="col-gepland"> Gepland BD</label>
                                 <label class="col-select-item"><input type="checkbox" checked data-col="col-toelichting"> Toelichting</label>
                             </div>
@@ -2765,13 +2759,13 @@
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 18%;">Voertuig</th>
+                                    <th style="width: 15%;">Voertuig</th>
                                     <th class="toggle-col-kazerne" style="width: 12%;">Kazerne</th>
                                     <th class="toggle-col-status" style="width: 10%;">Status</th>
                                     <th class="toggle-col-wijziging" style="width: 12%;">Wijziging</th>
-                                    <th class="toggle-col-details" style="width: 12%;">Details</th>
+                                    <th class="toggle-col-details" style="width: 18%;">Details</th>
                                     <th class="toggle-col-gepland hide-element" style="width: 12%;">Gepland BD</th>
-                                    <th class="toggle-col-toelichting" style="width: 24%;">Toelichting</th>
+                                    <th class="toggle-col-toelichting" style="width: 21%;">Toelichting</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -2780,7 +2774,14 @@
                                     <td class="toggle-col-kazerne">BERGZM_1</td>
                                     <td class="toggle-col-status">kz (5)</td>
                                     <td class="toggle-col-wijziging">28-05-2026</td>
-                                    <td class="toggle-col-details"><span class="v-details">W: 100% | B: 79%</span></td>
+                                    <td class="toggle-col-details">
+                                        <div class="v-details-list">
+                                            <span class="toggle-detail-w">W:100%</span>
+                                            <span class="toggle-detail-b">B:79%</span>
+                                            <span class="toggle-detail-a">A:100%</span>
+                                            <span class="toggle-detail-ab">AB:80%</span>
+                                        </div>
+                                    </td>
                                     <td class="toggle-col-gepland hide-element"><span class="v-details">-</span></td>
                                     <td class="toggle-col-toelichting"><span class="v-details">Geen opmerkingen</span></td>
                                 </tr>
@@ -2789,7 +2790,13 @@
                                     <td class="toggle-col-kazerne">BERGZM_1</td>
                                     <td class="toggle-col-status">kz (5)</td>
                                     <td class="toggle-col-wijziging">27-05-2026</td>
-                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-details">
+                                        <div class="v-details-list">
+                                            <span class="toggle-detail-b">B:60%</span>
+                                            <span class="toggle-detail-a">A:95%</span>
+                                            <span class="toggle-detail-ab">AB:50%</span>
+                                        </div>
+                                    </td>
                                     <td class="toggle-col-gepland hide-element"><span class="v-details">-</span></td>
                                     <td class="toggle-col-toelichting"><span class="v-details" style="color: var(--vrmwb-red);">Inzet Prio 1</span></td>
                                 </tr>
@@ -2798,7 +2805,12 @@
                                     <td class="toggle-col-kazerne">BERGZM_1</td>
                                     <td class="toggle-col-status">kz (5)</td>
                                     <td class="toggle-col-wijziging">11-07-2025</td>
-                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-details">
+                                        <div class="v-details-list">
+                                            <span class="toggle-detail-b">B:90%</span>
+                                            <span class="toggle-detail-a">A:100%</span>
+                                        </div>
+                                    </td>
                                     <td class="toggle-col-gepland hide-element"><span class="v-details">-</span></td>
                                     <td class="toggle-col-toelichting"><span class="v-details">Let op GEEN klasse D poeder</span></td>
                                 </tr>
@@ -2807,7 +2819,13 @@
                                     <td class="toggle-col-kazerne">BERGZM_1</td>
                                     <td class="toggle-col-status">bd (6)</td>
                                     <td class="toggle-col-wijziging">17-05-2023</td>
-                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-details">
+                                        <div class="v-details-list">
+                                            <span class="toggle-detail-w">W:0%</span>
+                                            <span class="toggle-detail-b">B:80%</span>
+                                            <span class="toggle-detail-a">A:100%</span>
+                                        </div>
+                                    </td>
                                     <td class="toggle-col-gepland hide-element"><span class="v-details">17-05-2026</span></td>
                                     <td class="toggle-col-toelichting"><span class="v-details">Kleinschalige watervoorziening (1KM)</span></td>
                                 </tr>
@@ -2816,24 +2834,30 @@
                                     <td class="toggle-col-kazerne">BERGZM_1</td>
                                     <td class="toggle-col-status">bd (6)</td>
                                     <td class="toggle-col-wijziging">16-12-2021</td>
-                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-details">
+                                        <div class="v-details-list">
+                                            <span class="toggle-detail-b">B:40%</span>
+                                            <span class="toggle-detail-a">A:80%</span>
+                                        </div>
+                                    </td>
                                     <td class="toggle-col-gepland hide-element"><span class="v-details">11-07-2026</span></td>
-                                    <td class="toggle-col-toelichting"><span class="v-details">Vervanging (GEVAARLIJKE STOFFEN BAK)</span></td>
+                                    <td class="toggle-col-toelichting"><span class="v-details">Vervanging (GEVAARLIJKE STOFFEN)</span></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    
                     <div class="v-tab-content tab-regio">
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 18%;">Voertuig</th>
+                                    <th style="width: 15%;">Voertuig</th>
                                     <th class="toggle-col-kazerne" style="width: 12%;">Kazerne</th>
                                     <th class="toggle-col-status" style="width: 10%;">Status</th>
                                     <th class="toggle-col-wijziging" style="width: 12%;">Wijziging</th>
-                                    <th class="toggle-col-details" style="width: 12%;">Details</th>
+                                    <th class="toggle-col-details" style="width: 18%;">Details</th>
                                     <th class="toggle-col-gepland hide-element" style="width: 12%;">Gepland BD</th>
-                                    <th class="toggle-col-toelichting" style="width: 24%;">Toelichting</th>
+                                    <th class="toggle-col-toelichting" style="width: 21%;">Toelichting</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -2842,7 +2866,12 @@
                                     <td class="toggle-col-kazerne">REGIO_1</td>
                                     <td class="toggle-col-status">kz (5)</td>
                                     <td class="toggle-col-wijziging">28-05-2026</td>
-                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-details">
+                                        <div class="v-details-list">
+                                            <span class="toggle-detail-b">B:85%</span>
+                                            <span class="toggle-detail-a">A:98%</span>
+                                        </div>
+                                    </td>
                                     <td class="toggle-col-gepland hide-element"><span class="v-details">-</span></td>
                                     <td class="toggle-col-toelichting"><span class="v-details" style="color: var(--vrmwb-red);">Inzet Prio 1</span></td>
                                 </tr>
@@ -2851,7 +2880,12 @@
                                     <td class="toggle-col-kazerne">REGIO_1</td>
                                     <td class="toggle-col-status">kz (5)</td>
                                     <td class="toggle-col-wijziging">28-05-2026</td>
-                                    <td class="toggle-col-details"><span class="v-details">B: 90%</span></td>
+                                    <td class="toggle-col-details">
+                                        <div class="v-details-list">
+                                            <span class="toggle-detail-b">B:90%</span>
+                                            <span class="toggle-detail-a">A:100%</span>
+                                        </div>
+                                    </td>
                                     <td class="toggle-col-gepland hide-element"><span class="v-details">-</span></td>
                                     <td class="toggle-col-toelichting"><span class="v-details">Geen opmerkingen</span></td>
                                 </tr>
@@ -2860,16 +2894,14 @@
                                     <td class="toggle-col-kazerne">REGIO_2</td>
                                     <td class="toggle-col-status">kz (5)</td>
                                     <td class="toggle-col-wijziging">27-05-2026</td>
-                                    <td class="toggle-col-details"><span class="v-details">W: 100% | B: 85%</span></td>
-                                    <td class="toggle-col-gepland hide-element"><span class="v-details">-</span></td>
-                                    <td class="toggle-col-toelichting"><span class="v-details">Geen opmerkingen</span></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="v-name"><div class="v-status green"></div> 201181 <span class="v-type">(AGS)</span></div></td>
-                                    <td class="toggle-col-kazerne">REGIO_3</td>
-                                    <td class="toggle-col-status">kz (5)</td>
-                                    <td class="toggle-col-wijziging">25-05-2026</td>
-                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-details">
+                                        <div class="v-details-list">
+                                            <span class="toggle-detail-w">W:100%</span>
+                                            <span class="toggle-detail-b">B:85%</span>
+                                            <span class="toggle-detail-a">A:100%</span>
+                                            <span class="toggle-detail-ab">AB:75%</span>
+                                        </div>
+                                    </td>
                                     <td class="toggle-col-gepland hide-element"><span class="v-details">-</span></td>
                                     <td class="toggle-col-toelichting"><span class="v-details">Geen opmerkingen</span></td>
                                 </tr>
@@ -2881,13 +2913,13 @@
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 18%;">Voertuig</th>
+                                    <th style="width: 15%;">Voertuig</th>
                                     <th class="toggle-col-kazerne" style="width: 12%;">Kazerne</th>
                                     <th class="toggle-col-status" style="width: 10%;">Status</th>
                                     <th class="toggle-col-wijziging" style="width: 12%;">Wijziging</th>
-                                    <th class="toggle-col-details" style="width: 12%;">Details</th>
+                                    <th class="toggle-col-details" style="width: 18%;">Details</th>
                                     <th class="toggle-col-gepland hide-element" style="width: 12%;">Gepland BD</th>
-                                    <th class="toggle-col-toelichting" style="width: 24%;">Toelichting</th>
+                                    <th class="toggle-col-toelichting" style="width: 21%;">Toelichting</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -2896,43 +2928,34 @@
                                     <td class="toggle-col-kazerne">BERGZM_1</td>
                                     <td class="toggle-col-status">bd (6)</td>
                                     <td class="toggle-col-wijziging">16-12-2021</td>
-                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-details">
+                                        <div class="v-details-list">
+                                            <span class="toggle-detail-b">B:40%</span>
+                                            <span class="toggle-detail-a">A:80%</span>
+                                        </div>
+                                    </td>
                                     <td class="toggle-col-gepland hide-element"><span class="v-details">11-07-2026</span></td>
                                     <td class="toggle-col-toelichting"><span class="v-details">Vervanging (GEVAARLIJKE STOFFEN)</span></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="v-name"><div class="v-status grey"></div> 201562 <span class="v-type">(KW)</span></div></td>
-                                    <td class="toggle-col-kazerne">BERGZM_1</td>
-                                    <td class="toggle-col-status">bd (6)</td>
-                                    <td class="toggle-col-wijziging">17-05-2023</td>
-                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
-                                    <td class="toggle-col-gepland hide-element"><span class="v-details">17-05-2026</span></td>
-                                    <td class="toggle-col-toelichting"><span class="v-details">Onderhoud pomp (1KM slangen)</span></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="v-name"><div class="v-status grey"></div> 203351 <span class="v-type">(HW)</span></div></td>
-                                    <td class="toggle-col-kazerne">ROOSD_1</td>
-                                    <td class="toggle-col-status">bd (6)</td>
-                                    <td class="toggle-col-wijziging">01-05-2026</td>
-                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
-                                    <td class="toggle-col-gepland hide-element"><span class="v-details">Onbekend</span></td>
-                                    <td class="toggle-col-toelichting"><span class="v-details">Defect mast</span></td>
                                 </tr>
                                 <tr>
                                     <td><div class="v-name"><div class="v-status grey"></div> 201131 <span class="v-type">(TS)</span></div></td>
                                     <td class="toggle-col-kazerne">BREDA_2</td>
                                     <td class="toggle-col-status">bd (6)</td>
                                     <td class="toggle-col-wijziging">15-05-2026</td>
-                                    <td class="toggle-col-details"><span class="v-details">-</span></td>
+                                    <td class="toggle-col-details">
+                                        <div class="v-details-list">
+                                            <span class="toggle-detail-w">W:100%</span>
+                                            <span class="toggle-detail-b">B:90%</span>
+                                            <span class="toggle-detail-a">A:100%</span>
+                                            <span class="toggle-detail-ab">AB:85%</span>
+                                        </div>
+                                    </td>
                                     <td class="toggle-col-gepland hide-element"><span class="v-details">02-06-2026</span></td>
                                     <td class="toggle-col-toelichting"><span class="v-details">APK Keuring</span></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    
-                    <div class="v-tab-content tab-regio"><div style="padding: 20px; color: var(--text-muted); text-align: center;">Regio voertuigen...</div></div>
-                    <div class="v-tab-content tab-bd"><div style="padding: 20px; color: var(--text-muted); text-align: center;">Buiten dienst voertuigen...</div></div>
                 </div>
             </div>
         </div>
@@ -2950,7 +2973,10 @@
                                 <label class="col-select-item"><input type="checkbox" data-col="col-kazerne"> Kazerne</label>
                                 <label class="col-select-item"><input type="checkbox" data-col="col-status"> Status code</label>
                                 <label class="col-select-item"><input type="checkbox" data-col="col-wijziging"> Wijziging (Tijd)</label>
-                                <label class="col-select-item"><input type="checkbox" data-col="col-details"> Details (W/B)</label>
+                                <label class="col-select-item" style="border-top: 1px solid var(--input-border); padding-top: 6px; margin-top: 6px;"><input type="checkbox" data-col="detail-w"> Water (W)</label>
+                                <label class="col-select-item"><input type="checkbox" data-col="detail-b"> Brandstof (B)</label>
+                                <label class="col-select-item"><input type="checkbox" data-col="detail-a"> Accu (A)</label>
+                                <label class="col-select-item" style="border-bottom: 1px solid var(--input-border); padding-bottom: 6px; margin-bottom: 6px;"><input type="checkbox" data-col="detail-ab"> AdBlue (AB)</label>
                                 <label class="col-select-item"><input type="checkbox" data-col="col-gepland"> Gepland BD</label>
                                 <label class="col-select-item"><input type="checkbox" checked data-col="col-toelichting"> Toelichting</label>
                             </div>
@@ -2975,7 +3001,16 @@
                                             <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
                                             <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
                                             <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 28-05-2026</span>
-                                            <span class="toggle-col-details hide-element"><strong>Details:</strong> W: 100% | B: 79%</span>
+                                            <div class="toggle-col-details hide-element" style="display: flex; align-items: flex-start; gap: 6px; margin-top: 2px;">
+                                                <strong>Details:</strong>
+                                                <div class="v-details-list">
+                                                    <span class="toggle-detail-w hide-element">W:100%</span>
+                                                    <span class="toggle-detail-b hide-element">B:79%</span>
+                                                    <span class="toggle-detail-a hide-element">A:100%</span>
+                                                    <span class="toggle-detail-ab hide-element">AB:80%</span>
+                                                </div>
+                                            </div>
+                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> -</span>
                                         </div>
                                     </td>
                                     <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Geen opmerkingen</span></td>
@@ -2987,70 +3022,23 @@
                                             <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
                                             <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
                                             <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 27-05-2026</span>
+                                            <div class="toggle-col-details hide-element" style="display: flex; align-items: flex-start; gap: 6px; margin-top: 2px;">
+                                                <strong>Details:</strong>
+                                                <div class="v-details-list">
+                                                    <span class="toggle-detail-b hide-element">B:60%</span>
+                                                    <span class="toggle-detail-a hide-element">A:95%</span>
+                                                    <span class="toggle-detail-ab hide-element">AB:50%</span>
+                                                </div>
+                                            </div>
+                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> -</span>
                                         </div>
                                     </td>
                                     <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: var(--vrmwb-red);">Inzet Prio 1</span></td>
                                 </tr>
-                                <tr>
-                                    <td style="border-color: rgba(255,255,255,0.1);">
-                                        <div class="v-name" style="color: #FFF;"><div class="v-status green"></div> 203111 <span class="v-type" style="color: rgba(255,255,255,0.6);">(WO)</span></div>
-                                        <div class="v-sub-info">
-                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
-                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
-                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 25-05-2026</span>
-                                        </div>
-                                    </td>
-                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Geen opmerkingen</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="border-color: rgba(255,255,255,0.1);">
-                                        <div class="v-name" style="color: #FFF;"><div class="v-status green"></div> 201082 <span class="v-type" style="color: rgba(255,255,255,0.6);">(PBA)</span></div>
-                                        <div class="v-sub-info">
-                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
-                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
-                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 11-07-2025</span>
-                                        </div>
-                                    </td>
-                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Let op GEEN klasse D poeder</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="border-color: rgba(255,255,255,0.1);">
-                                        <div class="v-name" style="color: #FFF;"><div class="v-status grey"></div> 201562 <span class="v-type" style="color: rgba(255,255,255,0.6);">(KW)</span></div>
-                                        <div class="v-sub-info">
-                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
-                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
-                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 17-05-2023</span>
-                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> 17-05-2026</span>
-                                        </div>
-                                    </td>
-                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Kleinschalige watervoorziening (1KM)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="border-color: rgba(255,255,255,0.1);">
-                                        <div class="v-name" style="color: #FFF;"><div class="v-status grey"></div> 200023 <span class="v-type" style="color: rgba(255,255,255,0.6);">(GSH)</span></div>
-                                        <div class="v-sub-info">
-                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
-                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
-                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 16-12-2021</span>
-                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> 11-07-2026</span>
-                                        </div>
-                                    </td>
-                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Vervanging (GEVAARLIJKE STOFFEN)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="border-color: rgba(255,255,255,0.1); border-bottom: none;">
-                                        <div class="v-name" style="color: #FFF;"><div class="v-status green"></div> 200065 <span class="v-type" style="color: rgba(255,255,255,0.6);">(VNA)</span></div>
-                                        <div class="v-sub-info">
-                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
-                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
-                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 29-01-2025</span>
-                                        </div>
-                                    </td>
-                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1); border-bottom: none;"><span class="v-details" style="color: rgba(255,255,255,0.6);">Ventilator</span></td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
+
                     <div class="v-tab-content tab-regio">
                         <table class="data-table">
                             <thead><tr><th style="background: rgba(255,255,255,0.05); color: #FFF; border-color: rgba(255,255,255,0.1);">Voertuig</th><th class="toggle-col-toelichting" style="background: rgba(255,255,255,0.05); color: #FFF; border-color: rgba(255,255,255,0.1);">Toelichting</th></tr></thead>
@@ -3062,21 +3050,16 @@
                                             <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> REGIO_1</span>
                                             <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
                                             <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 28-05-2026</span>
+                                            <div class="toggle-col-details hide-element" style="display: flex; align-items: flex-start; gap: 6px; margin-top: 2px;">
+                                                <strong>Details:</strong>
+                                                <div class="v-details-list">
+                                                    <span class="toggle-detail-b hide-element">B:85%</span>
+                                                    <span class="toggle-detail-a hide-element">A:98%</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: var(--vrmwb-red);">Inzet Prio 1</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="border-color: rgba(255,255,255,0.1);">
-                                        <div class="v-name" style="color: #FFF;"><div class="v-status green"></div> 201091 <span class="v-type" style="color: rgba(255,255,255,0.6);">(HOVD)</span></div>
-                                        <div class="v-sub-info">
-                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> REGIO_1</span>
-                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
-                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 28-05-2026</span>
-                                            <span class="toggle-col-details hide-element"><strong>Details:</strong> B: 90%</span>
-                                        </div>
-                                    </td>
-                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Geen opmerkingen</span></td>
                                 </tr>
                                 <tr>
                                     <td style="border-color: rgba(255,255,255,0.1);">
@@ -3085,21 +3068,18 @@
                                             <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> REGIO_2</span>
                                             <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
                                             <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 27-05-2026</span>
-                                            <span class="toggle-col-details hide-element"><strong>Details:</strong> W: 100% | B: 85%</span>
+                                            <div class="toggle-col-details hide-element" style="display: flex; align-items: flex-start; gap: 6px; margin-top: 2px;">
+                                                <strong>Details:</strong>
+                                                <div class="v-details-list">
+                                                    <span class="toggle-detail-w hide-element">W:100%</span>
+                                                    <span class="toggle-detail-b hide-element">B:85%</span>
+                                                    <span class="toggle-detail-a hide-element">A:100%</span>
+                                                    <span class="toggle-detail-ab hide-element">AB:75%</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Geen opmerkingen</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="border-color: rgba(255,255,255,0.1); border-bottom: none;">
-                                        <div class="v-name" style="color: #FFF;"><div class="v-status green"></div> 201181 <span class="v-type" style="color: rgba(255,255,255,0.6);">(AGS)</span></div>
-                                        <div class="v-sub-info">
-                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> REGIO_3</span>
-                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> kz (5)</span>
-                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 25-05-2026</span>
-                                        </div>
-                                    </td>
-                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1); border-bottom: none;"><span class="v-details" style="color: rgba(255,255,255,0.6);">Geen opmerkingen</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -3116,34 +3096,17 @@
                                             <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
                                             <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
                                             <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 16-12-2021</span>
+                                            <div class="toggle-col-details hide-element" style="display: flex; align-items: flex-start; gap: 6px; margin-top: 2px;">
+                                                <strong>Details:</strong>
+                                                <div class="v-details-list">
+                                                    <span class="toggle-detail-b hide-element">B:40%</span>
+                                                    <span class="toggle-detail-a hide-element">A:80%</span>
+                                                </div>
+                                            </div>
                                             <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> 11-07-2026</span>
                                         </div>
                                     </td>
                                     <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Vervanging (GEVAARLIJKE STOFFEN)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="border-color: rgba(255,255,255,0.1);">
-                                        <div class="v-name" style="color: #FFF;"><div class="v-status grey"></div> 201562 <span class="v-type" style="color: rgba(255,255,255,0.6);">(KW)</span></div>
-                                        <div class="v-sub-info">
-                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BERGZM_1</span>
-                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
-                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 17-05-2023</span>
-                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> 17-05-2026</span>
-                                        </div>
-                                    </td>
-                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Onderhoud pomp (1KM slangen)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="border-color: rgba(255,255,255,0.1);">
-                                        <div class="v-name" style="color: #FFF;"><div class="v-status grey"></div> 203351 <span class="v-type" style="color: rgba(255,255,255,0.6);">(HW)</span></div>
-                                        <div class="v-sub-info">
-                                            <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> ROOSD_1</span>
-                                            <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
-                                            <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 01-05-2026</span>
-                                            <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> Onbekend</span>
-                                        </div>
-                                    </td>
-                                    <td class="toggle-col-toelichting" style="border-color: rgba(255,255,255,0.1);"><span class="v-details" style="color: rgba(255,255,255,0.6);">Defect mast</span></td>
                                 </tr>
                                 <tr>
                                     <td style="border-color: rgba(255,255,255,0.1); border-bottom: none;">
@@ -3152,6 +3115,15 @@
                                             <span class="toggle-col-kazerne hide-element"><strong>Kazerne:</strong> BREDA_2</span>
                                             <span class="toggle-col-status hide-element"><strong>Status:</strong> bd (6)</span>
                                             <span class="toggle-col-wijziging hide-element"><strong>Wijziging:</strong> 15-05-2026</span>
+                                            <div class="toggle-col-details hide-element" style="display: flex; align-items: flex-start; gap: 6px; margin-top: 2px;">
+                                                <strong>Details:</strong>
+                                                <div class="v-details-list">
+                                                    <span class="toggle-detail-w hide-element">W:100%</span>
+                                                    <span class="toggle-detail-b hide-element">B:90%</span>
+                                                    <span class="toggle-detail-a hide-element">A:100%</span>
+                                                    <span class="toggle-detail-ab hide-element">AB:85%</span>
+                                                </div>
+                                            </div>
                                             <span class="toggle-col-gepland hide-element"><strong>Gepland BD:</strong> 02-06-2026</span>
                                         </div>
                                     </td>
@@ -4009,13 +3981,30 @@
                         return; // Stop het script hier, ga niet verder naar de tabel-logica
                     }
 
-                    // Specifieke logica voor de Status Voertuigen kolommen
-                    if (['col-kazerne', 'col-status', 'col-wijziging', 'col-details', 'col-gepland', 'col-toelichting'].includes(colType)) {
+                    // Specifieke logica voor de Status Voertuigen kolommen (inclusief nieuwe W/B/A/AB)
+                    if (['col-kazerne', 'col-status', 'col-wijziging', 'col-gepland', 'col-toelichting'].includes(colType)) {
                         card.querySelectorAll('.toggle-' + colType).forEach(el => {
                             if (isChecked) el.classList.remove('hide-element');
                             else el.classList.add('hide-element');
                         });
-                        return; // Stop het script hier
+                        return;
+                    }
+
+                    if (['detail-w', 'detail-b', 'detail-a', 'detail-ab'].includes(colType)) {
+                        card.querySelectorAll('.toggle-' + colType).forEach(el => {
+                            if (isChecked) el.classList.remove('hide-element');
+                            else el.classList.add('hide-element');
+                        });
+                        
+                        // Controleer of de hoofdkolom 'Details' nog getoond moet worden (als er minimaal 1 detail aan staat)
+                        const detailWrappers = card.querySelectorAll('.toggle-col-details');
+                        const anyChecked = Array.from(card.querySelectorAll('input[data-col^="detail-"]')).some(cb => cb.checked);
+                        
+                        detailWrappers.forEach(wrap => {
+                            if(anyChecked) wrap.classList.remove('hide-element');
+                            else wrap.classList.add('hide-element');
+                        });
+                        return;
                     }
 
                     // 2. DAARNA: Tabel logica (Stopt als er geen tabel in de widget zit)
@@ -4103,30 +4092,16 @@
                 }
             });
 
-            // Live Opslaan & Gegevens Updaten binnen de UI Kit
-            uiSaveBtn.addEventListener('click', () => {
-                const vn = document.getElementById('ui-inp-voornaam').value.trim();
-                const an = document.getElementById('ui-inp-achternaam').value.trim();
-                const rol = document.getElementById('ui-inp-rol').value.trim();
-                
-                // Bereken initialen
-                const i1 = vn ? vn[0].toUpperCase() : '';
-                const i2 = an ? an[0].toUpperCase() : '';
-                const initials = (i1 + i2) || '?';
-
-                // Update de interface elementen direct
-                document.getElementById('ui-avatar-trigger').innerText = initials;
-                document.getElementById('ui-panel-avatar').innerText = initials;
-                document.getElementById('ui-pname-trigger').innerText = `${vn} ${an}`.trim() || 'Naam';
-                document.getElementById('ui-prole-trigger').innerText = rol || 'Geen Rol';
-
-                // Sluit panel met animatie-effect via handmatige trigger
-                uiPanel.style.display = 'none';
-            });
+            // Opslaan knop sluit het panel (Nu op de juiste plek!)
+            if (uiSaveBtn) {
+                uiSaveBtn.addEventListener('click', () => {
+                    uiPanel.style.display = 'none';
+                });
+            }
         }
 
-// --- THEMA & ACHTERGROND LOGICA (GEKOPPELD AAN PROFIEL MENU) ---
-const themeToggle = document.getElementById('ui-theme-toggle');
+        // --- THEMA & ACHTERGROND LOGICA (GEKOPPELD AAN PROFIEL MENU) ---
+        const themeToggle = document.getElementById('ui-theme-toggle');
         if (themeToggle) {
             themeToggle.addEventListener('click', function() {
                 const isDark = this.getAttribute('aria-checked') === 'true';
@@ -4176,26 +4151,26 @@ const themeToggle = document.getElementById('ui-theme-toggle');
         });
 
         // --- WIDGET INTERNE TABS LOGICA (VERBETERD) ---
-        document.querySelectorAll('.w-tab-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const row = btn.closest('.w-tabs-row');
-                const card = btn.closest('.w-card');
-                const target = btn.getAttribute('data-target');
-                
-                // Update knoppen status
-                row.querySelectorAll('.w-tab-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                // Wissel de juiste content div binnen deze widget af
-                if (target && card) {
-                    card.querySelectorAll('.v-tab-content').forEach(c => {
-                        c.classList.remove('active');
-                    });
-                    const targetContent = card.querySelector('.v-tab-content.' + target);
-                    if (targetContent) targetContent.classList.add('active');
-                }
+            document.querySelectorAll('.w-tab-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const row = btn.closest('.w-tabs-row');
+                    const card = btn.closest('.w-card');
+                    const target = btn.getAttribute('data-target');
+                    
+                    // Update knoppen status
+                    row.querySelectorAll('.w-tab-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Wissel de juiste content div binnen deze widget af
+                    if (target && card) {
+                        card.querySelectorAll('.v-tab-content').forEach(c => {
+                            c.classList.remove('active');
+                        });
+                        const targetContent = card.querySelector('.v-tab-content.' + target);
+                        if (targetContent) targetContent.classList.add('active');
+                    }
+                });
             });
-        });
-    </script>
-</body>
+        </script>
+    </body>
 </html>
