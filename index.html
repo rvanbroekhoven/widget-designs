@@ -978,6 +978,48 @@
         /* V-details list voor de nieuwe layout met W/B/A/AB */
         .v-details-list { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; font-size: 11px; color: var(--text-muted); font-weight: 700; letter-spacing: 0.2px; }
 
+        /* =========================================
+            TOPDESK WIDGET
+            ========================================= */
+        .td-status-wrap { display: flex; flex-direction: column; gap: 4px; width: 105px; }
+        .td-status-bar { height: 6px; background: var(--input-bg); border-radius: 3px; border: 1px solid var(--input-border); overflow: hidden; width: 100%; }
+        .td-status-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+        .td-status-lbl { font-size: 13px; font-weight: 700; }
+        .td-number { font-weight: 700; color: var(--text-main); font-size: 13px; }
+        .td-sub-text { font-size: 10px; color: var(--text-muted); font-style: italic; margin-top: 2px; display: block; }
+        .td-name { font-size: 10px; color: var(--text-main); margin-top: 2px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+        
+        /* Anti-scroll en Compact-fixes voor Size S & Mobile */
+        .size-s .td-status-bar, .size-mobile .td-status-bar { display: none; }
+        .size-s .td-name, .size-mobile .td-name { display: none; }
+        .size-s .td-status-wrap, .size-mobile .td-status-wrap { width: auto; align-items: flex-end; }
+        .size-s .td-status-lbl, .size-mobile .td-status-lbl { font-size: 11px; white-space: nowrap; text-align: right; }
+        .size-s .truncate-table-text { max-width: 120px; }
+        .size-mobile .truncate-table-text { max-width: 160px; }
+
+        /* Meerregelige tekst-wrapping voor de omschrijving in Size L */
+        .td-omschrijving-wrap {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal !important;
+            word-break: break-word;
+            line-height: 1.4;
+            font-size: 13px;
+        }
+
+        /* Consistentie fix voor het info-icoon conform de Evenementen widget */
+        .w-card .info-cell {
+            padding-right: 15px !important;
+            width: 42px !important;
+        }
+        .w-card.size-l .info-cell {
+            padding-right: 20px !important;
+            width: 55px !important;
+        }
+
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -2017,6 +2059,24 @@
         </div>
     </div>
 
+    <!-- Topdesk Detail Modal -->
+    <div id="topdesk-detail-modal" class="kis-modal-wrapper">
+        <div class="kis-modal-content">
+            <button class="btn-base modal-close-btn" onclick="document.getElementById('topdesk-detail-modal').classList.remove('active')">&times;</button>
+            <h2 style="color: var(--vrmwb-gold); font-size: 12px; text-transform: uppercase; margin-bottom: 5px;">Topdesk Melding</h2>
+            <h1 id="td-modal-title" style="font-size: 28px; font-weight: 900; color: var(--text-main); margin-bottom: 15px;"></h1>
+            
+            <p id="td-modal-lange-desc" style="font-size: 15px; color: var(--text-main); margin-bottom: 25px; line-height: 1.5;"></p>
+            
+            <div style="background: var(--input-bg); border-radius: 8px; padding: 15px;">
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Aangemaakt: <strong id="td-modal-aangemaakt" style="color: var(--text-main);"></strong></p>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;"><span id="td-modal-ruimte-lbl"></span>: <strong id="td-modal-ruimte" style="color: var(--text-main);"></strong></p>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Streefdatum: <strong id="td-modal-streef" style="color: var(--text-main);"></strong></p>
+                <p style="font-size: 13px; color: var(--text-muted);">Status: <strong id="td-modal-status" style="color: var(--text-main);"></strong> (<span id="td-modal-naam" style="color: var(--text-main);"></span>)</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Tabel Melding Detail Modal -->
     <div id="table-detail-modal" class="kis-modal-wrapper">
         <div class="kis-modal-content">
@@ -2478,51 +2538,645 @@
         </div>
     </div>
 
-    <h2 class="section-title">6. Digitaal Loket Component</h2>
-    <div class="dashboard-grid">
-        <div>
-            <span class="label">Size S (320x320)</span>
-            <div class="w-card size-s">
-                <div class="w-header w-header-compact">
-                    <h2 class="w-title">Digitaal Loket</h2>
-                    <div class="w-controls">
-                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
-                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
-                    </div>
-                </div>
-                <div class="w-body w-body-compact w-scroll">
-                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size S</p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <span class="label">Size L (670x320)</span>
-            <div class="w-card size-l">
-                <div class="w-header">
-                    <h2 class="w-title">Digitaal Loket</h2>
-                    <div class="w-controls">
-                        <button class="w-ctrl-btn" title="Bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
-                        <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
-                    </div>
-                </div>
-                <div class="w-body w-scroll">
-                    <p class="w-text-content" style="color: var(--text-muted); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size L</p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <span class="label">Size Mobile (375x667)</span>
-            <div class="w-card size-mobile">
-                <button class="btn-base modal-close-btn">&times;</button>
-                <div class="w-header">
-                    <h2 class="w-title">Digitaal Loket</h2>
-                </div>
-                <div class="w-body w-scroll">
-                    <p class="w-text-content" style="color: rgba(255,255,255,0.5); font-style: italic; text-align: center; margin: auto;">Skelet / Template voor Size Mobile</p>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- ========================================================
+         6. TOPDESK COMPONENT
+         ======================================================== -->
+         <h2 class="section-title">6. Topdesk Component</h2>
+         <div class="dashboard-grid">
+             
+             <!-- KLEIN: 320x320 -->
+             <div>
+                 <span class="label">Size S (320x320)</span>
+                 <div class="w-card size-s">
+                     <div class="w-header" style="padding-bottom: 20px;">
+                         <h2 class="w-title">Topdesk</h2>
+                         <div class="w-controls">
+                             <div class="col-select-wrap">
+                                 <button class="w-ctrl-btn col-select-trigger" title="Kolommen bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                 <div class="col-select-menu" style="width: 170px;">
+                                     <label class="col-select-item"><input type="checkbox" checked data-col="td-nummer"> Melding nr.</label>
+                                     <label class="col-select-item"><input type="checkbox" data-col="td-aangemaakt"> Aangemaakt</label>
+                                     <label class="col-select-item"><input type="checkbox" data-col="td-ruimte"> Ruimte / Eenheid</label>
+                                     <label class="col-select-item"><input type="checkbox" checked data-col="td-omschrijving"> Omschrijving</label>
+                                     <label class="col-select-item"><input type="checkbox" data-col="td-streefdatum"> Streefdatum</label>
+                                     <label class="col-select-item"><input type="checkbox" checked data-col="td-status"> Status</label>
+                                 </div>
+                             </div>
+                             <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                         </div>
+                     </div>
+                     <div class="w-tabs-row">
+                         <div class="w-tab-btn active" data-target="td-tab-kazerne">Kazerne</div>
+                         <div class="w-tab-btn" data-target="td-tab-voertuig">Voertuig</div>
+                     </div>
+                     <div class="w-body w-scroll" style="padding: 0;">
+                         
+                         <div class="v-tab-content td-tab-kazerne active">
+                             <table class="data-table data-table-clickable" style="table-layout: fixed; width: 100%;">
+                                 <thead>
+                                     <tr>
+                                         <th class="toggle-td-nummer" style="width: 80px;">Nr.</th>
+                                         <th>Melding</th>
+                                         <th class="info-cell"></th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr onclick="openTopdeskModal('M2605 1313', 'Zo, 24 mei 2026', 'Ruimte', 'Fitnessruimte - 1.24', 'Lekkage airconditioning', 'Er is een lekkage geconstateerd op een koppeling van het leidingwerk van de airconditioning. De beschimmelde plafondplaat is inmiddels verwijderd (zie bijlage). Verzoek om reparatie van dit defect.', '26-5-2026', 'In behandeling', 'Heeren, Paul')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2605 1313</span><span class="td-sub-text toggle-td-aangemaakt hide-element">24 mei 2026</span></td>
+                                         <td>
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="max-width: 100%;">Lekkage airconditioning</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--vrmwb-gold); font-weight: 900;">In Beh.</span>
+                                                 <span class="toggle-td-ruimte hide-element"><strong>Loc:</strong> Fitness - 1.24</span>
+                                                 <span class="toggle-td-streefdatum hide-element"><strong>Streef:</strong> 26-5-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2606 0012', 'Ma, 01 jun 2026', 'Ruimte', 'Kantine', 'Koffiezetapparaat storing', 'Het grote koffiezetapparaat geeft foutcode E04 alleys en lekt water aan de onderkant. Apparaat is tijdelijk uitgeschakeld.', '02-6-2026', 'Nieuw', 'Systeem')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2606 0012</span><span class="td-sub-text toggle-td-aangemaakt hide-element">01 jun 2026</span></td>
+                                         <td>
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="max-width: 100%;">Koffiezetapparaat storing</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--vrmwb-red); font-weight: 900;">Nieuw</span>
+                                                 <span class="toggle-td-ruimte hide-element"><strong>Loc:</strong> Kantine</span>
+                                                 <span class="toggle-td-streefdatum hide-element"><strong>Streef:</strong> 02-6-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2605 825', 'Za, 16 mei 2026', 'Ruimte', 'Bergen op Zoom', 'Verstopping douches', 'Verstopping in de afvoer van de herendouches. Water loopt niet weg. Externe loodgieter is ingeschakeld maar wacht op onderdelen.', '19-5-2026', 'On hold', 'Heeren, Paul')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2605 825</span><span class="td-sub-text toggle-td-aangemaakt hide-element">16 mei 2026</span></td>
+                                         <td>
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="max-width: 100%;">Verstopping douches</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--text-muted); font-weight: 900;">On Hold</span>
+                                                 <span class="toggle-td-ruimte hide-element"><strong>Loc:</strong> Bergen op Zoom</span>
+                                                 <span class="toggle-td-streefdatum hide-element"><strong>Streef:</strong> 19-5-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2606 0144', 'Wo, 03 jun 2026', 'Ruimte', 'Instructielokaal', 'Beamer lamp defect', 'De lamp van de hoofdbeamer in het instructielokaal knippert rood en geeft geen beeld meer. Vervanging is noodzakelijk voor de geplande briefing.', '06-06-2026', 'Nieuw', 'Smits, Ralph')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2606 0144</span><span class="td-sub-text toggle-td-aangemaakt hide-element">03 jun 2026</span></td>
+                                         <td>
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="max-width: 100%;">Beamer lamp defect</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--vrmwb-red); font-weight: 900;">Nieuw</span>
+                                                 <span class="toggle-td-ruimte hide-element"><strong>Loc:</strong> Instructielokaal</span>
+                                                 <span class="toggle-td-streefdatum hide-element"><strong>Streef:</strong> 06-06-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2606 0045', 'Di, 02 jun 2026', 'Ruimte', 'Remise', 'Garagedeur 3 defect', 'De garagedeur bij uitrijbaan 3 stopt halverwege bij het sluiten. De sensor lijkt geblokkeerd of defect. Graag met spoed nakijken.', '03-6-2026', 'Nieuw', 'Systeem')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2606 0045</span><span class="td-sub-text toggle-td-aangemaakt hide-element">02 jun 2026</span></td>
+                                         <td>
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="max-width: 100%;">Garagedeur 3 defect</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--vrmwb-red); font-weight: 900;">Nieuw</span>
+                                                 <span class="toggle-td-ruimte hide-element"><strong>Loc:</strong> Remise</span>
+                                                 <span class="toggle-td-streefdatum hide-element"><strong>Streef:</strong> 03-6-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2605 1080', 'Di, 19 mei 2026', 'Ruimte', 'Fitnessruimte - 1.24', 'Hometrainer trapt door', 'De hometrainer in de fitnessruimte trapt door bij zware weerstand. Waarschijnlijk is de aandrijfriem versleten.', '20-5-2026', 'In behandeling', 'Vakbekwaamheid Markiezaten')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2605 1080</span><span class="td-sub-text toggle-td-aangemaakt hide-element">19 mei 2026</span></td>
+                                         <td>
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="max-width: 100%;">Hometrainer trapt door</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--vrmwb-gold); font-weight: 900;">In Beh.</span>
+                                                 <span class="toggle-td-ruimte hide-element"><strong>Loc:</strong> Fitness - 1.24</span>
+                                                 <span class="toggle-td-streefdatum hide-element"><strong>Streef:</strong> 20-5-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2605 1120', 'Vr, 22 mei 2026', 'Ruimte', 'Kleedkamer heren', 'Sifonwastafel lekt', 'De afvoer/sifon onder de middelste wastafel lekt water bij gebruik. Er is een tijdelijke emmer geplaatst. Sifon dient vervangen te worden.', '22-05-2026', 'Gesloten', 'Martijn van Wensen')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2605 1120</span><span class="td-sub-text toggle-td-aangemaakt hide-element">22 mei 2026</span></td>
+                                         <td>
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="max-width: 100%;">Sifonwastafel lekt</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: #009036; font-weight: 900;">Gesloten</span>
+                                                 <span class="toggle-td-ruimte hide-element"><strong>Loc:</strong> Kleedkamer</span>
+                                                 <span class="toggle-td-streefdatum hide-element"><strong>Streef:</strong> 22-05-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2604 0998', 'Do, 23 apr 2026', 'Ruimte', 'Kantoor 1.12', 'Bureaustoel defect', 'Het rechterwieltje van de bureaustoel is afgebroken. Stoel is afgevoerd en een vervangende stoel is geplaatst.', '28-4-2026', 'Gesloten', 'Facilitair')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2604 0998</span><span class="td-sub-text toggle-td-aangemaakt hide-element">23 apr 2026</span></td>
+                                         <td>
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="max-width: 100%;">Bureaustoel defect</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: #009036; font-weight: 900;">Gesloten</span>
+                                                 <span class="toggle-td-ruimte hide-element"><strong>Loc:</strong> Kantoor 1.12</span>
+                                                 <span class="toggle-td-streefdatum hide-element"><strong>Streef:</strong> 28-4-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                 </tbody>
+                             </table>
+                         </div>
+     
+                         <div class="v-tab-content td-tab-voertuig">
+                             <table class="data-table data-table-clickable" style="table-layout: fixed; width: 100%;">
+                                 <thead><tr><th class="toggle-td-nummer" style="width: 80px;">Nr.</th><th>Melding</th><th class="info-cell"></th></tr></thead>
+                                 <tbody>
+                                     <tr onclick="openTopdeskModal('M2605 1484', 'Wo, 27 mei 2026', 'Eenheid', '20-1531', 'FW: Telemetrie TS 1531', 'De telemetrie module in de TS 1531 geeft sporadisch geen locatie door aan de meldkamer. Bekabeling nagekeken, mogelijk module vervangen.', '28-5-2026', 'In behandeling', 'Dijke, Leonard van')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2605 1484</span><span class="td-sub-text toggle-td-aangemaakt hide-element">27 mei 2026</span></td>
+                                         <td>
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="max-width: 100%;">FW: Telemetrie TS 1531</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--vrmwb-gold); font-weight: 900;">In Beh.</span>
+                                                 <span class="toggle-td-ruimte hide-element"><strong>Voertuig:</strong> 20-1531</span>
+                                                 <span class="toggle-td-streefdatum hide-element"><strong>Streef:</strong> 28-5-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2605 1502', 'Do, 28 mei 2026', 'Eenheid', '20-1551', 'Kras op bumper rechtsachter', 'Na terugkomst van een uitruk is een diepe kras geconstateerd op de rechterachterbumper. Schaderapport is ingevuld en bijgevoegd.', '30-5-2026', 'Nieuw', 'Systeem')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2605 1502</span><span class="td-sub-text toggle-td-aangemaakt hide-element">28 mei 2026</span></td>
+                                         <td>
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="max-width: 100%;">Kras op bumper rechtsachter</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--vrmwb-red); font-weight: 900;">Nieuw</span>
+                                                 <span class="toggle-td-ruimte hide-element"><strong>Voertuig:</strong> 20-1551</span>
+                                                 <span class="toggle-td-streefdatum hide-element"><strong>Streef:</strong> 30-5-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2606 0110', 'Wo, 03 jun 2026', 'Eenheid', '20-1562', 'Ruitenwisservloeistof lekt', 'Er ligt telkens een plasje ruitenwisservloeistof onder de voorbumper. Reservoir lijkt gescheurd. Vloeistof is voor nu afgetapt.', '04-6-2026', 'In behandeling', 'Garage Breda')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2606 0110</span><span class="td-sub-text toggle-td-aangemaakt hide-element">03 jun 2026</span></td>
+                                         <td>
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="max-width: 100%;">Ruitenwisservloeistof lekt</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--vrmwb-gold); font-weight: 900;">In Beh.</span>
+                                                 <span class="toggle-td-ruimte hide-element"><strong>Voertuig:</strong> 20-1562</span>
+                                                 <span class="toggle-td-streefdatum hide-element"><strong>Streef:</strong> 04-6-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2606 0155', 'Wo, 03 jun 2026', 'Eenheid', '20-1531', 'Portierruit klem', 'De ruit aan de bijrijderszijde gaat niet meer volledig omhoog en blijft halverwege haken in het mechanisme. Voertuig staat nu binnen in de remise.', '07-06-2026', 'Nieuw', 'Dijke, Leonard van')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2606 0155</span><span class="td-sub-text toggle-td-aangemaakt hide-element">03 jun 2026</span></td>
+                                         <td>
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="max-width: 100%;">Portierruit klem</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--vrmwb-red); font-weight: 900;">Nieuw</span>
+                                                 <span class="toggle-td-ruimte hide-element"><strong>Voertuig:</strong> 20-1531</span>
+                                                 <span class="toggle-td-streefdatum hide-element"><strong>Streef:</strong> 07-06-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2606 0122', 'Do, 04 jun 2026', 'Eenheid', '20-3192', 'Navigatiesysteem start niet op', 'Bij het starten van het voertuig blijft het Mofip-scherm hangen op het opstartlogo. Wacht op updatepakket vanuit leverancier.', '05-6-2026', 'On hold', 'ICT')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2606 0122</span><span class="td-sub-text toggle-td-aangemaakt hide-element">04 jun 2026</span></td>
+                                         <td>
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="max-width: 100%;">Navigatiesysteem start niet op</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--text-muted); font-weight: 900;">On hold</span>
+                                                 <span class="toggle-td-ruimte hide-element"><strong>Voertuig:</strong> 20-3192</span>
+                                                 <span class="toggle-td-streefdatum hide-element"><strong>Streef:</strong> 05-6-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2605 0915', 'Vr, 15 mei 2026', 'Eenheid', '20-3351', 'Hydrauliekslang mast zweet', 'Tijdens de wekelijkse controle is geconstateerd dat de bovenste hydrauliekslang van de mast licht zweet. Geen acute druppelvorming, onderdeelaanvraag loopt via leverancier.', '15-05-2026', 'On hold', 'Paul van der Heijden')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2605 0915</span><span class="td-sub-text toggle-td-aangemaakt hide-element">15 mei 2026</span></td>
+                                         <td>
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="max-width: 100%;">Hydrauliekslang mast zweet</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--text-muted); font-weight: 900;">On hold</span>
+                                                 <span class="toggle-td-ruimte hide-element"><strong>Voertuig:</strong> 20-3351</span>
+                                                 <span class="toggle-td-streefdatum hide-element"><strong>Streef:</strong> 15-05-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2605 1400', 'Ma, 25 mei 2026', 'Eenheid', '20-1082', 'Lamp zwaailicht defect', 'Blauwe LED-module aan de linker voorzijde van de lichtbalk was defect. Module is vervangen en getest.', '26-5-2026', 'Gesloten', 'Garage Breda')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2605 1400</span><span class="td-sub-text toggle-td-aangemaakt hide-element">25 mei 2026</span></td>
+                                         <td>
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="max-width: 100%;">Lamp zwaailicht defect</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: #009036; font-weight: 900;">Gesloten</span>
+                                                 <span class="toggle-td-ruimte hide-element"><strong>Voertuig:</strong> 20-1082</span>
+                                                 <span class="toggle-td-streefdatum hide-element"><strong>Streef:</strong> 26-5-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2604 1105', 'Di, 28 apr 2026', 'Eenheid', '20-1231', 'Bekleding stoel gescheurd', 'De zitting van de bestuurdersstoel vertoonde slijtage en een scheur. Het zitkussen is opnieuw bekleed door de externe stoffeerder.', '01-5-2026', 'Gesloten', 'Wagenparkbeheer')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2604 1105</span><span class="td-sub-text toggle-td-aangemaakt hide-element">28 apr 2026</span></td>
+                                         <td>
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="max-width: 100%;">Bekleding stoel gescheurd</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: #009036; font-weight: 900;">Gesloten</span>
+                                                 <span class="toggle-td-ruimte hide-element"><strong>Voertuig:</strong> 20-1231</span>
+                                                 <span class="toggle-td-streefdatum hide-element"><strong>Streef:</strong> 01-5-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                 </tbody>
+                             </table>
+                         </div>
+     
+                     </div>
+                 </div>
+             </div>
+     
+             <!-- GROOT: 670x320 -->
+             <div>
+                 <span class="label">Size L (670x320)</span>
+                 <div class="w-card size-l">
+                     <div class="w-header" style="padding-bottom: 15px;">
+                         <h2 class="w-title">Topdesk</h2>
+                         <div class="w-controls">
+                             <div class="col-select-wrap">
+                                 <button class="w-ctrl-btn col-select-trigger" title="Kolommen bewerken"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                 <div class="col-select-menu" style="width: 170px;">
+                                     <label class="col-select-item"><input type="checkbox" checked data-col="td-nummer"> Melding nr.</label>
+                                     <label class="col-select-item"><input type="checkbox" checked data-col="td-aangemaakt"> Aangemaakt</label>
+                                     <label class="col-select-item"><input type="checkbox" checked data-col="td-ruimte"> Ruimte / Eenheid</label>
+                                     <label class="col-select-item"><input type="checkbox" checked data-col="td-omschrijving"> Omschrijving</label>
+                                     <label class="col-select-item"><input type="checkbox" checked data-col="td-streefdatum"> Streefdatum</label>
+                                     <label class="col-select-item"><input type="checkbox" checked data-col="td-status"> Status</label>
+                                 </div>
+                             </div>
+                             <button class="w-ctrl-btn close" title="Verwijderen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                         </div>
+                     </div>
+                     <div class="w-tabs-row" style="padding: 0 20px;">
+                         <div class="w-tab-btn active" data-target="td-tab-kazerne">Kazerne</div>
+                         <div class="w-tab-btn" data-target="td-tab-voertuig">Voertuig</div>
+                     </div>
+                     <div class="w-body w-scroll" style="padding: 0;">
+                         
+                         <div class="v-tab-content td-tab-kazerne active">
+                             <table class="data-table data-table-clickable" style="table-layout: fixed; width: 100%;">
+                                 <thead>
+                                     <tr>
+                                         <th class="toggle-td-nummer" style="width: 125px;">Melding nr.</th>
+                                         <th class="toggle-td-ruimte" style="width: 125px;">Ruimte</th>
+                                         <th class="toggle-td-omschrijving">Omschrijving</th>
+                                         <th class="toggle-td-streefdatum" style="width: 115px;">Streefdatum</th>
+                                         <th class="toggle-td-status" style="width: 110px;">Status</th>
+                                         <th class="info-cell"></th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr onclick="openTopdeskModal('M2605 1313', 'Zo, 24 mei 2026', 'Ruimte', 'Fitnessruimte - 1.24', 'Lekkage airconditioning', 'Er is een lekkage geconstateerd op een koppeling van het leidingwerk van de airconditioning De beschimmelde plafondplaat is inmiddels verwijderd (zie bijlage) Verzoek om reparatie van dit defect.', '26-5-2026', 'In behandeling', 'Heeren, Paul')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2605 1313</span><span class="td-sub-text toggle-td-aangemaakt">(Aangemaakt: Zo, 24 mei 2026)</span></td>
+                                         <td class="toggle-td-ruimte"><span class="truncate-table-text" style="max-width: 100%;">Fitnessruimte - 1.24</span></td>
+                                         <td class="toggle-td-omschrijving"><div class="td-omschrijving-wrap">Lekkage airconditioning</div></td>
+                                         <td class="toggle-td-streefdatum"><span class="truncate-table-text" style="max-width: 100%;">26-5-2026</span></td>
+                                         <td class="toggle-td-status"><div class="td-status-wrap"><div class="td-status-lbl" style="color: var(--vrmwb-gold);">In behandeling</div><div class="td-status-bar"><div class="td-status-fill" style="width: 50%; background: var(--vrmwb-gold);"></div></div><span class="td-name">Heeren, Paul</span></div></td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2606 0012', 'Ma, 01 jun 2026', 'Ruimte', 'Kantine', 'Koffiezetapparaat storing', 'Het grote koffiezetapparaat geeft foutcode E04 alleys en lekt water aan de onderkant Apparaat is tijdelijk uitgeschakeld.', '02-6-2026', 'Nieuw', 'Systeem')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2606 0012</span><span class="td-sub-text toggle-td-aangemaakt">(Aangemaakt: Ma, 01 jun 2026)</span></td>
+                                         <td class="toggle-td-ruimte"><span class="truncate-table-text" style="max-width: 100%;">Kantine</span></td>
+                                         <td class="toggle-td-omschrijving"><div class="td-omschrijving-wrap">Koffiezetapparaat storing</div></td>
+                                         <td class="toggle-td-streefdatum"><span class="truncate-table-text" style="max-width: 100%;">02-6-2026</span></td>
+                                         <td class="toggle-td-status"><div class="td-status-wrap"><div class="td-status-lbl" style="color: var(--vrmwb-red);">Nieuw</div><div class="td-status-bar"><div class="td-status-fill" style="width: 25%; background: var(--vrmwb-red);"></div></div><span class="td-name">Systeem</span></div></td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2605 825', 'Za, 16 mei 2026', 'Ruimte', 'Bergen op Zoom', 'Verstopping douches', 'Verstopping in de afvoer van de herendouches Water loopt niet weg Externe loodgieter is ingeschakeld maar wacht op onderdelen.', '19-5-2026', 'On hold', 'Heeren, Paul')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2605 825</span><span class="td-sub-text toggle-td-aangemaakt">(Aangemaakt: Za, 16 mei 2026)</span></td>
+                                         <td class="truncate-table-text toggle-td-ruimte"><span class="truncate-table-text" style="max-width: 100%;">Bergen op Zoom</span></td>
+                                         <td class="toggle-td-omschrijving"><div class="td-omschrijving-wrap">Verstopping douches</div></td>
+                                         <td class="toggle-td-streefdatum"><span class="truncate-table-text" style="max-width: 100%;">19-5-2026</span></td>
+                                         <td class="toggle-td-status"><div class="td-status-wrap"><div class="td-status-lbl" style="color: var(--text-muted);">On hold</div><div class="td-status-bar"><div class="td-status-fill" style="width: 75%; background: var(--text-muted);"></div></div><span class="td-name">Heeren, Paul</span></div></td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2606 0144', 'Wo, 03 jun 2026', 'Ruimte', 'Instructielokaal', 'Beamer lamp defect', 'De lamp van de hoofdbeamer in het instructielokaal knippert rood en geeft geen beeld meer Vervanging is noodzakelijk voor de geplande briefing.', '06-06-2026', 'Nieuw', 'Smits, Ralph')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2606 0144</span><span class="td-sub-text toggle-td-aangemaakt">(Aangemaakt: Wo, 03 jun 2026)</span></td>
+                                         <td class="toggle-td-ruimte"><span class="truncate-table-text" style="max-width: 100%;">Instructielokaal</span></td>
+                                         <td class="toggle-td-omschrijving"><div class="td-omschrijving-wrap">Beamer lamp defect</div></td>
+                                         <td class="toggle-td-streefdatum"><span class="truncate-table-text" style="max-width: 100%;">06-06-2026</span></td>
+                                         <td class="toggle-td-status"><div class="td-status-wrap"><div class="td-status-lbl" style="color: var(--vrmwb-red);">Nieuw</div><div class="td-status-bar"><div class="td-status-fill" style="width: 25%; background: var(--vrmwb-red);"></div></div><span class="td-name">Smits, Ralph</span></div></td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2606 0045', 'Di, 02 jun 2026', 'Ruimte', 'Remise', 'Garagedeur 3 defect', 'De garagedeur bij uitrijbaan 3 stopt halverwege bij het sluiten De sensor lijkt geblokkeerd of defect Graag met spoed nakijken.', '03-6-2026', 'Nieuw', 'Systeem')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2606 0045</span><span class="td-sub-text toggle-td-aangemaakt">(Aangemaakt: Di, 02 jun 2026)</span></td>
+                                         <td class="toggle-td-ruimte"><span class="truncate-table-text" style="max-width: 100%;">Remise</span></td>
+                                         <td class="toggle-td-omschrijving"><div class="td-omschrijving-wrap">Garagedeur 3 defect</div></td>
+                                         <td class="toggle-td-streefdatum"><span class="truncate-table-text" style="max-width: 100%;">03-6-2026</span></td>
+                                         <td class="toggle-td-status"><div class="td-status-wrap"><div class="td-status-lbl" style="color: var(--vrmwb-red);">Nieuw</div><div class="td-status-bar"><div class="td-status-fill" style="width: 25%; background: var(--vrmwb-red);"></div></div><span class="td-name">Systeem</span></div></td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2605 1080', 'Di, 19 mei 2026', 'Ruimte', 'Fitnessruimte - 1.24', 'Hometrainer trapt door', 'De hometrainer in de fitnessruimte trapt door bij zware weerstand Waarschijnlijk is de aandrijfriem versleten.', '20-5-2026', 'In behandeling', 'Vakbekwaamheid Markiezaten')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2605 1080</span><span class="td-sub-text toggle-td-aangemaakt">(Aangemaakt: Di, 19 mei 2026)</span></td>
+                                         <td class="toggle-td-ruimte"><span class="truncate-table-text" style="max-width: 100%;">Fitnessruimte - 1.24</span></td>
+                                         <td class="toggle-td-omschrijving"><div class="td-omschrijving-wrap">Hometrainer trapt door</div></td>
+                                         <td class="toggle-td-streefdatum"><span class="truncate-table-text" style="max-width: 100%;">20-5-2026</span></td>
+                                         <td class="toggle-td-status"><div class="td-status-wrap"><div class="td-status-lbl" style="color: var(--vrmwb-gold);">In behandeling</div><div class="td-status-bar"><div class="td-status-fill" style="width: 50%; background: var(--vrmwb-gold);"></div></div><span class="td-name">Vakbekwaamheid M.</span></div></td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2605 1120', 'Vr, 22 mei 2026', 'Ruimte', 'Kleedkamer heren', 'Sifonwastafel lekt', 'De afvoer/sifon onder de middelste wastafel lekt water bij gebruik Er is een tijdelijke emmer geplaatst Sifon dient vervangen te worden.', '22-05-2026', 'Gesloten', 'Martijn van Wensen')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2605 1120</span><span class="td-sub-text toggle-td-aangemaakt">(Aangemaakt: Vr, 22 mei 2026)</span></td>
+                                         <td class="toggle-td-ruimte"><span class="truncate-table-text" style="max-width: 100%;">Kleidkamer heren</span></td>
+                                         <td class="toggle-td-omschrijving"><div class="td-omschrijving-wrap">Sifonwastafel lekt</div></td>
+                                         <td class="toggle-td-streefdatum"><span class="truncate-table-text" style="max-width: 100%;">22-05-2026</span></td>
+                                         <td class="toggle-td-status"><div class="td-status-wrap"><div class="td-status-lbl" style="color: #009036;">Gesloten</div><div class="td-status-bar"><div class="td-status-fill" style="width: 100%; background: #009036;"></div></div><span class="td-name">Martijn van Wensen</span></div></td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2604 0998', 'Do, 23 apr 2026', 'Ruimte', 'Kantoor 1.12', 'Bureaustoel defect', 'Het rechterwieltje van de bureaustoel is afgebroken Stoel is afgevoerd en een vervangende stoel is geplaatst.', '28-4-2026', 'Gesloten', 'Facilitair')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2604 0998</span><span class="td-sub-text toggle-td-aangemaakt">(Aangemaakt: Do, 23 apr 2026)</span></td>
+                                         <td class="toggle-td-ruimte"><span class="truncate-table-text" style="max-width: 100%;">Kantoor 1.12</span></td>
+                                         <td class="toggle-td-omschrijving"><div class="td-omschrijving-wrap">Bureaustoel defect</div></td>
+                                         <td class="toggle-td-streefdatum"><span class="truncate-table-text" style="max-width: 100%;">28-4-2026</span></td>
+                                         <td class="toggle-td-status"><div class="td-status-wrap"><div class="td-status-lbl" style="color: #009036;">Gesloten</div><div class="td-status-bar"><div class="td-status-fill" style="width: 100%; background: #009036;"></div></div><span class="td-name">Facilitair</span></div></td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                 </tbody>
+                             </table>
+                         </div>
+     
+                         <div class="v-tab-content td-tab-voertuig">
+                             <table class="data-table data-table-clickable" style="table-layout: fixed; width: 100%;">
+                                 <thead>
+                                     <tr>
+                                         <th class="toggle-td-nummer" style="width: 125px;">Melding nr.</th>
+                                         <th class="toggle-td-ruimte" style="width: 125px;">Eenheid</th>
+                                         <th class="toggle-td-omschrijving">Omschrijving</th>
+                                         <th class="toggle-td-streefdatum" style="width: 115px;">Streefdatum</th>
+                                         <th class="toggle-td-status" style="width: 110px;">Status</th>
+                                         <th class="info-cell"></th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr onclick="openTopdeskModal('M2605 1484', 'Wo, 27 mei 2026', 'Eenheid', '20-1531', 'FW: Telemetrie TS 1531', 'De telemetrie module in de TS 1531 geeft sporadisch geen locatie door aan de meldkamer Bekabeling nagekeken, mogelijk module vervangen.', '28-5-2026', 'In behandeling', 'Dijke, Leonard van')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2605 1484</span><span class="td-sub-text toggle-td-aangemaakt">(Aangemaakt: Wo, 27 mei 2026)</span></td>
+                                         <td class="toggle-td-ruimte"><span class="truncate-table-text" style="max-width: 100%;">20-1531</span></td>
+                                         <td class="toggle-td-omschrijving"><div class="td-omschrijving-wrap">FW: Telemetrie TS 1531</div></td>
+                                         <td class="toggle-td-streefdatum"><span class="truncate-table-text" style="max-width: 100%;">28-5-2026</span></td>
+                                         <td class="toggle-td-status"><div class="td-status-wrap"><div class="td-status-lbl" style="color: var(--vrmwb-gold);">In behandeling</div><div class="td-status-bar"><div class="td-status-fill" style="width: 50%; background: var(--vrmwb-gold);"></div></div><span class="td-name">Dijke, Leonard van</span></div></td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2605 1502', 'Do, 28 mei 2026', 'Eenheid', '20-1551', 'Kras op bumper rechtsachter', 'Na terugkomst van een uitruk is een diepe kras geconstateerd op de rechterachterbumper Schaderapport is ingevuld en bijgevoegd.', '30-5-2026', 'Nieuw', 'Systeem')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2605 1502</span><span class="td-sub-text toggle-td-aangemaakt">(Aangemaakt: Do, 28 mei 2026)</span></td>
+                                         <td class="toggle-td-ruimte"><span class="truncate-table-text" style="max-width: 100%;">20-1551</span></td>
+                                         <td class="toggle-td-omschrijving"><div class="td-omschrijving-wrap">Kras op bumper rechtsachter</div></td>
+                                         <td class="toggle-td-streefdatum"><span class="truncate-table-text" style="max-width: 100%;">30-5-2026</span></td>
+                                         <td class="toggle-td-status"><div class="td-status-wrap"><div class="td-status-lbl" style="color: var(--vrmwb-red);">Nieuw</div><div class="td-status-bar"><div class="td-status-fill" style="width: 25%; background: var(--vrmwb-red);"></div></div><span class="td-name">Systeem</span></div></td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2606 0110', 'Wo, 03 jun 2026', 'Eenheid', '20-1562', 'Ruitenwisservloeistof lekt', 'Er ligt telkens een plasje ruitenwisservloeistof onder de voorbumper Reservoir lijkt gescheurd Vloeistof is voor nu afgetapt.', '04-6-2026', 'In behandeling', 'Garage Breda')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2606 0110</span><span class="td-sub-text toggle-td-aangemaakt">(Aangemaakt: Wo, 03 jun 2026)</span></td>
+                                         <td class="toggle-td-ruimte"><span class="truncate-table-text" style="max-width: 100%;">20-1562</span></td>
+                                         <td class="toggle-td-omschrijving"><div class="td-omschrijving-wrap">Ruitenwisservloeistof lekt</div></td>
+                                         <td class="toggle-td-streefdatum"><span class="truncate-table-text" style="max-width: 100%;">04-6-2026</span></td>
+                                         <td class="toggle-td-status"><div class="td-status-wrap"><div class="td-status-lbl" style="color: var(--vrmwb-gold);">In behandeling</div><div class="td-status-bar"><div class="td-status-fill" style="width: 50%; background: var(--vrmwb-gold);"></div></div><span class="td-name">Garage Breda</span></div></td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2606 0122', 'Do, 04 jun 2026', 'Eenheid', '20-3192', 'Navigatiesysteem start niet op', 'Bij het starten van het voertuig blijft het Mofip-scherm hangen op het opstartlogo Wacht op updatepakket vanuit leverancier.', '05-6-2026', 'On hold', 'ICT')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2606 0122</span><span class="td-sub-text toggle-td-aangemaakt">(Aangemaakt: Do, 04 jun 2026)</span></td>
+                                         <td class="toggle-td-ruimte"><span class="truncate-table-text" style="max-width: 100%;">20-3192</span></td>
+                                         <td class="toggle-td-omschrijving"><div class="td-omschrijving-wrap">Navigatiesysteem start niet op</div></td>
+                                         <td class="toggle-td-streefdatum"><span class="truncate-table-text" style="max-width: 100%;">05-6-2026</span></td>
+                                         <td class="toggle-td-status"><div class="td-status-wrap"><div class="td-status-lbl" style="color: var(--text-muted);">On hold</div><div class="td-status-bar"><div class="td-status-fill" style="width: 75%; background: var(--text-muted);"></div></div><span class="td-name">ICT</span></div></td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2605 0915', 'Vr, 15 mei 2026', 'Eenheid', '20-3351', 'Hydrauliekslang mast zweet', 'Tijdens de wekelijkse controle is geconstateerd dat de bovenste hydrauliekslang van de mast licht zweet Geen acute druppelvorming, onderdeelaanvraag loopt via leverancier.', '15-05-2026', 'On hold', 'Paul van der Heijden')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2605 0915</span><span class="td-sub-text toggle-td-aangemaakt">(Aangemaakt: Vr, 15 mei 2026)</span></td>
+                                         <td class="toggle-td-ruimte"><span class="truncate-table-text" style="max-width: 100%;">20-3351</span></td>
+                                         <td class="toggle-td-omschrijving"><div class="td-omschrijving-wrap">Hydrauliekslang mast zweet</div></td>
+                                         <td class="toggle-td-streefdatum"><span class="truncate-table-text" style="max-width: 100%;">15-05-2026</span></td>
+                                         <td class="toggle-td-status"><div class="td-status-wrap"><div class="td-status-lbl" style="color: var(--text-muted);">On hold</div><div class="td-status-bar"><div class="td-status-fill" style="width: 75%; background: var(--text-muted);"></div></div><span class="td-name">Paul van der Heijden</span></div></td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2605 1400', 'Ma, 25 mei 2026', 'Eenheid', '20-1082', 'Lamp zwaailicht defect', 'Blauwe LED-module aan de linker voorzijde van de lichtbalk was defect Module is vervangen en getest.', '26-5-2026', 'Gesloten', 'Garage Breda')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2605 1400</span><span class="td-sub-text toggle-td-aangemaakt">(Aangemaakt: Ma, 25 mei 2026)</span></td>
+                                         <td class="toggle-td-ruimte"><span class="truncate-table-text" style="max-width: 100%;">20-1082</span></td>
+                                         <td class="toggle-td-omschrijving"><div class="td-omschrijving-wrap">Lamp zwaailicht defect</div></td>
+                                         <td class="toggle-td-streefdatum"><span class="truncate-table-text" style="max-width: 100%;">26-5-2026</span></td>
+                                         <td class="toggle-td-status"><div class="td-status-wrap"><div class="td-status-lbl" style="color: #009036;">Gesloten</div><div class="td-status-bar"><div class="td-status-fill" style="width: 100%; background: #009036;"></div></div><span class="td-name">Garage Breda</span></div></td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2604 1105', 'Di, 28 apr 2026', 'Eenheid', '20-1231', 'Bekleding stoel gescheurd', 'De zitting van de bestuurdersstoel vertoonde slijtage en een scheur Het zitkussen is opnieuw bekleed door de externe stoffeerder.', '01-5-2026', 'Gesloten', 'Wagenparkbeheer')">
+                                         <td class="toggle-td-nummer"><span class="td-number">M2604 1105</span><span class="td-sub-text toggle-td-aangemaakt">(Aangemaakt: Di, 28 apr 2026)</span></td>
+                                         <td class="toggle-td-ruimte"><span class="truncate-table-text" style="max-width: 100%;">20-1231</span></td>
+                                         <td class="toggle-td-omschrijving"><div class="td-omschrijving-wrap">Bekleding stoel gescheurd</div></td>
+                                         <td class="toggle-td-streefdatum"><span class="truncate-table-text" style="max-width: 100%;">01-5-2026</span></td>
+                                         <td class="toggle-td-status"><div class="td-status-wrap"><div class="td-status-lbl" style="color: #009036;">Gesloten</div><div class="td-status-bar"><div class="td-status-fill" style="width: 100%; background: #009036;"></div></div><span class="td-name">Wagenparkbeheer</span></div></td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                 </tbody>
+                             </table>
+                         </div>
+     
+                     </div>
+                 </div>
+             </div>
+     
+             <!-- MOBILE: 375x667 -->
+             <div>
+                 <span class="label">Size Mobile (375x667)</span>
+                 <div class="w-card size-mobile" style="position: relative;">
+                     <button class="btn-base modal-close-btn">&times;</button>
+                     <div class="w-header" style="padding-top: 25px; padding-bottom: 25px;">
+                         <h2 class="w-title">Topdesk</h2>
+                         <div class="w-controls" style="position: absolute; top: 25px; right: 60px;">
+                             <div class="col-select-wrap">
+                                 <button class="w-ctrl-btn col-select-trigger" title="Kolommen bewerken" style="color: rgba(255,255,255,0.6);"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                 <div class="col-select-menu" style="width: 170px;">
+                                     <label class="col-select-item"><input type="checkbox" checked data-col="td-nummer"> Melding nr.</label>
+                                     <label class="col-select-item"><input type="checkbox" data-col="td-aangemaakt"> Aangemaakt</label>
+                                     <label class="col-select-item"><input type="checkbox" data-col="td-ruimte"> Ruimte / Eenheid</label>
+                                     <label class="col-select-item"><input type="checkbox" checked data-col="td-omschrijving"> Omschrijving</label>
+                                     <label class="col-select-item"><input type="checkbox" data-col="td-streefdatum"> Streefdatum</label>
+                                     <label class="col-select-item"><input type="checkbox" checked data-col="td-status"> Status</label>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="w-tabs-row">
+                         <div class="w-tab-btn active" data-target="td-tab-kazerne">Kazerne</div>
+                         <div class="w-tab-btn" data-target="td-tab-voertuig">Voertuig</div>
+                     </div>
+                     <div class="w-body w-scroll" style="padding: 0;">
+                         
+                         <div class="v-tab-content td-tab-kazerne active">
+                             <table class="data-table data-table-clickable" style="table-layout: fixed; width: 100%;">
+                                 <thead>
+                                     <tr>
+                                         <th class="toggle-td-nummer" style="width: 80px; background: rgba(255,255,255,0.05); color: #FFF; border-color: rgba(255,255,255,0.1);">Nr.</th>
+                                         <th style="background: rgba(255,255,255,0.05); color: #FFF; border-color: rgba(255,255,255,0.1);">Melding</th>
+                                         <th class="info-cell"></th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr onclick="openTopdeskModal('M2605 1313', 'Zo, 24 mei 2026', 'Ruimte', 'Fitnessruimte - 1.24', 'Lekkage airconditioning', 'Er is een lekkage geconstateerd op een koppeling van het leidingwerk van de airconditioning. De beschimmelde plafondplaat is inmiddels verwijderd (zie bijlage). Verzoek om reparatie van dit defect.', '26-5-2026', 'In behandeling', 'Heeren, Paul')">
+                                         <td class="toggle-td-nummer" style="border-color: rgba(255,255,255,0.1);"><span class="td-number" style="color: #FFF;">M2605 1313</span><span class="td-sub-text toggle-td-aangemaakt hide-element" style="color: rgba(255,255,255,0.5);">24 mei 2026</span></td>
+                                         <td style="border-color: rgba(255,255,255,0.1);">
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="color: #FFF; max-width: 100%;">Lekkage airconditioning</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--vrmwb-gold); font-weight: 900;">In Beh.</span>
+                                                 <span class="toggle-td-ruimte hide-element" style="color: rgba(255,255,255,0.6);"><strong>Loc:</strong> Fitness - 1.24</span>
+                                                 <span class="toggle-td-streefdatum hide-element" style="color: rgba(255,255,255,0.6);"><strong>Streef:</strong> 26-5-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2606 0012', 'Ma, 01 jun 2026', 'Ruimte', 'Kantine', 'Koffiezetapparaat storing', 'Het grote koffiezetapparaat geeft foutcode E04 alleys en lekt water aan de onderkant. Apparaat is tijdelijk uitgeschakeld.', '02-6-2026', 'Nieuw', 'Systeem')">
+                                         <td class="toggle-td-nummer" style="border-color: rgba(255,255,255,0.1);"><span class="td-number" style="color: #FFF;">M2606 0012</span><span class="td-sub-text toggle-td-aangemaakt hide-element" style="color: rgba(255,255,255,0.5);">01 jun 2026</span></td>
+                                         <td style="border-color: rgba(255,255,255,0.1);">
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="color: #FFF; max-width: 100%;">Koffiezetapparaat storing</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--vrmwb-red); font-weight: 900;">Nieuw</span>
+                                                 <span class="toggle-td-ruimte hide-element" style="color: rgba(255,255,255,0.6);"><strong>Loc:</strong> Kantine</span>
+                                                 <span class="toggle-td-streefdatum hide-element" style="color: rgba(255,255,255,0.6);"><strong>Streef:</strong> 02-6-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2605 825', 'Za, 16 mei 2026', 'Ruimte', 'Bergen op Zoom', 'Verstopping douches', 'Verstopping in de afvoer van de herendouches. Water loopt niet weg. Externe loodgieter is ingeschakeld maar wacht op onderdelen.', '19-5-2026', 'On hold', 'Heeren, Paul')">
+                                         <td class="toggle-td-nummer" style="border-color: rgba(255,255,255,0.1);"><span class="td-number" style="color: #FFF;">M2605 825</span><span class="td-sub-text toggle-td-aangemaakt hide-element" style="color: rgba(255,255,255,0.5);">16 mei 2026</span></td>
+                                         <td style="border-color: rgba(255,255,255,0.1);">
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="color: #FFF; max-width: 100%;">Verstopping douches</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: rgba(255,255,255,0.5); font-weight: 900;">On Hold</span>
+                                                 <span class="toggle-td-ruimte hide-element" style="color: rgba(255,255,255,0.6);"><strong>Loc:</strong> Bergen op Zoom</span>
+                                                 <span class="toggle-td-streefdatum hide-element" style="color: rgba(255,255,255,0.6);"><strong>Streef:</strong> 19-5-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2606 0045', 'Di, 02 jun 2026', 'Ruimte', 'Remise', 'Garagedeur 3 defect', 'De garagedeur bij uitrijbaan 3 stopt halverwege bij het sluiten. De sensor lijkt geblokkeerd of defect. Graag met spoed nakijken.', '03-6-2026', 'Nieuw', 'Systeem')">
+                                         <td class="toggle-td-nummer" style="border-color: rgba(255,255,255,0.1);"><span class="td-number" style="color: #FFF;">M2606 0045</span><span class="td-sub-text toggle-td-aangemaakt hide-element" style="color: rgba(255,255,255,0.5);">02 jun 2026</span></td>
+                                         <td style="border-color: rgba(255,255,255,0.1);">
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="color: #FFF; max-width: 100%;">Garagedeur 3 defect</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--vrmwb-red); font-weight: 900;">Nieuw</span>
+                                                 <span class="toggle-td-ruimte hide-element" style="color: rgba(255,255,255,0.6);"><strong>Loc:</strong> Remise</span>
+                                                 <span class="toggle-td-streefdatum hide-element" style="color: rgba(255,255,255,0.6);"><strong>Streef:</strong> 03-6-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2605 1080', 'Di, 19 mei 2026', 'Ruimte', 'Fitnessruimte - 1.24', 'Hometrainer trapt door', 'De hometrainer in de fitnessruimte trapt door bij zware weerstand. Waarschijnlijk is de aandrijfriem versleten.', '20-5-2026', 'In behandeling', 'Vakbekwaamheid Markiezaten')">
+                                         <td class="toggle-td-nummer" style="border-color: rgba(255,255,255,0.1);"><span class="td-number" style="color: #FFF;">M2605 1080</span><span class="td-sub-text toggle-td-aangemaakt hide-element" style="color: rgba(255,255,255,0.5);">19 mei 2026</span></td>
+                                         <td style="border-color: rgba(255,255,255,0.1);">
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="color: #FFF; max-width: 100%;">Hometrainer trapt door</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--vrmwb-gold); font-weight: 900;">In Beh.</span>
+                                                 <span class="toggle-td-ruimte hide-element" style="color: rgba(255,255,255,0.6);"><strong>Loc:</strong> Fitness - 1.24</span>
+                                                 <span class="toggle-td-streefdatum hide-element" style="color: rgba(255,255,255,0.6);"><strong>Streef:</strong> 20-5-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2604 0998', 'Do, 23 apr 2026', 'Ruimte', 'Kantoor 1.12', 'Bureaustoel defect', 'Het rechterwieltje van de bureaustoel is afgebroken. Stoel is afgevoerd en een vervangende stoel is geplaatst.', '28-4-2026', 'Gesloten', 'Facilitair')">
+                                         <td class="toggle-td-nummer" style="border-color: rgba(255,255,255,0.1); border-bottom: none;"><span class="td-number" style="color: #FFF;">M2604 0998</span><span class="td-sub-text toggle-td-aangemaakt hide-element" style="color: rgba(255,255,255,0.5);">23 apr 2026</span></td>
+                                         <td style="border-color: rgba(255,255,255,0.1); border-bottom: none;">
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="color: #FFF; max-width: 100%;">Bureaustoel defect</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: #009036; font-weight: 900;">Gesloten</span>
+                                                 <span class="toggle-td-ruimte hide-element" style="color: rgba(255,255,255,0.6);"><strong>Loc:</strong> Kantoor 1.12</span>
+                                                 <span class="toggle-td-streefdatum hide-element" style="color: rgba(255,255,255,0.6);"><strong>Streef:</strong> 28-4-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell" style="border-color: rgba(255,255,255,0.1); border-bottom: none;"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                 </tbody>
+                             </table>
+                         </div>
+     
+                         <div class="v-tab-content td-tab-voertuig">
+                             <table class="data-table data-table-clickable" style="table-layout: fixed; width: 100%;">
+                                 <thead>
+                                     <tr>
+                                         <th class="toggle-td-nummer" style="width: 80px; background: rgba(255,255,255,0.05); color: #FFF; border-color: rgba(255,255,255,0.1);">Nr.</th>
+                                         <th style="background: rgba(255,255,255,0.05); color: #FFF; border-color: rgba(255,255,255,0.1);">Melding</th>
+                                         <th class="info-cell"></th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr onclick="openTopdeskModal('M2605 1484', 'Wo, 27 mei 2026', 'Eenheid', '20-1531', 'FW: Telemetrie TS 1531', 'De telemetrie module in de TS 1531 geeft sporadisch geen locatie door aan de meldkamer. Bekabeling nagekeken, mogelijk module vervangen.', '28-5-2026', 'In behandeling', 'Dijke, Leonard van')">
+                                         <td class="toggle-td-nummer" style="border-color: rgba(255,255,255,0.1);"><span class="td-number" style="color: #FFF;">M2605 1484</span><span class="td-sub-text toggle-td-aangemaakt hide-element" style="color: rgba(255,255,255,0.5);">27 mei 2026</span></td>
+                                         <td style="border-color: rgba(255,255,255,0.1);">
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="color: #FFF; max-width: 100%;">FW: Telemetrie TS 1531</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--vrmwb-gold); font-weight: 900;">In Beh.</span>
+                                                 <span class="toggle-td-ruimte hide-element" style="color: rgba(255,255,255,0.6);"><strong>Eenheid:</strong> 20-1531</span>
+                                                 <span class="toggle-td-streefdatum hide-element" style="color: rgba(255,255,255,0.6);"><strong>Streef:</strong> 28-5-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2605 1502', 'Do, 28 mei 2026', 'Eenheid', '20-1551', 'Kras op bumper rechtsachter', 'Na terugkomst van een uitruk is een diepe kras geconstateerd op de rechterachterbumper. Schaderapport is ingevuld en bijgevoegd.', '30-5-2026', 'Nieuw', 'Systeem')">
+                                         <td class="toggle-td-nummer" style="border-color: rgba(255,255,255,0.1);"><span class="td-number" style="color: #FFF;">M2605 1502</span><span class="td-sub-text toggle-td-aangemaakt hide-element" style="color: rgba(255,255,255,0.5);">28 mei 2026</span></td>
+                                         <td style="border-color: rgba(255,255,255,0.1);">
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="color: #FFF; max-width: 100%;">Kras op bumper rechtsachter</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--vrmwb-red); font-weight: 900;">Nieuw</span>
+                                                 <span class="toggle-td-ruimte hide-element" style="color: rgba(255,255,255,0.6);"><strong>Voertuig:</strong> 20-1551</span>
+                                                 <span class="toggle-td-streefdatum hide-element" style="color: rgba(255,255,255,0.6);"><strong>Streef:</strong> 30-5-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2606 0110', 'Wo, 03 jun 2026', 'Eenheid', '20-1562', 'Ruitenwisservloeistof lekt', 'Er ligt telkens een plasje ruitenwisservloeistof onder de voorbumper. Reservoir lijkt gescheurd. Vloeistof is voor nu afgetapt.', '04-6-2026', 'In behandeling', 'Garage Breda')">
+                                         <td class="toggle-td-nummer" style="border-color: rgba(255,255,255,0.1);"><span class="td-number" style="color: #FFF;">M2606 0110</span><span class="td-sub-text toggle-td-aangemaakt hide-element" style="color: rgba(255,255,255,0.5);">03 jun 2026</span></td>
+                                         <td style="border-color: rgba(255,255,255,0.1);">
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="color: #FFF; max-width: 100%;">Ruitenwisservloeistof lekt</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: var(--vrmwb-gold); font-weight: 900;">In Beh.</span>
+                                                 <span class="toggle-td-ruimte hide-element" style="color: rgba(255,255,255,0.6);"><strong>Eenheid:</strong> 20-1562</span>
+                                                 <span class="toggle-td-streefdatum hide-element" style="color: rgba(255,255,255,0.6);"><strong>Streef:</strong> 04-6-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2606 0122', 'Do, 04 jun 2026', 'Eenheid', '20-3192', 'Navigatiesysteem start niet op', 'Bij het starten van het voertuig blijft het Mofip-scherm hangen op het opstartlogo. Wacht op updatepakket vanuit leverancier.', '05-6-2026', 'On hold', 'ICT')">
+                                         <td class="toggle-td-nummer" style="border-color: rgba(255,255,255,0.1);"><span class="td-number" style="color: #FFF;">M2606 0122</span><span class="td-sub-text toggle-td-aangemaakt hide-element" style="color: rgba(255,255,255,0.5);">04 jun 2026</span></td>
+                                         <td style="border-color: rgba(255,255,255,0.1);">
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="color: #FFF; max-width: 100%;">Navigatiesysteem start niet op</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: rgba(255,255,255,0.5); font-weight: 900;">On Hold</span>
+                                                 <span class="toggle-td-ruimte hide-element" style="color: rgba(255,255,255,0.6);"><strong>Eenheid:</strong> 20-3192</span>
+                                                 <span class="toggle-td-streefdatum hide-element" style="color: rgba(255,255,255,0.6);"><strong>Streef:</strong> 05-6-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2605 1400', 'Ma, 25 mei 2026', 'Eenheid', '20-1082', 'Lamp zwaailicht defect', 'Blauwe LED-module aan de linker voorzijde van de lichtbalk was defect. Module is vervangen en getest.', '26-5-2026', 'Gesloten', 'Garage Breda')">
+                                         <td class="toggle-td-nummer" style="border-color: rgba(255,255,255,0.1);"><span class="td-number" style="color: #FFF;">M2605 1400</span><span class="td-sub-text toggle-td-aangemaakt hide-element" style="color: rgba(255,255,255,0.5);">25 mei 2026</span></td>
+                                         <td style="border-color: rgba(255,255,255,0.1);">
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="color: #FFF; max-width: 100%;">Lamp zwaailicht defect</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: #009036; font-weight: 900;">Gesloten</span>
+                                                 <span class="toggle-td-ruimte hide-element" style="color: rgba(255,255,255,0.6);"><strong>Voertuig:</strong> 20-1082</span>
+                                                 <span class="toggle-td-streefdatum hide-element" style="color: rgba(255,255,255,0.6);"><strong>Streef:</strong> 26-5-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                     <tr onclick="openTopdeskModal('M2604 1105', 'Di, 28 apr 2026', 'Eenheid', '20-1231', 'Bekleding stoel gescheurd', 'De zitting van de bestuurdersstoel vertoonde slijtage en een scheur. Het zitkussen is opnieuw bekleed door de externe stoffeerder.', '01-5-2026', 'Gesloten', 'Wagenparkbeheer')">
+                                         <td class="toggle-td-nummer" style="border-color: rgba(255,255,255,0.1); border-bottom: none;"><span class="td-number" style="color: #FFF;">M2604 1105</span><span class="td-sub-text toggle-td-aangemaakt hide-element" style="color: rgba(255,255,255,0.5);">28 apr 2026</span></td>
+                                         <td style="border-color: rgba(255,255,255,0.1); border-bottom: none;">
+                                             <span class="truncate-table-text toggle-td-omschrijving" style="color: #FFF; max-width: 100%;">Bekleding stoel gescheurd</span>
+                                             <div class="v-sub-info" style="margin-top: 4px;">
+                                                 <span class="toggle-td-status" style="color: #009036; font-weight: 900;">Gesloten</span>
+                                                 <span class="toggle-td-ruimte hide-element" style="color: rgba(255,255,255,0.6);"><strong>Eenheid:</strong> 20-1231</span>
+                                                 <span class="toggle-td-streefdatum hide-element" style="color: rgba(255,255,255,0.6);"><strong>Streef:</strong> 01-5-2026</span>
+                                             </div>
+                                         </td>
+                                         <td class="info-cell" style="border-color: rgba(255,255,255,0.1); border-bottom: none;"><svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></td>
+                                     </tr>
+                                 </tbody>
+                             </table>
+                         </div>
+     
+                     </div>
+                 </div>
+             </div>
+         </div>
 
     <h2 class="section-title">7. Status Voertuigen Component</h2>
     <div class="dashboard-grid">
@@ -3991,8 +4645,21 @@
             document.getElementById('event-detail-modal').classList.add('active');
         }
 
+        // --- TOPDESK MODAL POPUP LOGICA ---
+        function openTopdeskModal(nummer, aangemaakt, ruimteLbl, ruimteVal, korteDesc, langeDesc, streef, status, naam) {
+            document.getElementById('td-modal-title').innerText = nummer;
+            document.getElementById('td-modal-lange-desc').innerText = langeDesc;
+            document.getElementById('td-modal-aangemaakt').innerText = aangemaakt;
+            document.getElementById('td-modal-ruimte-lbl').innerText = ruimteLbl;
+            document.getElementById('td-modal-ruimte').innerText = ruimteVal;
+            document.getElementById('td-modal-streef').innerText = streef;
+            document.getElementById('td-modal-status').innerText = status;
+            document.getElementById('td-modal-naam').innerText = naam;
+            document.getElementById('topdesk-detail-modal').classList.add('active');
+        }
+
         // Trigger voor de sub-modal met downloadbare documenten
-        document.getElementById('download-docs-trigger').addEventListener('click', (e) => {
+            document.getElementById('download-docs-trigger').addEventListener('click', (e) => {
             e.stopPropagation();
             document.getElementById('event-download-modal').classList.add('active');
         });
