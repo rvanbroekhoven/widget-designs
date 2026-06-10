@@ -400,6 +400,47 @@
         }
 
         // --- TOPDESK MODAL POPUP LOGICA ---
+        const TD_PROCESLOG = {
+            'M2605 1313': [
+                { tijd: 'Zo 24 mei 10:14', auteur: 'Systeem', tekst: 'Melding aangemaakt via selfservice portaal.' },
+                { tijd: 'Zo 24 mei 11:02', auteur: 'Heeren, Paul', tekst: 'Melding ontvangen. Ter plaatse geweest: lekkage bevestigd op koppeling leidingwerk AC. Plafondplaat verwijderd.' },
+                { tijd: 'Ma 25 mei 09:30', auteur: 'Facilitair', tekst: 'Externe loodgieter ingeschakeld. Afspraak gepland voor reparatie.' },
+                { tijd: 'Di 26 mei 13:45', auteur: 'Heeren, Paul', tekst: 'Reparatie uitgevoerd, koppeling vervangen. Plafondplaat besteld.' },
+            ],
+            'M2606 0012': [
+                { tijd: 'Ma 1 jun 08:05', auteur: 'Systeem', tekst: 'Melding aangemaakt.' },
+                { tijd: 'Ma 1 jun 09:15', auteur: 'Facilitair', tekst: 'Apparaat tijdelijk uitgeschakeld i.v.m. lekkage. Foutcode E04 geregistreerd.' },
+            ],
+            'M2605 825': [
+                { tijd: 'Za 16 mei 14:22', auteur: 'Systeem', tekst: 'Melding aangemaakt.' },
+                { tijd: 'Za 16 mei 15:00', auteur: 'Heeren, Paul', tekst: 'Verstopping douches bevestigd. Externe loodgieter ingeschakeld.' },
+                { tijd: 'Ma 18 mei 10:00', auteur: 'Facilitair', tekst: 'Wacht op onderdelen loodgieter. Tijdelijk emmer geplaatst.' },
+            ],
+            'M2606 0144': [
+                { tijd: 'Wo 3 jun 14:30', auteur: 'Smits, Ralph', tekst: 'Melding aangemaakt. Beamer knippert rood, geen beeld.' },
+            ],
+            'M2606 0045': [
+                { tijd: 'Di 2 jun 07:50', auteur: 'Systeem', tekst: 'Melding aangemaakt.' },
+                { tijd: 'Di 2 jun 08:30', auteur: 'Facilitair', tekst: 'Sensor garagedeur 3 gecontroleerd. Mogelijk defect.' },
+            ],
+            'M2605 1080': [
+                { tijd: 'Di 19 mei 11:00', auteur: 'Systeem', tekst: 'Melding aangemaakt via selfservice.' },
+                { tijd: 'Di 19 mei 12:30', auteur: 'Vakbekwaamheid Markiezaten', tekst: 'Hometrainer gecontroleerd: aandrijfriem versleten. Onderdeel besteld.' },
+            ],
+            'M2605 1120': [
+                { tijd: 'Vr 22 mei 09:00', auteur: 'Systeem', tekst: 'Melding aangemaakt.' },
+                { tijd: 'Vr 22 mei 10:15', auteur: 'Martijn van Wensen', tekst: 'Sifon vervangen. Lekkage verholpen. Melding gesloten.' },
+            ],
+            'M2604 0998': [
+                { tijd: 'Do 23 apr 14:00', auteur: 'Systeem', tekst: 'Melding aangemaakt.' },
+                { tijd: 'Vr 24 apr 09:00', auteur: 'Facilitair', tekst: 'Stoel afgevoerd, vervangende stoel geplaatst. Melding gesloten.' },
+            ],
+            'M2605 1484': [
+                { tijd: 'Wo 27 mei 08:00', auteur: 'Dijke, Leonard van', tekst: 'Melding aangemaakt. Telemetrie module TS 1531 geeft geen locatie door.' },
+                { tijd: 'Wo 27 mei 14:00', auteur: 'Technische dienst', tekst: 'Bekabeling nagekeken, module vervangen. Locatie wordt nu doorgegeven.' },
+            ],
+        };
+
         function openTopdeskModal(nummer, aangemaakt, ruimteLbl, ruimteVal, korteDesc, langeDesc, streef, status, naam) {
             document.getElementById('td-modal-title').innerText = nummer;
             document.getElementById('td-modal-lange-desc').innerText = langeDesc;
@@ -407,8 +448,35 @@
             document.getElementById('td-modal-ruimte-lbl').innerText = ruimteLbl;
             document.getElementById('td-modal-ruimte').innerText = ruimteVal;
             document.getElementById('td-modal-streef').innerText = streef;
-            document.getElementById('td-modal-status').innerText = status;
-            document.getElementById('td-modal-naam').innerText = naam;
+
+            // Status pill met kleur
+            const statusEl = document.getElementById('td-modal-status-pill');
+            const statusColors = {
+                'Nieuw': 'background: rgba(210,16,11,0.12); color: var(--vrmwb-red);',
+                'In behandeling': 'background: rgba(204,153,51,0.15); color: #7a5d00;',
+                'On hold': 'background: rgba(0,0,0,0.08); color: var(--text-muted);',
+                'Gesloten': 'background: rgba(0,144,54,0.12); color: #005a1f;',
+            };
+            statusEl.style.cssText = statusColors[status] || 'background: var(--input-bg); color: var(--text-muted);';
+            statusEl.innerText = status + (naam ? ' · ' + naam : '');
+
+            // Proceslog vullen (monoloog chat stijl)
+            const logEl = document.getElementById('td-modal-proceslog');
+            const logEntries = TD_PROCESLOG[nummer] || [];
+            if (logEntries.length === 0) {
+                logEl.innerHTML = '<div style="font-size:13px;color:var(--text-muted);font-style:italic;">Geen proceslog beschikbaar.</div>';
+            } else {
+                logEl.innerHTML = logEntries.map(entry => `
+                    <div style="display:flex;flex-direction:column;gap:2px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <span style="font-size:11px;font-weight:900;color:var(--vrmwb-navy);">${entry.auteur}</span>
+                            <span style="font-size:10px;color:var(--text-muted);">${entry.tijd}</span>
+                        </div>
+                        <div style="font-size:13px;color:var(--text-main);background:var(--input-bg);padding:10px 14px;border-radius:0 10px 10px 10px;line-height:1.5;border-left:2px solid var(--vrmwb-navy);">${entry.tekst}</div>
+                    </div>
+                `).join('');
+            }
+
             document.getElementById('topdesk-detail-modal').classList.add('active');
         }
 
@@ -556,3 +624,37 @@
                 });
             });
 
+
+        // ── Horizontaal scrollen met muiswiel (geen Shift nodig) ──
+        // Converteert verticaal scroll naar horizontaal op containers
+        // die wél horizontaal maar niet verticaal scrollen.
+        function enableHorizontalScroll(selector) {
+            document.querySelectorAll(selector).forEach(el => {
+                el.addEventListener('wheel', (e) => {
+                    const canScrollH = el.scrollWidth > el.clientWidth;
+                    const canScrollV = el.scrollHeight > el.clientHeight;
+                    if (canScrollH && !canScrollV) {
+                        e.preventDefault();
+                        el.scrollLeft += e.deltaY + e.deltaX;
+                    }
+                }, { passive: false });
+            });
+        }
+
+        // Tab-balken (w-tabs-row, oefen-tabs) scrollen horizontaal
+        enableHorizontalScroll('.w-tabs-row');
+        enableHorizontalScroll('.oefen-tabs');
+        enableHorizontalScroll('.w-tab-container');
+
+        // Scrollbare widget-bodies: alleen horizontaal scrollen indien van toepassing
+        document.querySelectorAll('.w-body.w-scroll, .w-scroll').forEach(el => {
+            el.addEventListener('wheel', (e) => {
+                const canScrollH = el.scrollWidth > el.clientWidth + 2;
+                const canScrollV = el.scrollHeight > el.clientHeight + 2;
+                // Alleen overnemen als er meer horizontale ruimte is dan verticale
+                if (canScrollH && !canScrollV) {
+                    e.preventDefault();
+                    el.scrollLeft += e.deltaY + e.deltaX;
+                }
+            }, { passive: false });
+        });

@@ -31,9 +31,6 @@
             --shadow-subtle: 0 4px 10px var(--black-04);
             --shadow-hover: 0 8px 20px var(--black-08);
             --shadow-widget: 0 8px 30px var(--black-08), 0 2px 8px var(--black-04);
-
-            --status-green: #009036;
-            --status-orange: #E67E22;
         }
 
         /* DARK MODE VARIABELEN (PALET COMPLIANT) */
@@ -109,20 +106,6 @@
         .size-mobile { width: 375px; height: 667px;
                       background: rgba(18, 32, 83, 0.95); backdrop-filter: blur(10px); color: #FFF;
                       border: 1px solid rgba(255,255,255,0.1); }
-        .size-mobile .td-sub-text { color: rgba(255,255,255,0.5) !important; }
-        .size-mobile .v-sub-info span { color: rgba(255,255,255,0.6); }
-        .size-mobile .td-status-lbl.grey { color: rgba(255,255,255,0.5); }
-        .size-mobile .td-status-fill.grey { background: rgba(255,255,255,0.5); }
-        .size-mobile .data-table td, 
-        .size-mobile .truncate-table-text,
-        .size-mobile .v-name {
-            color: #FFFFFF;
-        }
-        
-        .size-mobile .td-sub,
-        .size-mobile .v-type {
-            color: rgba(255, 255, 255, 0.6);
-        }
 
         .w-header { padding: 20px 20px 0 20px; display: flex; justify-content: space-between; align-items: flex-start; }
         .w-header-compact { padding: 15px 15px 0 15px; }
@@ -434,9 +417,9 @@
         }
         .size-mobile .data-table th {
             color: rgba(255,255,255,0.6);
-            background-color: var(--vrmwb-navy);
+            background-color: #122053;
             box-shadow: inset 0 -2px 0 var(--vrmwb-red);
-            border-top: 1px solid var(--vrmwb-navy);
+            border-top: 1px solid #122053;
         }
 
         .data-table tbody tr:nth-child(even) td { background-color: rgba(0,0,0,0.03); }
@@ -538,27 +521,6 @@
 
         .photo-modal-content { background: transparent; padding: 0; box-shadow: none; display: flex; justify-content: center; align-items: center; width: auto; max-width: 95vw; }
         .photo-modal-content img { max-width: 90vw; max-height: 90vh; border-radius: 12px; box-shadow: 0 25px 50px rgba(0,0,0,0.8); background: #fff; }
-
-        .modal-kicker {
-            color: var(--vrmwb-gold);
-            font-size: 14px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            font-weight: 900;
-        }
-        
-        .modal-title-main {
-            font-size: 22px;
-            font-weight: 900;
-            color: var(--vrmwb-navy); 
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            line-height: 1.3;
-        }
-
-        [data-theme="dark"] .modal-title-main {
-            color: var(--vrmwb-red); /* Headers kleuren rood in dark mode in plaats van blauw */
-        }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
@@ -980,6 +942,9 @@
         /* Specifieke dark-mode / mobile overrides voor de sub-info */
         .size-mobile .v-sub-info span strong { color: #FFF; }
         .size-mobile .v-sub-info { color: rgba(255,255,255,0.6); }
+        /* Asset planning mobile: voertuig tekst leesbaar */
+        .size-mobile .v-name { color: #FFF; }
+        .size-mobile .v-type { color: rgba(255,255,255,0.6); }
 
         /* Zorgt ervoor dat uitgevinkte kolommen/data écht verdwijnen */
         .hide-element { display: none !important; }
@@ -993,15 +958,7 @@
         .td-status-wrap { display: flex; flex-direction: column; gap: 4px; width: 105px; }
         .td-status-bar { height: 6px; background: var(--input-bg); border-radius: 3px; border: 1px solid var(--input-border); overflow: hidden; width: 100%; }
         .td-status-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
-        .td-status-fill.green { background: var(--status-green); }
-        .td-status-fill.orange { background: var(--status-orange); }
-        .td-status-fill.red { background: var(--vrmwb-red); }
-        .td-status-fill.grey { background: var(--text-muted); }
         .td-status-lbl { font-size: 13px; font-weight: 700; }
-        .td-status-lbl.green { color: var(--status-green); }
-        .td-status-lbl.orange { color: var(--status-orange); }
-        .td-status-lbl.red { color: var(--vrmwb-red); }
-        .td-status-lbl.grey { color: var(--text-muted); }
         .td-number { font-weight: 700; color: var(--text-main); font-size: 13px; }
         .td-sub-text { font-size: 10px; color: var(--text-muted); font-style: italic; margin-top: 2px; display: block; }
         .td-name { font-size: 10px; color: var(--text-main); margin-top: 2px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
@@ -1042,7 +999,7 @@
            ========================================= */
         .inc-prio { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; font-size: 11px; font-weight: 900; color: #FFF; flex-shrink: 0; }
         .inc-prio.p1 { background: var(--vrmwb-red); }
-        .inc-prio.p2 { background: var(--status-orange); }
+        .inc-prio.p2 { background: #E67E22; }
         .inc-prio.p3 { background: var(--vrmwb-navy); }
 
         /* Generiek detail-modal (Info-icoon klik) */
